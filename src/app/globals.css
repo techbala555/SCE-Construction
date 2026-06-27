@@ -1,0 +1,380 @@
+@import "tailwindcss";
+
+/* ================================================================
+   SCE CONSTRUCTION — PREMIUM DESIGN SYSTEM
+   Luxury Construction & Engineering Brand
+   ================================================================ */
+
+@theme inline {
+  /* — Color Tokens — */
+  --color-primary: var(--clr-primary);
+  --color-primary-dark: var(--clr-primary-dark);
+  --color-primary-light: var(--clr-primary-light);
+  --color-secondary: var(--clr-secondary);
+  --color-secondary-light: var(--clr-secondary-light);
+  --color-accent: var(--clr-accent);
+  --color-surface: var(--clr-surface);
+  --color-surface-elevated: var(--clr-surface-elevated);
+  --color-background: var(--clr-background);
+  --color-foreground: var(--clr-foreground);
+  --color-muted: var(--clr-muted);
+  --color-border: var(--clr-border);
+  --color-border-light: var(--clr-border-light);
+
+  /* — Typography — */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* — Shadows — */
+  --shadow-soft: var(--sh-soft);
+  --shadow-medium: var(--sh-medium);
+  --shadow-large: var(--sh-large);
+  --shadow-glow: var(--sh-glow);
+}
+
+/* ================================================================
+   LIGHT THEME — Luxury White + Gold
+   ================================================================ */
+:root {
+  color-scheme: light;
+
+  --clr-primary: #D4A017;
+  --clr-primary-dark: #B8860B;
+  --clr-primary-light: #F0D060;
+  --clr-secondary: #0B1F3A;
+  --clr-secondary-light: #142D52;
+  --clr-accent: #F8FAFC;
+  --clr-surface: #FFFFFF;
+  --clr-surface-elevated: #F8FAFC;
+  --clr-background: #FFFFFF;
+  --clr-foreground: #111827;
+  --clr-muted: #6B7280;
+  --clr-border: #E5E7EB;
+  --clr-border-light: #F3F4F6;
+
+  --sh-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+  --sh-medium: 0 4px 20px -4px rgba(0, 0, 0, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+  --sh-large: 0 24px 60px -16px rgba(0, 0, 0, 0.12), 0 8px 24px -8px rgba(0, 0, 0, 0.06);
+  --sh-glow: 0 0 40px rgba(212, 160, 23, 0.2);
+
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+
+  --section-alt-bg: #F8FAFC;
+  --hero-overlay: linear-gradient(
+    180deg,
+    rgba(8, 17, 31, 0.85) 0%,
+    rgba(11, 31, 58, 0.75) 50%,
+    rgba(8, 17, 31, 0.9) 100%
+  );
+}
+
+/* ================================================================
+   DARK THEME — Luxury Navy + Gold
+   ================================================================ */
+.dark {
+  color-scheme: dark;
+
+  --clr-primary: #D4A017;
+  --clr-primary-dark: #C4920F;
+  --clr-primary-light: #E8C04A;
+  --clr-secondary: #E2E8F0;
+  --clr-secondary-light: #CBD5E1;
+  --clr-accent: #0C1726;
+  --clr-surface: #101C2C;
+  --clr-surface-elevated: #162240;
+  --clr-background: #08111F;
+  --clr-foreground: #FFFFFF;
+  --clr-muted: #CBD5E1;
+  --clr-border: #1E293B;
+  --clr-border-light: #162240;
+
+  --sh-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.2);
+  --sh-medium: 0 4px 20px -4px rgba(0, 0, 0, 0.4), 0 2px 8px -2px rgba(0, 0, 0, 0.3);
+  --sh-large: 0 24px 60px -16px rgba(0, 0, 0, 0.6), 0 8px 24px -8px rgba(0, 0, 0, 0.4);
+  --sh-glow: 0 0 50px rgba(212, 160, 23, 0.25);
+
+  --glass-bg: rgba(8, 17, 31, 0.8);
+  --glass-border: rgba(30, 41, 59, 0.5);
+  --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+
+  --section-alt-bg: #0C1726;
+  --hero-overlay: linear-gradient(
+    180deg,
+    rgba(8, 17, 31, 0.9) 0%,
+    rgba(8, 17, 31, 0.8) 50%,
+    rgba(8, 17, 31, 0.95) 100%
+  );
+}
+
+/* ================================================================
+   BASE
+   ================================================================ */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--clr-background);
+  color: var(--clr-foreground);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Smooth theme transition ─────────────────────────────── */
+html.transitioning *,
+html.transitioning *::before,
+html.transitioning *::after {
+  transition: background-color 0.4s ease, border-color 0.4s ease,
+    color 0.4s ease, box-shadow 0.4s ease, fill 0.4s ease, stroke 0.4s ease !important;
+}
+
+::selection {
+  background-color: #D4A017;
+  color: #0B1F3A;
+}
+
+/* ================================================================
+   GLASSMORPHISM
+   ================================================================ */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-strong {
+  background: var(--glass-bg);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border: 1px solid var(--glass-border);
+}
+
+/* ================================================================
+   BUTTON SHINE EFFECT
+   ================================================================ */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+  pointer-events: none;
+}
+.btn-shine:hover::after {
+  left: 125%;
+}
+
+/* ================================================================
+   CARD HOVER
+   ================================================================ */
+.card-hover {
+  transition: transform 0.4s cubic-bezier(0.33, 1, 0.68, 1),
+    box-shadow 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: transform, box-shadow;
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sh-large);
+}
+
+/* ================================================================
+   IMAGE HOVER ZOOM
+   ================================================================ */
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img,
+.img-zoom > div {
+  transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: transform;
+}
+.img-zoom:hover img,
+.img-zoom:hover > div {
+  transform: scale(1.08);
+}
+
+/* ================================================================
+   SECTION SPACING — Luxurious breathing room
+   Mobile: py-16 (64px) | Tablet: py-24 (96px) | Desktop: py-32 (128px)
+   ================================================================ */
+.section-padding {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+@media (min-width: 1024px) {
+  .section-padding {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+/* ================================================================
+   TYPOGRAPHY
+   ================================================================ */
+.heading-display {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+.heading-xl {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+.heading-lg {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.heading-md {
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+.body-lg {
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.8;
+}
+.body-relaxed {
+  font-weight: 400;
+  line-height: 1.75;
+}
+.label-sm {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ================================================================
+   GOLD GRADIENT TEXT
+   ================================================================ */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #B8860B 0%, #D4A017 40%, #F0D060 60%, #D4A017 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ================================================================
+   GOLD DIVIDER
+   ================================================================ */
+.divider-gold {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #B8860B, #D4A017, #F0D060);
+  border-radius: 999px;
+}
+
+/* ================================================================
+   HERO OVERLAY
+   ================================================================ */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--hero-overlay);
+  z-index: 1;
+}
+
+/* ================================================================
+   DECORATIVE GRID PATTERN (Hero background texture)
+   ================================================================ */
+.bg-grid-pattern {
+  background-image: linear-gradient(
+      rgba(212, 160, 23, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(212, 160, 23, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ================================================================
+   DECORATIVE DOT PATTERN
+   ================================================================ */
+.bg-dots-pattern {
+  background-image: radial-gradient(
+    circle,
+    rgba(212, 160, 23, 0.06) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+}
+
+/* ================================================================
+   PREMIUM INPUT STYLES
+   ================================================================ */
+.input-premium {
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  background: var(--clr-surface);
+  border: 1.5px solid var(--clr-border);
+  border-radius: 0.75rem;
+  color: var(--clr-foreground);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.input-premium::placeholder {
+  color: var(--clr-muted);
+  opacity: 0.7;
+}
+.input-premium:focus {
+  border-color: #D4A017;
+  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.15);
+}
+
+/* ================================================================
+   SCROLL INDICATOR BOUNCE
+   ================================================================ */
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(10px); opacity: 0.5; }
+}
+.animate-scroll-bounce {
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+/* ================================================================
+   FLOATING ANIMATION
+   ================================================================ */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ================================================================
+   SUBTLE PULSE GLOW
+   ================================================================ */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 160, 23, 0.1); }
+  50% { box-shadow: 0 0 40px rgba(212, 160, 23, 0.25); }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
