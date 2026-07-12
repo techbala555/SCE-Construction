@@ -335,7 +335,7 @@ html.transitioning *::after {
   font-size: 0.9375rem;
   line-height: 1.5;
   outline: none;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 .input-premium::placeholder {
   color: var(--clr-muted);
@@ -344,6 +344,19 @@ html.transitioning *::after {
 .input-premium:focus {
   border-color: #D4A017;
   box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.15);
+}
+.input-premium:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+/* Select elements */
+select.input-premium {
+  cursor: pointer;
+}
+select.input-premium option {
+  background: var(--clr-surface);
+  color: var(--clr-foreground);
+  padding: 0.5rem;
 }
 
 /* ================================================================

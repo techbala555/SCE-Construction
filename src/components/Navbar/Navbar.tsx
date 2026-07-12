@@ -6,15 +6,14 @@ import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
 import { navigationItems, companyInfo } from "@/src/data/content";
 import ThemeToggle from "@/src/components/ThemeToggle/ThemeToggle";
+import { useMounted } from "@/src/lib/useMounted";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#home");
-  const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
-
-  useEffect(() => { setMounted(true); }, []);
+  const mounted = useMounted();
 
   // Logo follows the NAVBAR BACKGROUND, not the theme:
   //   • Transparent over the dark Hero   → white logo (/logo-light.svg)
