@@ -43,7 +43,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-white/40 text-sm body-relaxed mb-8 max-w-xs">
-              {companyInfo.tagline}. Delivering world-class construction with over {companyInfo.founded && `${new Date().getFullYear() - companyInfo.founded}`} years of excellence.
+              {companyInfo.tagline}. Complete construction, land development, and real estate solutions built on trust and quality.
             </p>
 
             {/* Social Icons */}

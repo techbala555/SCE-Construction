@@ -6,33 +6,33 @@ import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
 import { fadeUp, staggerContainer, staggerItem } from "@/src/lib/motion";
 
 const reasonIcons: Record<string, React.ReactNode> = {
-  quality: (
+  "end-to-end": (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" />
     </svg>
   ),
-  delivery: (
+  "land-development": (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+      <path d="M2 20h20" /><path d="M5 20V8l4 4V8l4 4V4l4 4v12" /><path d="M19 20V10l-2-2" />
     </svg>
   ),
-  team: (
+  quality: (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  ),
+  "customer-focus": (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" />
       <path d="M23 21v-2a4 4 0 00-3-3.87" /><path d="M16 3.13a4 4 0 010 7.75" />
     </svg>
   ),
-  safety: (
+  "modern-planning": (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
     </svg>
   ),
-  sustainable: (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M2 22c1-6 5.5-12 16-12" /><path d="M18 10c0-8-12-6-12 0s12 8 12 0z" />
-    </svg>
-  ),
-  transparent: (
+  transparency: (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
     </svg>
@@ -77,7 +77,7 @@ export default function WhyChooseUs({ id }: WhyChooseUsProps) {
             Why Choose <span className="text-gold-gradient">SCE</span>
           </h2>
           <p className="text-white/50 body-lg max-w-2xl mx-auto">
-            Discover what sets us apart and why industry leaders trust us with their most ambitious projects
+            Professional construction and land development backed by quality engineering, transparent management, and a commitment to every client
           </p>
         </motion.div>
 

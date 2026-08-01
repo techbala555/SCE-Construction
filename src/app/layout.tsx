@@ -10,23 +10,29 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "SCE Construction — Premium Construction & Engineering Company",
+  title: "SCE Construction — Residential Construction, Land Development & Real Estate",
   description:
-    "Shylesh Circuits & Engineering - Builders & Developers. Delivering world-class residential, commercial, and industrial projects with over two decades of excellence.",
+    "Shylesh Circuits & Engineering — Builders & Developers. Complete construction, land development, GPS land survey, DTCP approval, layout planning, interior design, and real estate solutions in Madurai, Tamil Nadu.",
   keywords: [
-    "construction company",
-    "luxury construction",
-    "commercial construction",
     "residential construction",
-    "engineering",
+    "villa construction",
+    "independent house builder",
+    "land development",
+    "GPS land survey",
+    "DTCP approval",
+    "layout development",
+    "interior design",
+    "property development",
+    "farmhouse construction",
     "SCE Construction",
     "Shylesh Circuits & Engineering",
-    "builders and developers",
+    "builders and developers Madurai",
+    "construction company Tamil Nadu",
   ],
   openGraph: {
-    title: "SCE Construction — Premium Construction & Engineering",
+    title: "SCE Construction — Construction, Land Development & Real Estate",
     description:
-      "Building tomorrow's landmarks today. World-class residential, commercial, and industrial construction services.",
+      "Complete construction, land development, and real estate solutions. Villa construction, GPS land survey, DTCP approval, layout planning, and more.",
     type: "website",
     images: [{ url: "/logo-dark.svg", alt: "SCE Construction Logo" }],
   },

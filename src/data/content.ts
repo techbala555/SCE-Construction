@@ -22,22 +22,21 @@ export const companyInfo = {
   name: "SCE Construction",
   tagline: "Building Tomorrow's Landmarks Today",
   description:
-    "SCE Construction is a premier construction company delivering world-class residential, commercial, and industrial projects. With over two decades of experience, we transform ambitious visions into architectural masterpieces that stand the test of time.",
-  founded: 2003,
+    "Shylesh Circuits & Engineering is a trusted name in construction, land development, and real estate. We deliver end-to-end solutions — from residential building construction and villa projects to GPS land surveys, DTCP approvals, layout planning, and property development. Every project is backed by professional engineering standards, modern planning practices, and a deep commitment to quality.",
   mission:
-    "To redefine the construction landscape by delivering projects of unparalleled quality, on time and within budget, while fostering sustainable building practices for future generations.",
+    "To deliver dependable construction, land development, and real estate solutions that exceed client expectations — built on trust, precision, and professional integrity.",
   vision:
-    "To be the most trusted and innovative construction partner in the region, known for excellence, integrity, and transformative design.",
+    "To become a leading force in residential construction, land development, and property solutions — known for quality craftsmanship, transparent execution, and lasting client relationships.",
   cta: "Get Free Quote",
 };
 
 // ── Hero ────────────────────────────────────────────────────
 export const heroContent = {
-  subtitle: "PREMIUM CONSTRUCTION & ENGINEERING",
+  subtitle: "CONSTRUCTION • LAND DEVELOPMENT • REAL ESTATE",
   title: "Building Tomorrow's",
   titleAccent: "Landmarks Today",
   description:
-    "Transforming ambitious visions into architectural masterpieces with over two decades of precision engineering, sustainable innovation, and unwavering commitment to excellence.",
+    "Complete construction, land development, engineering, and real estate solutions — delivered with a commitment to quality, trust, and timely execution.",
   ctaPrimary: "Start Your Project",
   ctaSecondary: "View Our Work",
 };
@@ -50,62 +49,79 @@ export interface Statistic {
 }
 
 export const statistics: Statistic[] = [
-  { value: 500, suffix: "+", label: "Projects Completed" },
-  { value: 22, suffix: "+", label: "Years of Experience" },
-  { value: 150, suffix: "+", label: "Expert Engineers" },
-  { value: 98, suffix: "%", label: "Client Satisfaction" },
+  { value: 100, suffix: "+", label: "Projects Delivered" },
+  { value: 4, suffix: "", label: "Service Verticals" },
+  { value: 50, suffix: "+", label: "Skilled Professionals" },
+  { value: 100, suffix: "%", label: "Client Commitment" },
 ];
 
 // ── Services ────────────────────────────────────────────────
+export interface ServiceItem {
+  text: string;
+}
+
 export interface Service {
   id: string;
   title: string;
   description: string;
   icon: string;
+  items: ServiceItem[];
 }
 
 export const services: Service[] = [
   {
-    id: "residential",
-    title: "Residential Construction",
+    id: "construction",
+    title: "Construction Services",
     description:
-      "From luxury villas to modern apartments, we craft living spaces that blend comfort with elegance. Every detail is designed to elevate your lifestyle.",
-    icon: "🏠",
-  },
-  {
-    id: "commercial",
-    title: "Commercial Construction",
-    description:
-      "State-of-the-art office complexes, retail spaces, and hospitality venues engineered for peak performance and lasting impressions.",
-    icon: "🏢",
-  },
-  {
-    id: "industrial",
-    title: "Industrial Construction",
-    description:
-      "Robust industrial facilities, warehouses, and manufacturing plants built with precision to withstand the demands of heavy operations.",
+      "From independent houses and villas to apartments and complete interior finishing — we handle every aspect of residential building construction with professional-grade execution.",
     icon: "🏗️",
+    items: [
+      { text: "Residential Building Construction" },
+      { text: "Independent House Construction" },
+      { text: "Villa Construction" },
+      { text: "Apartment Construction" },
+      { text: "Interior Design & Finishing Works" },
+    ],
   },
   {
-    id: "renovation",
-    title: "Renovation & Remodeling",
+    id: "land-development",
+    title: "Land Development",
     description:
-      "Breathe new life into existing structures with our expert renovation services. We modernize spaces while preserving their original character.",
-    icon: "🔨",
+      "Professional land development services including GPS-based surveys, DTCP approval assistance, layout planning, site preparation, and complete infrastructure development.",
+    icon: "📐",
+    items: [
+      { text: "GPS Land Survey & Site Measurement" },
+      { text: "DTCP Approval Assistance" },
+      { text: "Layout Planning & Development" },
+      { text: "Land Development & Site Preparation" },
+      { text: "Road, Drainage & Water Tank Construction" },
+      { text: "Compound Wall Construction" },
+    ],
   },
   {
-    id: "interior",
-    title: "Interior Design",
+    id: "real-estate",
+    title: "Real Estate Development",
     description:
-      "Bespoke interior solutions that harmonize aesthetics with functionality. Our designers create spaces that inspire and delight.",
-    icon: "🎨",
+      "Strategic property promotion and residential plot development — creating well-planned layouts and land development projects that maximize value for investors and homebuyers alike.",
+    icon: "🏘️",
+    items: [
+      { text: "Property Promotion" },
+      { text: "Residential Plot Development" },
+      { text: "Layout Development" },
+      { text: "Land Development Projects" },
+    ],
   },
   {
-    id: "consulting",
-    title: "Project Consulting",
+    id: "future-projects",
+    title: "Farmhouse Projects",
     description:
-      "Expert guidance from concept to completion. Our consultants provide strategic insights to optimize timelines, budgets, and outcomes.",
-    icon: "📋",
+      "Specialized farmhouse planning, construction, and land development — helping you create premium countryside retreats designed for comfort, privacy, and long-term value.",
+    icon: "🌿",
+    items: [
+      { text: "Farmhouse Planning" },
+      { text: "Farmhouse Construction" },
+      { text: "Farmhouse Land Development" },
+    ],
   },
 ];
 
@@ -122,64 +138,64 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "skyline-tower",
-    title: "Skyline Tower",
-    category: "Commercial",
-    description:
-      "A 45-storey mixed-use tower featuring premium office spaces and a rooftop observation deck with panoramic city views.",
-    location: "Downtown Business District",
-    year: 2024,
-    image: "/images/projects/skyline-tower.jpg",
-  },
-  {
-    id: "emerald-residences",
-    title: "Emerald Residences",
+    id: "villa-project",
+    title: "Premium Villa Project",
     category: "Residential",
     description:
-      "An exclusive gated community of 120 luxury villas surrounded by manicured gardens and world-class amenities.",
-    location: "Green Valley Suburbs",
-    year: 2023,
-    image: "/images/projects/emerald-residences.jpg",
-  },
-  {
-    id: "metro-logistics-hub",
-    title: "Metro Logistics Hub",
-    category: "Industrial",
-    description:
-      "A 200,000 sq ft distribution center with automated sorting systems and sustainable energy infrastructure.",
-    location: "Industrial Zone East",
+      "A custom-designed villa with modern architecture, spacious interiors, and premium finishing — built to the highest construction standards.",
+    location: "Madurai, Tamil Nadu",
     year: 2024,
-    image: "/images/projects/metro-logistics.jpg",
+    image: "/images/projects/villa-project.jpg",
   },
   {
-    id: "aurora-mall",
-    title: "Aurora Shopping Mall",
-    category: "Commercial",
+    id: "independent-house",
+    title: "Independent House Construction",
+    category: "Residential",
     description:
-      "A contemporary retail destination spanning 350,000 sq ft with an atrium, cinemas, and dining promenade.",
-    location: "City Center",
-    year: 2022,
-    image: "/images/projects/aurora-mall.jpg",
-  },
-  {
-    id: "heritage-restoration",
-    title: "Heritage Grand Hotel",
-    category: "Renovation",
-    description:
-      "Meticulous restoration of a 1920s landmark hotel, blending historic charm with modern luxury hospitality standards.",
-    location: "Old Town Quarter",
-    year: 2023,
-    image: "/images/projects/heritage-hotel.jpg",
-  },
-  {
-    id: "tech-park",
-    title: "Nexus Tech Park",
-    category: "Commercial",
-    description:
-      "A LEED-certified technology campus with collaborative workspaces, innovation labs, and sustainable design throughout.",
-    location: "Innovation Corridor",
+      "Complete independent house construction from foundation to finishing, featuring contemporary design and durable materials.",
+    location: "Madurai, Tamil Nadu",
     year: 2024,
-    image: "/images/projects/tech-park.jpg",
+    image: "/images/projects/independent-house.jpg",
+  },
+  {
+    id: "layout-development",
+    title: "Residential Layout Development",
+    category: "Layout Development",
+    description:
+      "A professionally planned residential layout with DTCP approval, internal roads, drainage systems, and essential infrastructure.",
+    location: "Madurai, Tamil Nadu",
+    year: 2024,
+    image: "/images/projects/layout-development.jpg",
+  },
+  {
+    id: "land-survey",
+    title: "GPS Land Survey & Site Planning",
+    category: "Land Development",
+    description:
+      "Precision GPS-based land survey and site measurement for accurate layout planning and development readiness.",
+    location: "Madurai, Tamil Nadu",
+    year: 2024,
+    image: "/images/projects/land-survey.jpg",
+  },
+  {
+    id: "interior-finishing",
+    title: "Interior Design & Finishing",
+    category: "Interior",
+    description:
+      "Complete interior design and finishing works — including modular kitchens, wardrobes, false ceilings, and premium flooring solutions.",
+    location: "Madurai, Tamil Nadu",
+    year: 2024,
+    image: "/images/projects/interior-finishing.jpg",
+  },
+  {
+    id: "plot-development",
+    title: "Residential Plot Development",
+    category: "Layout Development",
+    description:
+      "Strategic residential plot development with proper approvals, infrastructure planning, and value-driven positioning for homebuyers.",
+    location: "Madurai, Tamil Nadu",
+    year: 2024,
+    image: "/images/projects/plot-development.jpg",
   },
 ];
 
@@ -193,59 +209,59 @@ export interface Reason {
 
 export const whyChooseUs: Reason[] = [
   {
-    id: "quality",
-    title: "Uncompromising Quality",
+    id: "end-to-end",
+    title: "End-to-End Solutions",
     description:
-      "We use only premium materials and employ rigorous quality control at every stage of construction.",
+      "From land surveys and approvals to construction and interior finishing — we manage every stage of your project under one roof.",
     icon: "✅",
   },
   {
-    id: "delivery",
-    title: "On-Time Delivery",
+    id: "land-development",
+    title: "Professional Land Development",
     description:
-      "Our track record speaks for itself — 98% of our projects are delivered on or ahead of schedule.",
-    icon: "⏱️",
+      "GPS-based surveys, DTCP approval assistance, layout planning, and complete site infrastructure — executed with technical precision.",
+    icon: "📐",
   },
   {
-    id: "team",
-    title: "Expert Team",
+    id: "quality",
+    title: "Quality Engineering Standards",
     description:
-      "Over 150 certified engineers, architects, and project managers with decades of combined experience.",
-    icon: "👷",
+      "We follow strict engineering standards at every stage — using quality materials, proven methods, and professional site supervision.",
+    icon: "⭐",
   },
   {
-    id: "safety",
-    title: "Safety First",
+    id: "customer-focus",
+    title: "Customer-Focused Approach",
     description:
-      "Zero-compromise safety protocols that have earned us industry-leading safety certifications.",
-    icon: "🛡️",
+      "Your vision drives every decision. We prioritize clear communication, transparent updates, and a hassle-free construction experience.",
+    icon: "🤝",
   },
   {
-    id: "sustainable",
-    title: "Sustainable Building",
+    id: "modern-planning",
+    title: "Modern Planning & Execution",
     description:
-      "Green construction practices and eco-friendly materials that minimize environmental impact.",
-    icon: "🌱",
+      "We leverage modern planning tools, GPS technology, and systematic project workflows to ensure on-time, on-budget delivery.",
+    icon: "📊",
   },
   {
-    id: "transparent",
-    title: "Transparent Pricing",
+    id: "transparency",
+    title: "Transparent Project Management",
     description:
-      "Detailed cost breakdowns with no hidden fees. You always know exactly where your investment goes.",
+      "No hidden costs, no surprises. Detailed project plans, regular progress updates, and full cost transparency from day one.",
     icon: "💰",
   },
 ];
 
 // ── Contact Details ─────────────────────────────────────────
 export const contactDetails = {
-  address: "1247 Construction Boulevard, Suite 400, Metro City, MC 10001",
-  phone: "+1 (555) 234-5678",
+  address: "Madurai, Tamil Nadu, India",
+  phone: "+91 00000 00000",
   email: "info@sceconstruction.com",
-  workingHours: "Mon – Fri: 8:00 AM – 6:00 PM | Sat: 9:00 AM – 2:00 PM",
+  workingHours: "Mon – Sat: 9:00 AM – 6:00 PM",
   socials: {
-    facebook: "https://facebook.com/sceconstruction",
-    instagram: "https://instagram.com/sceconstruction",
-    linkedin: "https://linkedin.com/company/sceconstruction",
-    twitter: "https://twitter.com/sceconstruct",
+    facebook: "#",
+    instagram: "#",
+    linkedin: "#",
+    twitter: "#",
   },
 };

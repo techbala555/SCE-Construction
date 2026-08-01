@@ -2,11 +2,22 @@ import { z } from "zod";
 
 export const projectTypes = [
   "Residential Construction",
-  "Commercial Construction",
+  "Independent House",
+  "Villa Construction",
+  "Apartment Construction",
   "Interior Design",
-  "Renovation",
-  "Civil Engineering",
-  "Engineering Consultation",
+  "GPS Land Survey",
+  "DTCP Approval",
+  "Layout Planning",
+  "Land Development",
+  "Road Construction",
+  "Drainage Development",
+  "Overhead Water Tank",
+  "Compound Wall",
+  "Property Promotion",
+  "Plot Development",
+  "Farmhouse Planning",
+  "Farmhouse Construction",
   "Other",
 ] as const;
 

@@ -123,11 +123,11 @@ export default function About({ id }: AboutProps) {
             >
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <span className="text-2xl">🏆</span>
+                  <span className="text-2xl">🤝</span>
                 </div>
                 <div>
-                  <p className="text-3xl font-extrabold text-foreground">{statistics[1].value}+</p>
-                  <p className="text-xs text-muted font-medium mt-1">Years of Excellence</p>
+                  <p className="text-3xl font-extrabold text-foreground">{statistics[0].value}{statistics[0].suffix}</p>
+                  <p className="text-xs text-muted font-medium mt-1">{statistics[0].label}</p>
                 </div>
               </div>
             </motion.div>
