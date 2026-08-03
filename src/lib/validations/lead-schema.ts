@@ -32,18 +32,27 @@ export const budgetRanges = [
 export const contactMethods = [
   "Phone Call",
   "WhatsApp",
-  "Email",
 ] as const;
 
 export const leadFormSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  phone: z.string().regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit Indian mobile number"),
-  email: z.string().email("Enter a valid email address").or(z.literal("")),
-  projectType: z.enum(projectTypes, { message: "Please select a project type" }),
-  budget: z.string(),
-  location: z.string().min(2, "Location must be at least 2 characters"),
-  preferredContactMethod: z.string(),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  name: z
+    .string()
+    .trim()
+    .min(3, "Full name must be at least 3 characters.")
+    .regex(/^[a-zA-Z\s]+$/, "Full name can only contain alphabets and spaces."),
+  phone: z
+    .string()
+    .regex(/^[6-9]\d{9}$/, "Please enter a valid 10-digit mobile number."),
+  projectType: z
+    .string()
+    .min(1, "Please select a project type."),
+  location: z
+    .string()
+    .trim()
+    .min(2, "Location must be at least 2 characters."),
+  budget: z.string().optional(),
+  preferredContactMethod: z.string().optional(),
+  message: z.string().optional(),
 });
 
 export type LeadFormData = z.infer<typeof leadFormSchema>;

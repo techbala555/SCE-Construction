@@ -5,19 +5,20 @@ import { motion } from "framer-motion";
 import { companyInfo, navigationItems, contactDetails, services } from "@/src/data/content";
 import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
 import { fadeUp, staggerContainer, staggerItem } from "@/src/lib/motion";
+import { scrollToSection } from "@/src/lib/scrollToSection";
 
 export default function Footer() {
   const { ref, inView } = useScrollAnimation<HTMLElement>({ threshold: 0.1 });
 
   const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+    scrollToSection(href);
   };
 
   return (
     <footer
       ref={ref}
-      className="bg-secondary dark:bg-[#060E1A] text-white relative overflow-hidden"
+      className="bg-footer-bg text-deep-text relative overflow-hidden"
     >
       {/* Top Gold Line */}
       <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
@@ -32,7 +33,7 @@ export default function Footer() {
         >
           {/* Brand Column */}
           <motion.div variants={staggerItem} className="sm:col-span-2 lg:col-span-1">
-            {/* Official Logo — footer is always dark, use light logo */}
+            {/* Official Logo - footer is always dark, use light logo */}
             <div className="mb-10">
               <Image
                 src="/logo-light.svg"
@@ -42,28 +43,9 @@ export default function Footer() {
                 className="w-auto max-w-none h-20 sm:h-[100px] lg:h-[120px] object-contain"
               />
             </div>
-            <p className="text-white/40 text-sm body-relaxed mb-8 max-w-xs">
+            <p className="text-deep-muted text-sm body-relaxed max-w-xs">
               {companyInfo.tagline}. Complete construction, land development, and real estate solutions built on trust and quality.
             </p>
-
-            {/* Social Icons */}
-            <div className="flex gap-3">
-              {Object.entries(contactDetails.socials).map(([name, url]) => (
-                <a
-                  key={name}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-white/[0.05] border border-white/[0.08]
-                             flex items-center justify-center text-white/40
-                             hover:text-primary hover:border-primary/30 hover:bg-primary/10
-                             transition-all duration-300"
-                  aria-label={name}
-                >
-                  <span className="text-[10px] font-bold uppercase">{name.slice(0, 2)}</span>
-                </a>
-              ))}
-            </div>
           </motion.div>
 
           {/* Quick Links */}
@@ -77,7 +59,7 @@ export default function Footer() {
                   <a
                     href={item.href}
                     onClick={(e) => scrollTo(e, item.href)}
-                    className="text-white/40 hover:text-primary text-sm transition-colors duration-300
+                    className="text-deep-muted hover:text-primary text-sm transition-colors duration-300
                                inline-flex items-center gap-1.5 group"
                   >
                     <span className="w-0 group-hover:w-2 h-[1px] bg-primary transition-all duration-300" />
@@ -96,8 +78,7 @@ export default function Footer() {
             <ul className="space-y-4">
               {services.slice(0, 5).map((service) => (
                 <li key={service.id}>
-                  <span className="text-white/40 text-sm inline-flex items-center gap-2 group cursor-default">
-                    <span className="w-1 h-1 rounded-full bg-primary/40" />
+                  <span className="text-deep-muted text-sm cursor-default">
                     {service.title}
                   </span>
                 </li>
@@ -110,7 +91,7 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-primary uppercase tracking-wider mb-7">
               Contact Info
             </h4>
-            <div className="space-y-5 text-white/40 text-sm">
+            <div className="space-y-5 text-deep-muted text-sm">
               <div className="flex gap-3">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary flex-shrink-0 mt-0.5">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
@@ -140,14 +121,14 @@ export default function Footer() {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           custom={0.3}
-          className="mt-16 lg:mt-20 pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4"
+          className="mt-16 lg:mt-20 pt-8 border-t border-deep-border flex flex-col sm:flex-row items-center justify-between gap-4"
         >
-          <p className="text-white/30 text-xs">
+          <p className="text-deep-muted/70 text-xs">
             © {new Date().getFullYear()} {companyInfo.name}. All rights reserved.
           </p>
-          <div className="flex gap-8 text-white/30 text-xs">
-            <span className="hover:text-white/50 transition-colors cursor-pointer">Privacy Policy</span>
-            <span className="hover:text-white/50 transition-colors cursor-pointer">Terms of Service</span>
+          <div className="flex gap-8 text-deep-muted/70 text-xs">
+            <span className="hover:text-deep-muted transition-colors cursor-pointer">Privacy Policy</span>
+            <span className="hover:text-deep-muted transition-colors cursor-pointer">Terms of Service</span>
           </div>
         </motion.div>
       </div>

@@ -10,9 +10,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "SCE Construction — Residential Construction, Land Development & Real Estate",
+  title: "SCE Construction - Residential Construction, Land Development",
   description:
-    "Shylesh Circuits & Engineering — Builders & Developers. Complete construction, land development, GPS land survey, DTCP approval, layout planning, interior design, and real estate solutions in Madurai, Tamil Nadu.",
+    "Shylesh Circuits & Engineering - Builders & Developers. Complete construction, land development, real estate, GPS land survey, DTCP approval, layout planning, interior design, and property development in Madurai, Tamil Nadu.",
   keywords: [
     "residential construction",
     "villa construction",
@@ -22,7 +22,9 @@ export const metadata: Metadata = {
     "DTCP approval",
     "layout development",
     "interior design",
+    "civil engineering",
     "property development",
+    "infrastructure development",
     "farmhouse construction",
     "SCE Construction",
     "Shylesh Circuits & Engineering",
@@ -30,9 +32,9 @@ export const metadata: Metadata = {
     "construction company Tamil Nadu",
   ],
   openGraph: {
-    title: "SCE Construction — Construction, Land Development & Real Estate",
+    title: "SCE Construction - Construction, Land Development",
     description:
-      "Complete construction, land development, and real estate solutions. Villa construction, GPS land survey, DTCP approval, layout planning, and more.",
+      "Complete construction, land development, and real estate solutions. Villa construction, GPS land survey, DTCP approval, layout planning, property development, and more.",
     type: "website",
     images: [{ url: "/logo-dark.svg", alt: "SCE Construction Logo" }],
   },

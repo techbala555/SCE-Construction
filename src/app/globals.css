@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 /* ================================================================
-   SCE CONSTRUCTION — PREMIUM DESIGN SYSTEM
+   SCE CONSTRUCTION - PREMIUM DESIGN SYSTEM
    Luxury Construction & Engineering Brand
    ================================================================ */
 
 @theme inline {
-  /* — Color Tokens — */
+  /* - Color Tokens - */
   --color-primary: var(--clr-primary);
   --color-primary-dark: var(--clr-primary-dark);
   --color-primary-light: var(--clr-primary-light);
@@ -20,11 +20,20 @@
   --color-muted: var(--clr-muted);
   --color-border: var(--clr-border);
   --color-border-light: var(--clr-border-light);
+  --color-btn-text: var(--clr-btn-text);
+  --color-secondary-text: var(--clr-secondary-text);
+  --color-deep-bg: var(--clr-deep-bg);
+  --color-deep-surface: var(--clr-deep-surface);
+  --color-deep-surface-hover: var(--clr-deep-surface-hover);
+  --color-deep-text: var(--clr-deep-text);
+  --color-deep-muted: var(--clr-deep-muted);
+  --color-deep-border: var(--clr-deep-border);
+  --color-footer-bg: var(--clr-footer-bg);
 
-  /* — Typography — */
+  /* - Typography - */
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* — Shadows — */
+  /* - Shadows - */
   --shadow-soft: var(--sh-soft);
   --shadow-medium: var(--sh-medium);
   --shadow-large: var(--sh-large);
@@ -32,7 +41,7 @@
 }
 
 /* ================================================================
-   LIGHT THEME — Luxury White + Gold
+   LIGHT THEME - Luxury White + Gold
    ================================================================ */
 :root {
   color-scheme: light;
@@ -40,16 +49,35 @@
   --clr-primary: #D4A017;
   --clr-primary-dark: #B8860B;
   --clr-primary-light: #F0D060;
-  --clr-secondary: #0B1F3A;
-  --clr-secondary-light: #142D52;
-  --clr-accent: #F8FAFC;
+  --clr-secondary: #475569;
+  --clr-secondary-light: #64748B;
+  --clr-accent: #F1F5F9;
   --clr-surface: #FFFFFF;
-  --clr-surface-elevated: #F8FAFC;
-  --clr-background: #FFFFFF;
+  --clr-surface-elevated: #F1F5F9;
+  --clr-background: #F8FAFC;
   --clr-foreground: #111827;
-  --clr-muted: #6B7280;
-  --clr-border: #E5E7EB;
-  --clr-border-light: #F3F4F6;
+  --clr-muted: #64748B;
+  --clr-border: #E2E8F0;
+  --clr-border-light: #E2E8F0;
+  --clr-btn-text: #111827;
+  --clr-secondary-text: #475569;
+
+  /* Deep section tokens (WhyChooseUs, Footer-like sections) */
+  --clr-deep-bg: #1E293B;
+  --clr-deep-surface: rgba(255, 255, 255, 0.04);
+  --clr-deep-surface-hover: rgba(255, 255, 255, 0.07);
+  --clr-deep-text: #F1F5F9;
+  --clr-deep-muted: #94A3B8;
+  --clr-deep-border: rgba(255, 255, 255, 0.08);
+  --clr-footer-bg: #1E293B;
+
+  /* Theme Toggle */
+  --toggle-bg: #F1F5F9;
+  --toggle-border: #E2E8F0;
+  --toggle-icon: #111827;
+  --toggle-hover-bg: #E2E8F0;
+  --toggle-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --toggle-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 
   --sh-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
   --sh-medium: 0 4px 20px -4px rgba(0, 0, 0, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
@@ -60,7 +88,7 @@
   --glass-border: rgba(255, 255, 255, 0.3);
   --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
 
-  --section-alt-bg: #F8FAFC;
+  --section-alt-bg: #F1F5F9;
   --hero-overlay: linear-gradient(
     180deg,
     rgba(8, 17, 31, 0.85) 0%,
@@ -70,40 +98,59 @@
 }
 
 /* ================================================================
-   DARK THEME — Luxury Navy + Gold
+   DARK THEME - Luxury Dark + Gold
    ================================================================ */
 .dark {
   color-scheme: dark;
 
   --clr-primary: #D4A017;
-  --clr-primary-dark: #C4920F;
+  --clr-primary-dark: #E6B325;
   --clr-primary-light: #E8C04A;
-  --clr-secondary: #E2E8F0;
-  --clr-secondary-light: #CBD5E1;
-  --clr-accent: #0C1726;
-  --clr-surface: #101C2C;
-  --clr-surface-elevated: #162240;
-  --clr-background: #08111F;
-  --clr-foreground: #FFFFFF;
-  --clr-muted: #CBD5E1;
-  --clr-border: #1E293B;
-  --clr-border-light: #162240;
+  --clr-secondary: #CBD5E1;
+  --clr-secondary-light: #94A3B8;
+  --clr-accent: #111827;
+  --clr-surface: #111827;
+  --clr-surface-elevated: #1F2937;
+  --clr-background: #0B1220;
+  --clr-foreground: #F9FAFB;
+  --clr-muted: #94A3B8;
+  --clr-border: rgba(255, 255, 255, 0.08);
+  --clr-border-light: rgba(255, 255, 255, 0.08);
+  --clr-btn-text: #0B1220;
+  --clr-secondary-text: #CBD5E1;
+
+  /* Deep section tokens (WhyChooseUs, Footer-like sections) */
+  --clr-deep-bg: #0F172A;
+  --clr-deep-surface: rgba(255, 255, 255, 0.04);
+  --clr-deep-surface-hover: rgba(255, 255, 255, 0.07);
+  --clr-deep-text: #F9FAFB;
+  --clr-deep-muted: #94A3B8;
+  --clr-deep-border: rgba(255, 255, 255, 0.06);
+  --clr-footer-bg: #080E1A;
+
+  /* Theme Toggle */
+  --toggle-bg: rgba(255, 255, 255, 0.08);
+  --toggle-border: rgba(255, 255, 255, 0.15);
+  --toggle-icon: #F9FAFB;
+  --toggle-hover-bg: rgba(255, 255, 255, 0.12);
+  --toggle-shadow: none;
+  --toggle-hover-shadow: 0 0 20px rgba(212, 160, 23, 0.15);
 
   --sh-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.2);
   --sh-medium: 0 4px 20px -4px rgba(0, 0, 0, 0.4), 0 2px 8px -2px rgba(0, 0, 0, 0.3);
   --sh-large: 0 24px 60px -16px rgba(0, 0, 0, 0.6), 0 8px 24px -8px rgba(0, 0, 0, 0.4);
   --sh-glow: 0 0 50px rgba(212, 160, 23, 0.25);
 
-  --glass-bg: rgba(8, 17, 31, 0.8);
-  --glass-border: rgba(30, 41, 59, 0.5);
+  --glass-bg: rgba(11, 18, 32, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.08);
   --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 
-  --section-alt-bg: #0C1726;
+  --section-alt-bg: #111827;
   --hero-overlay: linear-gradient(
     180deg,
-    rgba(8, 17, 31, 0.9) 0%,
-    rgba(8, 17, 31, 0.8) 50%,
-    rgba(8, 17, 31, 0.95) 100%
+    rgba(11, 18, 32, 0.82) 0%,
+    rgba(11, 18, 32, 0.72) 50%,
+    rgba(11, 18, 32, 0.88) 100%
   );
 }
 
@@ -129,13 +176,24 @@ body {
 html.transitioning *,
 html.transitioning *::before,
 html.transitioning *::after {
-  transition: background-color 0.4s ease, border-color 0.4s ease,
-    color 0.4s ease, box-shadow 0.4s ease, fill 0.4s ease, stroke 0.4s ease !important;
+  transition: background-color 0.28s ease, border-color 0.28s ease,
+    color 0.28s ease, box-shadow 0.28s ease, fill 0.28s ease, stroke 0.28s ease !important;
+}
+
+/* ── Caret control: Disable blinking text caret on static non-input elements ── */
+*:not(input):not(textarea):not([contenteditable="true"]) {
+  caret-color: transparent !important;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+  caret-color: auto;
 }
 
 ::selection {
-  background-color: #D4A017;
-  color: #0B1F3A;
+  background-color: var(--clr-primary);
+  color: var(--clr-btn-text);
 }
 
 /* ================================================================
@@ -209,7 +267,7 @@ html.transitioning *::after {
 }
 
 /* ================================================================
-   SECTION SPACING — Luxurious breathing room
+   SECTION SPACING - Luxurious breathing room
    Mobile: py-16 (64px) | Tablet: py-24 (96px) | Desktop: py-32 (128px)
    ================================================================ */
 .section-padding {
@@ -226,6 +284,28 @@ html.transitioning *::after {
   .section-padding {
     padding-top: 8rem;
     padding-bottom: 8rem;
+  }
+}
+
+/* ================================================================
+   SECTION SCROLL OFFSET - matches exact navbar height per breakpoint
+   ================================================================ */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+@media (min-width: 768px) {
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  section[id] {
+    scroll-margin-top: 6.25rem;
+  }
+}
+@media (min-width: 1280px) {
+  section[id] {
+    scroll-margin-top: 7.5rem;
   }
 }
 
@@ -342,7 +422,7 @@ html.transitioning *::after {
   opacity: 0.7;
 }
 .input-premium:focus {
-  border-color: #D4A017;
+  border-color: var(--clr-primary);
   box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.15);
 }
 .input-premium:disabled {
@@ -352,11 +432,30 @@ html.transitioning *::after {
 /* Select elements */
 select.input-premium {
   cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%2364748B%22%20stroke-width%3D%222%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
 }
 select.input-premium option {
   background: var(--clr-surface);
   color: var(--clr-foreground);
   padding: 0.5rem;
+}
+
+/* ================================================================
+   THEME TOGGLE
+   ================================================================ */
+.theme-toggle-btn {
+  background: var(--toggle-bg);
+  border: 1px solid var(--toggle-border);
+  box-shadow: var(--toggle-shadow);
+  color: var(--toggle-icon);
+}
+.theme-toggle-btn:hover {
+  background: var(--toggle-hover-bg);
+  box-shadow: var(--toggle-hover-shadow);
 }
 
 /* ================================================================
@@ -390,4 +489,14 @@ select.input-premium option {
 }
 .animate-pulse-glow {
   animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* ================================================================
+   HIDE NEXT.JS DEV INDICATORS & OVERLAYS
+   ================================================================ */
+nextjs-portal,
+[data-nextjs-toast],
+[data-nextjs-dialog-portal],
+[aria-label="Next.js Dev Tools"] {
+  display: none !important;
 }

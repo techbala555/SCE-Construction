@@ -50,7 +50,7 @@ export default function WhyChooseUs({ id }: WhyChooseUsProps) {
     <section
       id={id}
       className="section-padding px-6 md:px-8 lg:px-12 relative overflow-hidden
-                 bg-secondary dark:bg-[#060E1A]"
+                 bg-deep-bg"
     >
       {/* Subtle Grid Pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-20" />
@@ -73,15 +73,15 @@ export default function WhyChooseUs({ id }: WhyChooseUsProps) {
             <span className="label-sm text-primary">Why Us</span>
             <div className="divider-gold" />
           </div>
-          <h2 className="heading-xl text-3xl sm:text-4xl lg:text-5xl text-white mb-6">
+          <h2 className="heading-xl text-3xl sm:text-4xl lg:text-5xl text-deep-text mb-6">
             Why Choose <span className="text-gold-gradient">SCE</span>
           </h2>
-          <p className="text-white/50 body-lg max-w-2xl mx-auto">
+          <p className="text-deep-muted body-lg max-w-2xl mx-auto">
             Professional construction and land development backed by quality engineering, transparent management, and a commitment to every client
           </p>
         </motion.div>
 
-        {/* Reasons Grid — gap-8 (32px) */}
+        {/* Reasons Grid - gap-8 (32px) */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -93,8 +93,8 @@ export default function WhyChooseUs({ id }: WhyChooseUsProps) {
               key={reason.id}
               variants={staggerItem}
               className="group p-8 rounded-2xl
-                         bg-white/[0.04] border border-white/[0.08]
-                         hover:bg-white/[0.07] hover:border-primary/20
+                         bg-deep-surface border border-deep-border
+                         hover:bg-deep-surface-hover hover:border-primary/20
                          transition-all duration-400 cursor-default"
             >
               {/* Icon */}
@@ -104,11 +104,11 @@ export default function WhyChooseUs({ id }: WhyChooseUsProps) {
                 {reasonIcons[reason.id] || <span className="text-2xl">{reason.icon}</span>}
               </div>
 
-              <h3 className="text-xl font-semibold text-white mb-4">
+              <h3 className="text-xl font-semibold text-deep-text mb-4">
                 {reason.title}
               </h3>
 
-              <p className="text-white/50 body-relaxed text-[0.9375rem]">
+              <p className="text-deep-muted body-relaxed text-[0.9375rem]">
                 {reason.description}
               </p>
             </motion.div>

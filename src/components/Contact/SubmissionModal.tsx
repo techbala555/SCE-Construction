@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { useMounted } from "@/src/lib/useMounted";
 
 interface SubmissionModalProps {
   isOpen: boolean;
@@ -78,9 +79,7 @@ export default function SubmissionModal({
   type,
   onRetry,
 }: SubmissionModalProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => { setMounted(true); }, []);
+  const mounted = useMounted();
 
   /* Close on Escape key */
   const handleKeyDown = useCallback(
@@ -137,7 +136,7 @@ export default function SubmissionModal({
             aria-modal="true"
             aria-label={title}
             className="relative w-full max-w-md rounded-3xl p-10
-                       bg-surface dark:bg-surface border border-border
+                       bg-surface border border-border
                        shadow-2xl"
             style={{
               background: "var(--glass-bg)",
@@ -170,7 +169,7 @@ export default function SubmissionModal({
                 type="button"
                 onClick={() => onRetry?.()}
                 className="btn-shine inline-flex items-center justify-center rounded-xl
-                           bg-primary text-[#0B1F3A] px-6 py-3 text-sm font-semibold
+                           bg-primary text-btn-text px-6 py-3 text-sm font-semibold
                            hover:bg-primary-dark transition-all duration-300
                            hover:scale-[1.02] active:scale-[0.98]"
               >

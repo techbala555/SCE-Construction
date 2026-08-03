@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
@@ -14,6 +14,7 @@ import {
   type LeadFormData,
 } from "@/src/lib/validations/lead-schema";
 import SubmissionModal from "./SubmissionModal";
+import CustomSelect from "./CustomSelect";
 
 interface ContactProps {
   id: string;
@@ -36,25 +37,29 @@ export default function Contact({ id }: ContactProps) {
   const {
     register,
     handleSubmit,
+    control,
+    setValue,
+    watch,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid, isSubmitting, touchedFields },
   } = useForm<LeadFormData>({
     resolver: zodResolver(leadFormSchema),
+    mode: "onChange",
     defaultValues: {
       name: "",
       phone: "",
-      email: "",
-      projectType: undefined,
+      projectType: "",
       budget: "",
       location: "",
-      preferredContactMethod: "",
+      preferredContactMethod: "Phone Call",
       message: "",
     },
   });
 
-  /* ── Demo submit — no backend, just shows modal ──────── */
+  const formValues = watch();
+
+  /* ── Demo submit - no backend, just shows modal ──────── */
   const onSubmit = async (_data: LeadFormData) => {
-    // Simulate network delay for demo
     await new Promise((resolve) => setTimeout(resolve, 1500));
     setModalState({ open: true, type: "success" });
   };
@@ -65,11 +70,26 @@ export default function Contact({ id }: ContactProps) {
     reset();
   };
 
+  /* ── Helper for input field status styling ───────────── */
+  const getFieldStatusClass = (fieldName: keyof LeadFormData) => {
+    const error = errors[fieldName];
+    const isTouched = touchedFields[fieldName];
+    const val = formValues[fieldName];
+
+    if (error) {
+      return "!border-red-500/90 focus:!ring-red-500/20";
+    }
+    if (isTouched && val && !error) {
+      return "!border-emerald-500/80 focus:!ring-emerald-500/20";
+    }
+    return "";
+  };
+
   return (
     <>
       <section
         id={id}
-        className="section-padding px-6 md:px-8 lg:px-12 bg-accent dark:bg-[#0C1726] relative overflow-hidden"
+        className="section-padding px-6 md:px-8 lg:px-12 bg-accent relative overflow-hidden"
       >
         {/* ── Decorative elements ────────────────────────── */}
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
@@ -131,7 +151,7 @@ export default function Contact({ id }: ContactProps) {
               onSubmit={handleSubmit(onSubmit)}
               noValidate
               className="relative p-8 sm:p-10 lg:p-14 rounded-3xl
-                         bg-surface dark:bg-surface border border-border dark:border-border-light/30
+                         bg-surface border border-border
                          shadow-large"
               style={{
                 background: "var(--glass-bg)",
@@ -143,7 +163,7 @@ export default function Contact({ id }: ContactProps) {
               <div className="absolute top-0 left-8 right-8 h-[2px] rounded-b-full bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
               <div className="space-y-7">
-                {/* ── Row 1: Name + Phone ────────────────── */}
+                {/* ── Row 1: Full Name + Phone Number ────── */}
                 <div className="grid sm:grid-cols-2 gap-6">
                   {/* Full Name */}
                   <div>
@@ -153,13 +173,22 @@ export default function Contact({ id }: ContactProps) {
                     >
                       Full Name <span className="text-primary">*</span>
                     </label>
-                    <input
-                      {...register("name")}
-                      type="text"
-                      id="name"
-                      placeholder="Enter your full name"
-                      className={`input-premium ${errors.name ? "!border-red-500 focus:!shadow-red-500/15" : ""}`}
-                    />
+                    <div className="relative">
+                      <input
+                        {...register("name")}
+                        type="text"
+                        id="name"
+                        placeholder="Enter your full name"
+                        className={`input-premium transition-all duration-200 ${getFieldStatusClass("name")}`}
+                      />
+                      {touchedFields.name && formValues.name && !errors.name && (
+                        <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
                     {errors.name && (
                       <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
@@ -168,7 +197,7 @@ export default function Contact({ id }: ContactProps) {
                     )}
                   </div>
 
-                  {/* Phone */}
+                  {/* Phone Number */}
                   <div>
                     <label
                       htmlFor="phone"
@@ -176,17 +205,30 @@ export default function Contact({ id }: ContactProps) {
                     >
                       Phone Number <span className="text-primary">*</span>
                     </label>
-                    <div className="flex">
-                      <span className="inline-flex items-center px-4 rounded-l-xl border border-r-0 border-border bg-surface-elevated dark:bg-surface-elevated text-muted text-sm font-medium select-none">
+                    <div className="flex relative">
+                      <span className="inline-flex items-center px-4 rounded-l-xl border border-r-0 border-border bg-surface-elevated text-muted text-sm font-medium select-none">
                         +91
                       </span>
                       <input
                         {...register("phone")}
                         type="tel"
                         id="phone"
-                        placeholder="98765 43210"
-                        className={`input-premium !rounded-l-none ${errors.phone ? "!border-red-500 focus:!shadow-red-500/15" : ""}`}
+                        maxLength={10}
+                        placeholder="9876543210"
+                        onChange={(e) => {
+                          // Allow only numeric digits 0-9 up to 10 digits
+                          const clean = e.target.value.replace(/\D/g, "").slice(0, 10);
+                          setValue("phone", clean, { shouldValidate: true, shouldTouch: true });
+                        }}
+                        className={`input-premium !rounded-l-none transition-all duration-200 ${getFieldStatusClass("phone")}`}
                       />
+                      {touchedFields.phone && formValues.phone && !errors.phone && (
+                        <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </div>
+                      )}
                     </div>
                     {errors.phone && (
                       <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
@@ -197,65 +239,28 @@ export default function Contact({ id }: ContactProps) {
                   </div>
                 </div>
 
-                {/* ── Row 2: Email + Project Type ────────── */}
+                {/* ── Row 2: Project Type + Location ──────── */}
                 <div className="grid sm:grid-cols-2 gap-6">
-                  {/* Email */}
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3"
-                    >
-                      Email Address <span className="text-muted text-[10px] normal-case tracking-normal">(optional)</span>
-                    </label>
-                    <input
-                      {...register("email")}
-                      type="email"
-                      id="email"
-                      placeholder="your@email.com"
-                      className={`input-premium ${errors.email ? "!border-red-500 focus:!shadow-red-500/15" : ""}`}
-                    />
-                    {errors.email && (
-                      <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
-                        {errors.email.message}
-                      </p>
+                  {/* Project Type Dropdown */}
+                  <Controller
+                    control={control}
+                    name="projectType"
+                    render={({ field }) => (
+                      <CustomSelect
+                        id="projectType"
+                        label="Project Type"
+                        required
+                        options={projectTypes}
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder="Select project type"
+                        error={errors.projectType?.message}
+                        isTouched={touchedFields.projectType}
+                        isValid={!errors.projectType && !!field.value}
+                      />
                     )}
-                  </div>
+                  />
 
-                  {/* Project Type */}
-                  <div>
-                    <label
-                      htmlFor="projectType"
-                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3"
-                    >
-                      Project Type <span className="text-primary">*</span>
-                    </label>
-                    <select
-                      {...register("projectType")}
-                      id="projectType"
-                      className={`input-premium appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_1rem_center] pr-10 ${errors.projectType ? "!border-red-500 focus:!shadow-red-500/15" : ""}`}
-                      defaultValue=""
-                    >
-                      <option value="" disabled>
-                        Select project type
-                      </option>
-                      {projectTypes.map((type) => (
-                        <option key={type} value={type}>
-                          {type}
-                        </option>
-                      ))}
-                    </select>
-                    {errors.projectType && (
-                      <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
-                        {errors.projectType.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                {/* ── Row 3: Location + Budget ──────────── */}
-                <div className="grid sm:grid-cols-2 gap-6">
                   {/* Location */}
                   <div>
                     <label
@@ -264,13 +269,22 @@ export default function Contact({ id }: ContactProps) {
                     >
                       Location <span className="text-primary">*</span>
                     </label>
-                    <input
-                      {...register("location")}
-                      type="text"
-                      id="location"
-                      placeholder="Madurai, Tamil Nadu"
-                      className={`input-premium ${errors.location ? "!border-red-500 focus:!shadow-red-500/15" : ""}`}
-                    />
+                    <div className="relative">
+                      <input
+                        {...register("location")}
+                        type="text"
+                        id="location"
+                        placeholder="Madurai, Tamil Nadu"
+                        className={`input-premium transition-all duration-200 ${getFieldStatusClass("location")}`}
+                      />
+                      {touchedFields.location && formValues.location && !errors.location && (
+                        <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
                     {errors.location && (
                       <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
@@ -278,102 +292,99 @@ export default function Contact({ id }: ContactProps) {
                       </p>
                     )}
                   </div>
+                </div>
 
-                  {/* Budget */}
+                {/* ── Row 3: Estimated Budget (Optional) ──── */}
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {/* Estimated Budget Dropdown */}
+                  <Controller
+                    control={control}
+                    name="budget"
+                    render={({ field }) => (
+                      <CustomSelect
+                        id="budget"
+                        label="Estimated Budget"
+                        options={budgetRanges}
+                        value={field.value || ""}
+                        onChange={field.onChange}
+                        placeholder="Select budget range (Optional)"
+                        isTouched={touchedFields.budget}
+                        isValid={!errors.budget && !!field.value}
+                      />
+                    )}
+                  />
+
+                  {/* Preferred Contact Method (Phone / WhatsApp) */}
                   <div>
-                    <label
-                      htmlFor="budget"
-                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3"
-                    >
-                      Estimated Budget <span className="text-muted text-[10px] normal-case tracking-normal">(optional)</span>
-                    </label>
-                    <select
-                      {...register("budget")}
-                      id="budget"
-                      className="input-premium appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_1rem_center] pr-10"
-                      defaultValue=""
-                    >
-                      <option value="">Select budget range</option>
-                      {budgetRanges.map((range) => (
-                        <option key={range} value={range}>
-                          {range}
-                        </option>
+                    <p className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3">
+                      Preferred Contact Method <span className="text-muted text-[10px] normal-case tracking-normal">(optional)</span>
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                      {contactMethods.map((method) => (
+                        <label key={method} className="relative cursor-pointer">
+                          <input
+                            {...register("preferredContactMethod")}
+                            type="radio"
+                            value={method}
+                            className="peer sr-only"
+                          />
+                          <span className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium
+                                         border border-border text-muted
+                                         peer-checked:border-primary peer-checked:text-primary peer-checked:bg-primary/10
+                                         hover:border-primary/50 hover:text-foreground
+                                         transition-all duration-300 select-none">
+                            {method === "Phone Call" && (
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                            )}
+                            {method === "WhatsApp" && (
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            )}
+                            {method}
+                          </span>
+                        </label>
                       ))}
-                    </select>
+                    </div>
                   </div>
                 </div>
 
-                {/* ── Row 4: Preferred Contact Method ────── */}
-                <div>
-                  <p className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-4">
-                    Preferred Contact Method <span className="text-muted text-[10px] normal-case tracking-normal">(optional)</span>
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    {contactMethods.map((method) => (
-                      <label
-                        key={method}
-                        className="relative cursor-pointer"
-                      >
-                        <input
-                          {...register("preferredContactMethod")}
-                          type="radio"
-                          value={method}
-                          className="peer sr-only"
-                        />
-                        <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium
-                                       border border-border text-muted
-                                       peer-checked:border-primary peer-checked:text-primary peer-checked:bg-primary/10
-                                       hover:border-primary/50 hover:text-foreground
-                                       transition-all duration-300 select-none">
-                          {method === "Phone Call" && (
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
-                          )}
-                          {method === "WhatsApp" && (
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                          )}
-                          {method === "Email" && (
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
-                          )}
-                          {method}
-                        </span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* ── Row 5: Message ─────────────────────── */}
+                {/* ── Row 4: Your Message ─────────────────── */}
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3"
+                    className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3 flex items-center justify-between"
                   >
-                    Your Message <span className="text-primary">*</span>
+                    <span>
+                      Your Message <span className="text-muted text-[10px] normal-case tracking-normal">(optional)</span>
+                    </span>
                   </label>
-                  <textarea
-                    {...register("message")}
-                    id="message"
-                    placeholder="Tell us about your project vision, requirements, and timeline..."
-                    rows={5}
-                    className={`input-premium resize-none ${errors.message ? "!border-red-500 focus:!shadow-red-500/15" : ""}`}
-                  />
-                  {errors.message && (
-                    <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
-                      {errors.message.message}
-                    </p>
-                  )}
+                  <div className="relative">
+                    <textarea
+                      {...register("message")}
+                      id="message"
+                      placeholder="Tell us about your project vision, requirements, and timeline..."
+                      rows={5}
+                      className={`input-premium resize-none transition-all duration-200 ${getFieldStatusClass("message")}`}
+                    />
+                    {touchedFields.message && formValues.message && !errors.message && (
+                      <div className="absolute right-3.5 bottom-3.5 text-emerald-500">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                          <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* ── Submit button ──────────────────────── */}
                 <div className="pt-2">
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={!isValid || isSubmitting}
                     className="w-full min-h-[56px] py-4 text-sm font-semibold rounded-xl
-                               bg-primary text-[#0B1F3A] hover:bg-primary-dark
+                               bg-primary text-btn-text hover:bg-primary-dark
                                btn-shine transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]
                                shadow-md shadow-primary/20
-                               disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100
+                               disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-none
                                flex items-center justify-center gap-3"
                   >
                     {isSubmitting ? (

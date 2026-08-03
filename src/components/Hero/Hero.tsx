@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { heroContent, statistics } from "@/src/data/content";
 import { heroReveal } from "@/src/lib/motion";
+import { scrollToSection } from "@/src/lib/scrollToSection";
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const [count, setCount] = useState(0);
@@ -86,7 +87,7 @@ export default function Hero({ id }: HeroProps) {
       >
         {/* ── Hero Text Block ──────────────────────────────── */}
         <div className="text-center px-6 md:px-8 lg:px-12 max-w-5xl mx-auto">
-          {/* Subtitle Badge — ↓ 32px */}
+          {/* Subtitle Badge - ↓ 32px */}
           <motion.div
             variants={heroReveal}
             initial="hidden"
@@ -101,7 +102,7 @@ export default function Hero({ id }: HeroProps) {
             <span className="h-[1px] w-10 bg-primary/60" />
           </motion.div>
 
-          {/* Main Title — ↓ 32px */}
+          {/* Main Title - ↓ 32px */}
           <motion.h1
             variants={heroReveal}
             initial="hidden"
@@ -114,7 +115,7 @@ export default function Hero({ id }: HeroProps) {
             <span className="text-gold-gradient">{heroContent.titleAccent}</span>
           </motion.h1>
 
-          {/* Description — ↓ 48px */}
+          {/* Description - ↓ 48px */}
           <motion.p
             variants={heroReveal}
             initial="hidden"
@@ -125,7 +126,7 @@ export default function Hero({ id }: HeroProps) {
             {heroContent.description}
           </motion.p>
 
-          {/* CTA Buttons — fully visible, gap-6 desktop / gap-4 mobile */}
+          {/* CTA Buttons - fully visible, gap-6 desktop / gap-4 mobile */}
           <motion.div
             variants={heroReveal}
             initial="hidden"
@@ -135,8 +136,9 @@ export default function Hero({ id }: HeroProps) {
           >
             <a
               href="#contact"
+              onClick={(e) => { e.preventDefault(); scrollToSection("#contact"); }}
               className="min-h-[56px] flex items-center justify-center px-10 py-4 text-sm sm:text-base font-semibold rounded-xl
-                         bg-primary text-[#0B1F3A] hover:bg-primary-dark
+                         bg-primary text-btn-text hover:bg-primary-dark
                          btn-shine transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]
                          shadow-lg shadow-primary/20"
             >
@@ -144,6 +146,7 @@ export default function Hero({ id }: HeroProps) {
             </a>
             <a
               href="#projects"
+              onClick={(e) => { e.preventDefault(); scrollToSection("#projects"); }}
               className="min-h-[56px] flex items-center justify-center px-10 py-4 text-sm sm:text-base font-semibold rounded-xl
                          border border-white/20 text-white hover:bg-white/10
                          transition-all duration-300 hover:border-white/40 group"
@@ -154,7 +157,7 @@ export default function Hero({ id }: HeroProps) {
           </motion.div>
         </div>
 
-        {/* ── Statistics Card — normal flow, mt-20 (80px) ── */}
+        {/* ── Statistics Card - normal flow, mt-20 (80px) ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -177,7 +180,7 @@ export default function Hero({ id }: HeroProps) {
           </div>
         </motion.div>
 
-        {/* ── Scroll Indicator — normal flow, mt-20 (80px) ── */}
+        {/* ── Scroll Indicator - normal flow, mt-20 (80px) ── */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

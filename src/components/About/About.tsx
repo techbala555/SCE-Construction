@@ -20,7 +20,7 @@ export default function About({ id }: AboutProps) {
 
       <div ref={sectionRef} className="max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          {/* Left — Content */}
+          {/* Left - Content */}
           <motion.div
             variants={slideRight}
             initial="hidden"
@@ -72,8 +72,8 @@ export default function About({ id }: AboutProps) {
             <a
               href="#services"
               className="inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold rounded-xl
-                         bg-secondary text-white dark:bg-primary dark:text-[#0B1F3A]
-                         hover:opacity-90 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] group"
+                         bg-primary text-btn-text
+                         hover:bg-primary-dark transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] group"
             >
               Explore Our Services
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
@@ -83,7 +83,7 @@ export default function About({ id }: AboutProps) {
             </a>
           </motion.div>
 
-          {/* Right — Visual */}
+          {/* Right - Visual */}
           <motion.div
             variants={slideLeft}
             initial="hidden"
@@ -92,10 +92,10 @@ export default function About({ id }: AboutProps) {
             className="relative"
           >
             {/* Main Image Placeholder */}
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-secondary dark:bg-surface-elevated">
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-surface-elevated">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-white/30 p-8">
+                <div className="text-center text-muted p-8">
                   <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="mx-auto mb-4 opacity-50">
                     <rect x="2" y="4" width="20" height="16" rx="2" />
                     <path d="M2 14l5-5 3 3 4-4 8 8" />

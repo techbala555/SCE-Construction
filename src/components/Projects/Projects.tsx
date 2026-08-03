@@ -32,11 +32,11 @@ export default function Projects({ id }: ProjectsProps) {
             Featured <span className="text-gold-gradient">Projects</span>
           </h2>
           <p className="text-muted body-lg max-w-2xl mx-auto">
-            A showcase of our finest work — each project a testament to our craft, precision, and relentless pursuit of architectural excellence
+            A showcase of our finest work - each project a testament to our craft, precision, and relentless pursuit of architectural excellence
           </p>
         </motion.div>
 
-        {/* Projects Grid — gap-8 (32px) */}
+        {/* Projects Grid - gap-8 (32px) */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -48,15 +48,15 @@ export default function Projects({ id }: ProjectsProps) {
               key={project.id}
               variants={staggerItem}
               className="group rounded-2xl overflow-hidden border border-border
-                         bg-surface dark:bg-surface card-hover"
+                         bg-surface card-hover"
             >
               {/* Image Area */}
-              <div className="relative h-60 sm:h-64 overflow-hidden bg-secondary dark:bg-surface-elevated">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/50 dark:from-primary/5 dark:to-[#08111F]/50" />
+              <div className="relative h-60 sm:h-64 overflow-hidden bg-surface-elevated">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-black/20" />
 
                 {/* Project visual placeholder */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center text-white/20">
+                  <div className="text-center text-muted">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="mx-auto mb-2">
                       <rect x="2" y="4" width="20" height="16" rx="2" />
                       <path d="M2 14l5-5 3 3 4-4 8 8" />
@@ -68,7 +68,7 @@ export default function Projects({ id }: ProjectsProps) {
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4 z-10">
                   <span className="inline-flex items-center px-3 py-1.5 rounded-full
-                                   bg-primary/90 text-[#0B1F3A] text-[11px] font-bold uppercase tracking-wider">
+                                   bg-primary/90 text-btn-text text-[11px] font-bold uppercase tracking-wider">
                     {project.category}
                   </span>
                 </div>
@@ -80,8 +80,7 @@ export default function Projects({ id }: ProjectsProps) {
                 {/* Zoom effect */}
                 <div className="absolute inset-0 scale-100 group-hover:scale-110
                               transition-transform duration-700 ease-out
-                              bg-gradient-to-t from-secondary/60 via-transparent to-transparent
-                              dark:from-[#08111F]/60" />
+                              bg-gradient-to-t from-black/30 via-transparent to-transparent" />
               </div>
 
               {/* Content */}

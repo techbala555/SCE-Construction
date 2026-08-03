@@ -1,2 +1,2 @@
-// src/constants — placeholder directory for application constants
+// src/constants - placeholder directory for application constants
 export {};

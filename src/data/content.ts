@@ -1,5 +1,5 @@
 // ============================================================
-// SCE Construction — Central Content Data
+// SCE Construction - Central Content Data
 // ============================================================
 
 // ── Navigation ──────────────────────────────────────────────
@@ -13,7 +13,7 @@ export const navigationItems: NavItem[] = [
   { label: "About Us", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Projects", href: "#projects" },
-  { label: "Why Choose Us", href: "#why-us" },
+  { label: "Why Choose Us?", href: "#why-us" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -22,11 +22,11 @@ export const companyInfo = {
   name: "SCE Construction",
   tagline: "Building Tomorrow's Landmarks Today",
   description:
-    "Shylesh Circuits & Engineering is a trusted name in construction, land development, and real estate. We deliver end-to-end solutions — from residential building construction and villa projects to GPS land surveys, DTCP approvals, layout planning, and property development. Every project is backed by professional engineering standards, modern planning practices, and a deep commitment to quality.",
+    "Shylesh Circuits & Engineering is a trusted name in construction, land development, and real estate. We deliver end-to-end solutions - from residential building construction and villa projects to GPS land surveys, DTCP approvals, layout planning, and property development. Every project is backed by professional engineering standards, modern planning practices, and a deep commitment to quality.",
   mission:
-    "To deliver dependable construction, land development, and real estate solutions that exceed client expectations — built on trust, precision, and professional integrity.",
+    "To deliver dependable construction, land development that exceed client expectations - built on trust, precision, and professional integrity.",
   vision:
-    "To become a leading force in residential construction, land development, and property solutions — known for quality craftsmanship, transparent execution, and lasting client relationships.",
+    "To become a leading force in residential construction, land development, and property solutions - known for quality craftsmanship, transparent execution, and lasting client relationships.",
   cta: "Get Free Quote",
 };
 
@@ -36,7 +36,7 @@ export const heroContent = {
   title: "Building Tomorrow's",
   titleAccent: "Landmarks Today",
   description:
-    "Complete construction, land development, engineering, and real estate solutions — delivered with a commitment to quality, trust, and timely execution.",
+    "Complete construction, land development, engineering - delivered with a commitment to quality, trust, and timely execution.",
   ctaPrimary: "Start Your Project",
   ctaSecondary: "View Our Work",
 };
@@ -73,7 +73,7 @@ export const services: Service[] = [
     id: "construction",
     title: "Construction Services",
     description:
-      "From independent houses and villas to apartments and complete interior finishing — we handle every aspect of residential building construction with professional-grade execution.",
+      "From independent houses and villas to apartments and complete interior finishing - we handle every aspect of residential building construction with professional-grade execution.",
     icon: "🏗️",
     items: [
       { text: "Residential Building Construction" },
@@ -102,7 +102,7 @@ export const services: Service[] = [
     id: "real-estate",
     title: "Real Estate Development",
     description:
-      "Strategic property promotion and residential plot development — creating well-planned layouts and land development projects that maximize value for investors and homebuyers alike.",
+      "Strategic property promotion and residential plot development - creating well-planned layouts and land development projects that maximize value for investors and homebuyers alike.",
     icon: "🏘️",
     items: [
       { text: "Property Promotion" },
@@ -115,7 +115,7 @@ export const services: Service[] = [
     id: "future-projects",
     title: "Farmhouse Projects",
     description:
-      "Specialized farmhouse planning, construction, and land development — helping you create premium countryside retreats designed for comfort, privacy, and long-term value.",
+      "Specialized farmhouse planning, construction, and land development - helping you create premium countryside retreats designed for comfort, privacy, and long-term value.",
     icon: "🌿",
     items: [
       { text: "Farmhouse Planning" },
@@ -124,6 +124,125 @@ export const services: Service[] = [
     ],
   },
 ];
+
+// ── Extended Service Details for Modal ──────────────────────
+export interface ServiceDetail {
+  id: string;
+  title: string;
+  icon: string;
+  shortIntro: string;
+  fullDescription: string;
+  items: string[];
+  keyBenefits: string[];
+  whyChooseUs: string[];
+}
+
+export const serviceDetails: Record<string, ServiceDetail> = {
+  construction: {
+    id: "construction",
+    title: "Construction Services",
+    icon: "🏗️",
+    shortIntro: "Engineering-Led Residential & Villa Construction",
+    fullDescription:
+      "Shylesh Circuits & Engineering delivers high-caliber residential construction across Madurai and Tamil Nadu. From single-family independent houses and luxury custom villas to modern apartment complexes and bespoke interior finishing, our end-to-end execution ensures structural integrity, architectural elegance, and transparent cost management.",
+    items: [
+      "Residential Building Construction",
+      "Independent House Construction",
+      "Villa Construction",
+      "Apartment Construction",
+      "Interior Design & Interior Finishing Works",
+    ],
+    keyBenefits: [
+      "Turnkey management from foundation engineering to final key handover",
+      "Strict compliance with BIS codes and structural safety standards",
+      "Complete material quality transparency with zero hidden costs",
+      "Dedicated site engineers and daily progress monitoring",
+    ],
+    whyChooseUs: [
+      "Over 100+ successfully delivered projects across residential sectors",
+      "In-house engineering team providing customized blueprint designs",
+      "Seamless integration of structural build with luxury interior finishing",
+    ],
+  },
+  "land-development": {
+    id: "land-development",
+    title: "Land Development",
+    icon: "📐",
+    shortIntro: "GPS Surveying, Approvals & Complete Site Preparation",
+    fullDescription:
+      "Our Land Development division turns raw land into approved, infrastructure-ready residential and commercial plots. Utilizing modern GPS surveying instruments, we guarantee sub-centimeter boundary accuracy, streamline DTCP government approvals, and construct complete layout infrastructure including asphalt/concrete internal roads, underground drainage, overhead water tanks, and secure compound walls.",
+    items: [
+      "GPS Land Survey & Site Measurement",
+      "DTCP Approval Assistance",
+      "Layout Planning & Development",
+      "Land Development & Site Preparation",
+      "Internal Road Construction",
+      "Drainage System Development",
+      "Overhead Water Tank Construction",
+      "Compound Wall Construction",
+    ],
+    keyBenefits: [
+      "High-precision GPS land survey and boundary mapping",
+      "End-to-end assistance for DTCP and local body layout approvals",
+      "Robust heavy civil work: internal roads, stormwater drainage, compound walls",
+      "Maximizes land utilization efficiency and overall property appraisal value",
+    ],
+    whyChooseUs: [
+      "Proven technical expertise in multi-acre layout engineering",
+      "Deep understanding of regional land development compliance and documentation",
+      "Heavy machinery and dedicated site preparation workforce",
+    ],
+  },
+  "real-estate": {
+    id: "real-estate",
+    title: "Real Estate Development",
+    icon: "🏘️",
+    shortIntro: "Strategic Plot Promotion & Premium Layout Development",
+    fullDescription:
+      "SCE Construction's Real Estate Development division specializes in developing strategic residential layouts, property promotion, and prime plot promotion. We identify fast-growing residential zones, curate legal-clear plot layouts, and equip every project with essential civic infrastructure to offer homebuyers and real estate investors secure, high-appreciation land opportunities.",
+    items: [
+      "Property Promotion",
+      "Residential Plot Development",
+      "Layout Development",
+      "Land Development Projects",
+    ],
+    keyBenefits: [
+      "100% legal-clear title verification and transparent documentation",
+      "Strategically located in high-growth residential and investment corridors",
+      "Fully developed plots with roads, drainage, water supply, and electrification ready",
+      "Direct developer pricing with comprehensive buyer guidance",
+    ],
+    whyChooseUs: [
+      "Established brand reputation built on engineering integrity and trust",
+      "Hassle-free plot registration and documentation support",
+      "Strong focus on long-term capital appreciation for property buyers",
+    ],
+  },
+  "future-projects": {
+    id: "future-projects",
+    title: "Farmhouse Projects",
+    icon: "🌿",
+    shortIntro: "Countryside Retreat Planning, Land Prep & Custom Build",
+    fullDescription:
+      "Experience peaceful living with our specialized Farmhouse Projects service. We assist land owners in planning, developing, and constructing private countryside farmhouses and resort-style holiday homes. From initial land contouring and fencing to sustainable architectural design and luxury construction, we create personal sanctuaries tailored for relaxation and value.",
+    items: [
+      "Farmhouse Planning",
+      "Farmhouse Construction",
+      "Farmhouse Land Development",
+    ],
+    keyBenefits: [
+      "Tailored layout planning harmonizing natural terrain with modern living",
+      "Complete site prep: perimeter fencing, water source planning, and access roads",
+      "Climate-conscious, durable building structures for leisure and long-term utility",
+      "Turnkey execution from land clearing to turnkey interior setup",
+    ],
+    whyChooseUs: [
+      "Specialized expertise in rural and semi-urban land development",
+      "Custom architectural styles combining rustic aesthetics with modern luxury",
+      "Dedicated management for private estate and holiday home construction",
+    ],
+  },
+};
 
 // ── Projects ────────────────────────────────────────────────
 export interface Project {
@@ -142,7 +261,7 @@ export const projects: Project[] = [
     title: "Premium Villa Project",
     category: "Residential",
     description:
-      "A custom-designed villa with modern architecture, spacious interiors, and premium finishing — built to the highest construction standards.",
+      "A custom-designed villa with modern architecture, spacious interiors, and premium finishing - built to the highest construction standards.",
     location: "Madurai, Tamil Nadu",
     year: 2024,
     image: "/images/projects/villa-project.jpg",
@@ -182,7 +301,7 @@ export const projects: Project[] = [
     title: "Interior Design & Finishing",
     category: "Interior",
     description:
-      "Complete interior design and finishing works — including modular kitchens, wardrobes, false ceilings, and premium flooring solutions.",
+      "Complete interior design and finishing works - including modular kitchens, wardrobes, false ceilings, and premium flooring solutions.",
     location: "Madurai, Tamil Nadu",
     year: 2024,
     image: "/images/projects/interior-finishing.jpg",
@@ -212,21 +331,21 @@ export const whyChooseUs: Reason[] = [
     id: "end-to-end",
     title: "End-to-End Solutions",
     description:
-      "From land surveys and approvals to construction and interior finishing — we manage every stage of your project under one roof.",
+      "From land surveys and approvals to construction and interior finishing - we manage every stage of your project under one roof.",
     icon: "✅",
   },
   {
     id: "land-development",
     title: "Professional Land Development",
     description:
-      "GPS-based surveys, DTCP approval assistance, layout planning, and complete site infrastructure — executed with technical precision.",
+      "GPS-based surveys, DTCP approval assistance, layout planning, and complete site infrastructure - executed with technical precision.",
     icon: "📐",
   },
   {
     id: "quality",
     title: "Quality Engineering Standards",
     description:
-      "We follow strict engineering standards at every stage — using quality materials, proven methods, and professional site supervision.",
+      "We follow strict engineering standards at every stage - using quality materials, proven methods, and professional site supervision.",
     icon: "⭐",
   },
   {

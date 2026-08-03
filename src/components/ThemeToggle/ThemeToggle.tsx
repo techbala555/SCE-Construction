@@ -9,7 +9,7 @@ export default function ThemeToggle() {
   const mounted = useMounted();
 
   if (!mounted) {
-    return <div className="w-12 h-12 rounded-full bg-white/10" aria-hidden />;
+    return <div className="w-12 h-12 rounded-full bg-surface-elevated" aria-hidden />;
   }
 
   const isDark = resolvedTheme === "dark";
@@ -30,21 +30,6 @@ export default function ThemeToggle() {
                  transition-all duration-300 cursor-pointer
                  hover:scale-105 active:scale-95"
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-      style={{
-        background: isDark ? "rgba(255,255,255,0.08)" : "#F8F9FA",
-        border: isDark ? "1px solid rgba(255,255,255,0.15)" : "1px solid #D1D5DB",
-        boxShadow: isDark ? "none" : "0 4px 12px rgba(0,0,0,0.08)",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.background = isDark
-          ? "rgba(255,255,255,0.12)"
-          : "#F3F4F6";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.background = isDark
-          ? "rgba(255,255,255,0.08)"
-          : "#F8F9FA";
-      }}
     >
       <AnimatePresence mode="wait">
         {isDark ? (
@@ -58,7 +43,6 @@ export default function ThemeToggle() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            style={{ color: "#FFFFFF" }}
             initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
             animate={{ rotate: 0, opacity: 1, scale: 1 }}
             exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
@@ -85,7 +69,6 @@ export default function ThemeToggle() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            style={{ color: "#111827" }}
             initial={{ rotate: 90, opacity: 0, scale: 0.5 }}
             animate={{ rotate: 0, opacity: 1, scale: 1 }}
             exit={{ rotate: -90, opacity: 0, scale: 0.5 }}
