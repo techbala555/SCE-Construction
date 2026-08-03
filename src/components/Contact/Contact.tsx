@@ -48,6 +48,7 @@ export default function Contact({ id }: ContactProps) {
     defaultValues: {
       name: "",
       phone: "",
+      email: "",
       projectType: "",
       budget: "",
       location: "",
@@ -58,10 +59,26 @@ export default function Contact({ id }: ContactProps) {
 
   const formValues = watch();
 
-  /* ── Demo submit - no backend, just shows modal ──────── */
-  const onSubmit = async (_data: LeadFormData) => {
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setModalState({ open: true, type: "success" });
+  /* ── Submit lead to /api/leads API ──────────────────────── */
+  const onSubmit = async (data: LeadFormData) => {
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const resData = await response.json();
+
+      if (response.ok && resData.success) {
+        setModalState({ open: true, type: "success" });
+      } else {
+        setModalState({ open: true, type: "error" });
+      }
+    } catch (err) {
+      console.error("Form submission error:", err);
+      setModalState({ open: true, type: "error" });
+    }
   };
 
   const handleCloseModal = () => setModalState({ open: false, type: "success" });
@@ -239,8 +256,40 @@ export default function Contact({ id }: ContactProps) {
                   </div>
                 </div>
 
-                {/* ── Row 2: Project Type + Location ──────── */}
+                {/* ── Row 2: Email Address + Project Type ── */}
                 <div className="grid sm:grid-cols-2 gap-6">
+                  {/* Email Address */}
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3"
+                    >
+                      Email Address <span className="text-muted text-[10px] normal-case tracking-normal">(optional)</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        {...register("email")}
+                        type="email"
+                        id="email"
+                        placeholder="your@email.com"
+                        className={`input-premium transition-all duration-200 ${getFieldStatusClass("email")}`}
+                      />
+                      {touchedFields.email && formValues.email && !errors.email && (
+                        <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </div>
+                      )}
+                    </div>
+                    {errors.email && (
+                      <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+                        {errors.email.message}
+                      </p>
+                    )}
+                  </div>
+
                   {/* Project Type Dropdown */}
                   <Controller
                     control={control}
@@ -260,7 +309,10 @@ export default function Contact({ id }: ContactProps) {
                       />
                     )}
                   />
+                </div>
 
+                {/* ── Row 3: Location + Estimated Budget ──── */}
+                <div className="grid sm:grid-cols-2 gap-6">
                   {/* Location */}
                   <div>
                     <label
@@ -292,10 +344,7 @@ export default function Contact({ id }: ContactProps) {
                       </p>
                     )}
                   </div>
-                </div>
 
-                {/* ── Row 3: Estimated Budget (Optional) ──── */}
-                <div className="grid sm:grid-cols-2 gap-6">
                   {/* Estimated Budget Dropdown */}
                   <Controller
                     control={control}
@@ -313,7 +362,10 @@ export default function Contact({ id }: ContactProps) {
                       />
                     )}
                   />
+                </div>
 
+                {/* ── Row 4: Preferred Contact Method ──── */}
+                <div>
                   {/* Preferred Contact Method (Phone / WhatsApp) */}
                   <div>
                     <p className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3">

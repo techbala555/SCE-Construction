@@ -43,6 +43,11 @@ export const leadFormSchema = z.object({
   phone: z
     .string()
     .regex(/^[6-9]\d{9}$/, "Please enter a valid 10-digit mobile number."),
+  email: z
+    .string()
+    .email("Enter a valid email address.")
+    .optional()
+    .or(z.literal("")),
   projectType: z
     .string()
     .min(1, "Please select a project type."),

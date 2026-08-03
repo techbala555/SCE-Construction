@@ -1,0 +1,39 @@
+// ================================================================
+// SCE CONSTRUCTION — PRISMA DATABASE SCHEMA
+// PostgreSQL Lead Management Foundation
+// ================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  IN_PROGRESS
+  CLOSED
+  ARCHIVED
+}
+
+model Lead {
+  id                     String     @id @default(cuid())
+  name                   String
+  phone                  String
+  email                  String?
+  projectType            String
+  location               String
+  budget                 String?
+  message                String?
+  preferredContactMethod String?
+  status                 LeadStatus @default(NEW)
+  createdAt              DateTime   @default(now())
+  updatedAt              DateTime   @updatedAt
+
+  @@index([createdAt])
+  @@index([status])
+}
