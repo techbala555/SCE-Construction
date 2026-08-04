@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { whyChooseUs } from "@/src/data/content";
 import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
@@ -79,6 +80,45 @@ export default function WhyChooseUs({ id }: WhyChooseUsProps) {
           <p className="text-deep-muted body-lg max-w-2xl mx-auto">
             Professional construction and land development backed by quality engineering, transparent management, and a commitment to every client
           </p>
+        </motion.div>
+
+        {/* Premium Section Hero Image */}
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          custom={0.1}
+          className="relative mb-12 sm:mb-16 rounded-3xl overflow-hidden border border-deep-border shadow-xl aspect-[16/9] sm:aspect-[21/9] bg-surface-elevated"
+        >
+          <Image
+            src="/images/why-choose-us.jpg"
+            alt="SCE Construction site engineers and project managers reviewing architectural blueprints on site"
+            fill
+            quality={80}
+            sizes="(max-width: 1280px) 100vw, 1280px"
+            className="object-cover object-center"
+          />
+
+          {/* Gradient Overlay for Contrast */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
+          {/* Glassmorphism Trust Badges Overlay */}
+          <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-10 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl sm:rounded-2xl bg-black/50 backdrop-blur-md border border-white/20 text-white text-xs sm:text-sm font-semibold shadow-lg">
+              <span className="w-5 h-5 rounded-full bg-primary/30 flex items-center justify-center text-primary text-xs flex-shrink-0">✓</span>
+              <span>100+ Projects Delivered</span>
+            </div>
+
+            <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl sm:rounded-2xl bg-black/50 backdrop-blur-md border border-white/20 text-white text-xs sm:text-sm font-semibold shadow-lg">
+              <span className="w-5 h-5 rounded-full bg-primary/30 flex items-center justify-center text-primary text-xs flex-shrink-0">✓</span>
+              <span>Professional Engineering Standards</span>
+            </div>
+
+            <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl sm:rounded-2xl bg-black/50 backdrop-blur-md border border-white/20 text-white text-xs sm:text-sm font-semibold shadow-lg">
+              <span className="w-5 h-5 rounded-full bg-primary/30 flex items-center justify-center text-primary text-xs flex-shrink-0">✓</span>
+              <span>Transparent Project Management</span>
+            </div>
+          </div>
         </motion.div>
 
         {/* Reasons Grid */}
