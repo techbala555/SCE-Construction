@@ -31,14 +31,26 @@ interface LeadEmailData {
  * 2. Customer Confirmation Email -> Customer Email (if provided)
  *
  * Safe execution: Errors are logged completely and caught so lead creation is NEVER failed.
+ * Works identically regardless of preferredContactMethod ("Phone Call", "WhatsApp", etc.).
  */
 export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<void> {
+  console.log(`[EMAIL_SERVICE] 📧 Initiating email dispatch for Lead ID: ${lead.id}`);
+  console.log(`[EMAIL_SERVICE] 📋 Lead Details:`, {
+    name: lead.name,
+    phone: lead.phone,
+    email: lead.email,
+    projectType: lead.projectType,
+    preferredContactMethod: lead.preferredContactMethod || "Phone Call",
+  });
+
   if (!resend) {
     console.warn(
-      "[RESEND_EMAIL_SERVICE] RESEND_API_KEY is not configured in environment variables. Skipping email dispatch."
+      "[EMAIL_SERVICE] ⚠️ RESEND_API_KEY is not configured in environment variables. Skipping email dispatch."
     );
     return;
   }
+
+  const contactMethodDisplay = lead.preferredContactMethod || "Phone Call";
 
   const formattedDate = new Date(lead.createdAt).toLocaleString("en-IN", {
     timeZone: "Asia/Kolkata",
@@ -101,8 +113,8 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<v
                 <td style="padding: 12px 16px; background-color: #111827; border-bottom: 1px solid rgba(255,255,255,0.08); color: #F9FAFB;">${lead.budget || '<span style="color: #94A3B8; font-style: italic;">Not specified</span>'}</td>
               </tr>
               <tr>
-                <td style="padding: 12px 16px; background-color: #1F2937; border-bottom: 1px solid rgba(255,255,255,0.08); font-weight: 600; color: #D4A017;">Contact Method</td>
-                <td style="padding: 12px 16px; background-color: #111827; border-bottom: 1px solid rgba(255,255,255,0.08); color: #F9FAFB;">${lead.preferredContactMethod || "Phone Call"}</td>
+                <td style="padding: 12px 16px; background-color: #1F2937; border-bottom: 1px solid rgba(255,255,255,0.08); font-weight: 600; color: #D4A017;">Preferred Contact Method</td>
+                <td style="padding: 12px 16px; background-color: #111827; border-bottom: 1px solid rgba(255,255,255,0.08); color: #F9FAFB; font-weight: 600;">${contactMethodDisplay}</td>
               </tr>
               <tr>
                 <td style="padding: 12px 16px; background-color: #1F2937; border-bottom: 1px solid rgba(255,255,255,0.08); font-weight: 600; color: #D4A017;">Submitted At</td>
@@ -133,20 +145,21 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<v
       </html>
     `;
 
+    console.log(`[EMAIL_SERVICE] 📤 Sending Admin Notification Email to: ${NOTIFICATION_EMAIL}`);
     const { data: ownerData, error: ownerError } = await resend.emails.send({
       from: FROM_EMAIL,
       to: NOTIFICATION_EMAIL,
-      subject: "New Website Enquiry - Shylesh Circuits & Engineering",
+      subject: `New Website Enquiry - ${lead.name} (${contactMethodDisplay})`,
       html: ownerHtml,
     });
 
     if (ownerError) {
-      console.error("[RESEND_EMAIL_ERROR] Owner notification email failed:", ownerError);
+      console.error("[EMAIL_SERVICE] ❌ Owner notification email failed:", ownerError);
     } else {
-      console.log(`[RESEND_EMAIL_SUCCESS] Owner notification sent to ${NOTIFICATION_EMAIL} (ID: ${ownerData?.id})`);
+      console.log(`[EMAIL_SERVICE] ✅ Owner notification sent successfully to ${NOTIFICATION_EMAIL} (ID: ${ownerData?.id})`);
     }
   } catch (error) {
-    console.error("[RESEND_EMAIL_ERROR] Exception caught sending owner email:", error);
+    console.error("[EMAIL_SERVICE] ❌ Exception caught sending owner email:", error);
   }
 
   // ── 2. Customer Confirmation Email (only if email provided) ──
@@ -182,13 +195,14 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<v
               </p>
 
               <p style="font-size: 15px; color: #334155; line-height: 1.7; margin-bottom: 24px;">
-                Our engineering and project management team is currently reviewing your requirements and will reach out to you shortly via <strong>${lead.preferredContactMethod || "phone"}</strong>.
+                Our engineering and project management team is currently reviewing your requirements and will reach out to you shortly via <strong>${contactMethodDisplay}</strong>.
               </p>
 
               <div style="background-color: #F1F5F9; border-left: 4px solid #D4A017; padding: 18px; border-radius: 8px; margin-bottom: 28px;">
                 <h3 style="margin: 0 0 10px 0; font-size: 14px; font-weight: 700; color: #111827; text-transform: uppercase; letter-spacing: 0.5px;">Summary of Your Enquiry:</h3>
                 <p style="margin: 4px 0; font-size: 13px; color: #475569;"><strong>Project Type:</strong> ${lead.projectType}</p>
                 <p style="margin: 4px 0; font-size: 13px; color: #475569;"><strong>Location:</strong> ${lead.location}</p>
+                <p style="margin: 4px 0; font-size: 13px; color: #475569;"><strong>Preferred Contact Method:</strong> ${contactMethodDisplay}</p>
                 ${lead.budget ? `<p style="margin: 4px 0; font-size: 13px; color: #475569;"><strong>Budget:</strong> ${lead.budget}</p>` : ''}
               </div>
 
@@ -196,7 +210,7 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<v
                 If you have any urgent queries, feel free to call us directly at <a href="tel:+910000000000" style="color: #B8860B; font-weight: 600; text-decoration: none;">+91 00000 00000</a>.
               </p>
 
-              <div style="border-top: 1px solid #E2E8F0; pt: 20px; padding-top: 20px;">
+              <div style="border-top: 1px solid #E2E8F0; padding-top: 20px;">
                 <p style="margin: 0; font-size: 14px; font-weight: 600; color: #111827;">Regards,</p>
                 <p style="margin: 4px 0 0 0; font-size: 15px; font-weight: 700; color: #B8860B;">Shylesh Circuits & Engineering</p>
                 <p style="margin: 2px 0 0 0; font-size: 13px; color: #64748B;">Builders & Developers — Madurai, Tamil Nadu</p>
@@ -212,6 +226,7 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<v
         </html>
       `;
 
+      console.log(`[EMAIL_SERVICE] 📤 Sending Customer Confirmation Email to: ${lead.email}`);
       const { data: customerData, error: customerError } = await resend.emails.send({
         from: FROM_EMAIL,
         to: lead.email,
@@ -220,12 +235,14 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<v
       });
 
       if (customerError) {
-        console.error("[RESEND_EMAIL_ERROR] Customer confirmation email failed:", customerError);
+        console.error("[EMAIL_SERVICE] ❌ Customer confirmation email failed:", customerError);
       } else {
-        console.log(`[RESEND_EMAIL_SUCCESS] Customer confirmation sent to ${lead.email} (ID: ${customerData?.id})`);
+        console.log(`[EMAIL_SERVICE] ✅ Customer confirmation sent successfully to ${lead.email} (ID: ${customerData?.id})`);
       }
     } catch (error) {
-      console.error("[RESEND_EMAIL_ERROR] Exception caught sending customer email:", error);
+      console.error("[EMAIL_SERVICE] ❌ Exception caught sending customer email:", error);
     }
+  } else {
+    console.log(`[EMAIL_SERVICE] ℹ️ Customer email not provided. Skipping customer confirmation email dispatch.`);
   }
 }

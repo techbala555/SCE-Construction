@@ -72,13 +72,10 @@ export default function About({ id }: AboutProps) {
 
             <a
               href="#services"
-              className="inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold rounded-xl
-                         bg-primary text-btn-text
-                         hover:bg-primary-dark transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] group"
+              className="btn-shine inline-flex items-center gap-2.5 px-8 py-4 text-sm font-bold rounded-xl"
             >
-              Explore Our Services
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
-                className="transition-transform duration-300 group-hover:translate-x-1">
+              <span>Explore Our Services</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMounted } from "@/src/lib/useMounted";
@@ -14,18 +14,55 @@ interface SubmissionModalProps {
   onRetry?: () => void;
 }
 
-/* ─── SVG icons ───────────────────────────────────────────────── */
+/* ── Focus Trap Utility ─────────────────────────────────────── */
+function useFocusTrap(isActive: boolean, containerRef: React.RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    if (!isActive || !containerRef.current) return;
+
+    const container = containerRef.current;
+    const focusable = container.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])'
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      if (focusable.length === 0) {
+        e.preventDefault();
+        return;
+      }
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last?.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first?.focus();
+        }
+      }
+    };
+
+    container.addEventListener("keydown", handleKeyDown);
+    setTimeout(() => first?.focus(), 50);
+    return () => container.removeEventListener("keydown", handleKeyDown);
+  }, [isActive, containerRef]);
+}
+
+/* ─── SVG Icons with Soft Glow ────────────────────────────────── */
 
 function CheckmarkIcon() {
   return (
     <motion.div
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
-      transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.15 }}
-      className="mx-auto flex h-[72px] w-[72px] items-center justify-center rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/30"
+      transition={{ type: "spring", stiffness: 280, damping: 20, delay: 0.12 }}
+      className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-emerald-500 text-white shadow-xl shadow-emerald-500/25 ring-8 ring-emerald-500/10 dark:ring-emerald-500/20"
     >
       <svg
-        className="h-9 w-9 text-white"
+        className="h-10 w-10 text-white"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -37,7 +74,7 @@ function CheckmarkIcon() {
           d="M5 13l4 4L19 7"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
-          transition={{ duration: 0.4, delay: 0.35 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
         />
       </svg>
     </motion.div>
@@ -49,31 +86,23 @@ function ErrorIcon() {
     <motion.div
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
-      transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.15 }}
-      className="mx-auto flex h-[72px] w-[72px] items-center justify-center rounded-full bg-red-500 shadow-lg shadow-red-500/30"
+      transition={{ type: "spring", stiffness: 280, damping: 20, delay: 0.12 }}
+      className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-red-500 text-white shadow-xl shadow-red-500/25 ring-8 ring-red-500/10 dark:ring-red-500/20"
     >
       <svg
-        className="h-9 w-9 text-white"
+        className="h-10 w-10 text-white"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
         strokeWidth={3}
       >
-        <circle cx="12" cy="12" r="10" strokeWidth="2" />
-        <motion.path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M12 8v4m0 4h.01"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: 0.4, delay: 0.35 }}
-        />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v4m0 4h.01" />
       </svg>
     </motion.div>
   );
 }
 
-/* ─── Modal ───────────────────────────────────────────────────── */
+/* ─── Submission Modal ───────────────────────────────────────── */
 
 export default function SubmissionModal({
   isOpen,
@@ -84,6 +113,7 @@ export default function SubmissionModal({
   onRetry,
 }: SubmissionModalProps) {
   const mounted = useMounted();
+  const modalRef = useRef<HTMLDivElement>(null);
 
   /* Close on Escape key */
   const handleKeyDown = useCallback(
@@ -104,6 +134,8 @@ export default function SubmissionModal({
     };
   }, [isOpen, handleKeyDown]);
 
+  useFocusTrap(isOpen, modalRef);
+
   const isSuccess = type === "success";
   const title = customTitle || (isSuccess ? "Thank You!" : "Submission Failed");
   const message =
@@ -119,77 +151,75 @@ export default function SubmissionModal({
   return createPortal(
     <AnimatePresence mode="wait">
       {isOpen && (
-        /* Backdrop */
+        /* Backdrop Overlay */
         <motion.div
           key="submission-modal-backdrop"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-md px-4"
+          transition={{ duration: 0.22 }}
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/65 dark:bg-black/80 backdrop-blur-md p-4 sm:p-6"
           onClick={onClose}
           aria-hidden="true"
         >
-          {/* Modal card */}
+          {/* Modal Container */}
           <motion.div
+            ref={modalRef}
             key="submission-modal-card"
-            initial={{ scale: 0.9, opacity: 0, y: 24 }}
+            initial={{ scale: 0.92, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, y: 12 }}
-            transition={{ type: "spring", stiffness: 300, damping: 26 }}
+            transition={{ type: "spring", stiffness: 320, damping: 26 }}
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
             aria-label={title}
-            className="relative w-full max-w-md rounded-3xl p-10
-                       bg-surface border border-border
-                       shadow-2xl"
-            style={{
-              background: "var(--glass-bg)",
-              backdropFilter: "blur(32px) saturate(200%)",
-              WebkitBackdropFilter: "blur(32px) saturate(200%)",
-            }}
+            className="relative w-full max-w-md rounded-3xl p-8 sm:p-10
+                       bg-surface border border-border/80
+                       shadow-2xl overflow-hidden select-none"
           >
-            {/* Subtle gold top accent */}
-            <div className="absolute top-0 left-6 right-6 h-[2px] rounded-b-full bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+            {/* Top Gold Accent Line */}
+            <div className="absolute top-0 left-8 right-8 h-[3px] rounded-b-full bg-gradient-to-r from-transparent via-primary to-transparent z-10 pointer-events-none" />
 
             {/* Icon */}
-            <div className="mb-6">
+            <div className="mb-6 sm:mb-7 flex items-center justify-center">
               {isSuccess ? <CheckmarkIcon /> : <ErrorIcon />}
             </div>
 
             {/* Title */}
-            <h2 className="mb-3 text-center text-2xl font-bold tracking-tight text-foreground">
+            <h2 className="mb-3 text-center text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground leading-snug">
               {title}
             </h2>
 
-            {/* Message */}
-            <p className="mb-8 whitespace-pre-line text-center text-sm leading-relaxed text-muted">
+            {/* Message Description */}
+            <p className="mb-8 whitespace-pre-line text-center text-sm sm:text-base leading-relaxed text-muted max-w-sm mx-auto">
               {message}
             </p>
 
-            {/* Buttons */}
-            <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-              {/* Primary action */}
+            {/* Button Hierarchy */}
+            <div className="flex flex-col gap-3.5 w-full">
+              {/* Primary Action Button */}
               <button
                 type="button"
-                onClick={() => onRetry?.()}
-                className="btn-shine inline-flex items-center justify-center rounded-xl
-                           bg-primary text-btn-text px-6 py-3 text-sm font-semibold
+                onClick={() => (onRetry ? onRetry() : onClose())}
+                className="btn-shine w-full min-h-[50px] sm:min-h-[52px] py-3.5 px-6 rounded-2xl
+                           bg-primary text-btn-text text-sm sm:text-base font-bold
                            hover:bg-primary-dark transition-all duration-300
-                           hover:scale-[1.02] active:scale-[0.98]"
+                           shadow-md shadow-primary/20 hover:scale-[1.01] active:scale-[0.98]
+                           flex items-center justify-center"
               >
                 {primaryLabel}
               </button>
 
-              {/* Close / outline button */}
+              {/* Secondary Close Button */}
               <button
                 type="button"
                 onClick={onClose}
-                className="inline-flex items-center justify-center rounded-xl
-                           border border-border text-muted px-6 py-3 text-sm font-semibold
-                           hover:text-foreground hover:border-foreground/30
-                           transition-all duration-300"
+                className="w-full min-h-[50px] sm:min-h-[52px] py-3.5 px-6 rounded-2xl
+                           bg-surface border border-border/80 text-foreground text-sm sm:text-base font-bold
+                           hover:bg-slate-50 dark:hover:bg-surface-elevated transition-all duration-300
+                           shadow-xs hover:scale-[1.01] active:scale-[0.98]
+                           flex items-center justify-center"
               >
                 Close
               </button>

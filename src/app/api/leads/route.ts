@@ -12,9 +12,11 @@ import { ZodError } from "zod";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    console.log("[API_LEADS_POST] 📥 Incoming Payload:", JSON.stringify(body, null, 2));
 
     // 1. Validate payload with Zod schema
     const validatedData = leadFormSchema.parse(body);
+    console.log("[API_LEADS_POST] ✅ Validated Payload:", JSON.stringify(validatedData, null, 2));
 
     // 2. Server-Side Duplicate Check (within the last 2 minutes)
     const twoMinutesAgo = new Date(Date.now() - 2 * 60 * 1000);
@@ -28,6 +30,9 @@ export async function POST(request: Request) {
     });
 
     if (existingLead) {
+      console.warn(
+        `[API_LEADS_POST] ⚠️ Duplicate enquiry blocked for phone: ${validatedData.phone}, projectType: ${validatedData.projectType}`
+      );
       return NextResponse.json(
         {
           success: false,
@@ -47,18 +52,24 @@ export async function POST(request: Request) {
         projectType: validatedData.projectType,
         location: validatedData.location,
         budget: validatedData.budget || null,
-        preferredContactMethod: validatedData.preferredContactMethod || null,
+        preferredContactMethod: validatedData.preferredContactMethod || "Phone Call",
         message: validatedData.message || null,
       },
     });
 
-    // 4. Dispatch Email Notifications (Owner + Customer confirmation)
-    // Non-blocking & fail-safe: failures are logged without breaking response
-    sendLeadNotificationEmails(lead).catch((err) => {
-      console.error("[API_LEADS_EMAIL_DISPATCH_ERROR]", err);
-    });
+    console.log(
+      `[API_LEADS_POST] 💾 Lead created in PostgreSQL (ID: ${lead.id}, PreferredContactMethod: "${lead.preferredContactMethod}")`
+    );
 
-    // 4. Return success response
+    // 4. Dispatch Email Notifications (Owner + Customer confirmation)
+    // Await email dispatch to ensure execution completes cleanly in serverless context
+    try {
+      await sendLeadNotificationEmails(lead);
+    } catch (emailErr) {
+      console.error("[API_LEADS_POST] ❌ Non-fatal email dispatch exception:", emailErr);
+    }
+
+    // 5. Return success response
     return NextResponse.json(
       {
         success: true,
@@ -73,6 +84,7 @@ export async function POST(request: Request) {
   } catch (error) {
     // Handle Zod validation errors (HTTP 400)
     if (error instanceof ZodError) {
+      console.error("[API_LEADS_POST] ❌ Zod Validation Error:", JSON.stringify(error.flatten().fieldErrors, null, 2));
       return NextResponse.json(
         {
           success: false,
@@ -83,7 +95,7 @@ export async function POST(request: Request) {
       );
     }
 
-    console.error("[API_LEADS_POST_ERROR]", error);
+    console.error("[API_LEADS_POST_ERROR] 💥 Internal Server Error:", error);
 
     // Handle unexpected server errors (HTTP 500)
     return NextResponse.json(
