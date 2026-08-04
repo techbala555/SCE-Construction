@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { projects } from "@/src/data/content";
 import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
@@ -36,72 +37,66 @@ export default function Projects({ id }: ProjectsProps) {
           </p>
         </motion.div>
 
-        {/* Projects Grid - gap-8 (32px) */}
+        {/* Projects Grid */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
         >
           {projects.map((project) => (
             <motion.div
               key={project.id}
               variants={staggerItem}
               className="group rounded-2xl overflow-hidden border border-border
-                         bg-surface card-hover"
+                         bg-surface card-hover flex flex-col justify-between h-full"
             >
-              {/* Image Area */}
-              <div className="relative h-60 sm:h-64 overflow-hidden bg-surface-elevated">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-black/20" />
+              <div>
+                {/* Image Area */}
+                <div className="relative h-52 sm:h-60 lg:h-64 overflow-hidden bg-surface-elevated">
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} - ${project.category} construction project in ${project.location}`}
+                    fill
+                    quality={80}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-110"
+                  />
 
-                {/* Project visual placeholder */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center text-muted">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="mx-auto mb-2">
-                      <rect x="2" y="4" width="20" height="16" rx="2" />
-                      <path d="M2 14l5-5 3 3 4-4 8 8" />
-                    </svg>
-                    <p className="text-xs">{project.title}</p>
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full
+                                     bg-primary/90 text-btn-text text-[10px] sm:text-[11px] font-bold uppercase tracking-wider shadow-sm">
+                      {project.category}
+                    </span>
                   </div>
+
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                 </div>
 
-                {/* Category Badge */}
-                <div className="absolute top-4 left-4 z-10">
-                  <span className="inline-flex items-center px-3 py-1.5 rounded-full
-                                   bg-primary/90 text-btn-text text-[11px] font-bold uppercase tracking-wider">
-                    {project.category}
-                  </span>
+                {/* Content */}
+                <div className="p-5 sm:p-7 lg:p-8">
+                  <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2.5 heading-md
+                               group-hover:text-primary transition-colors duration-300">
+                    {project.title}
+                  </h3>
+
+                  <p className="text-muted text-xs sm:text-sm body-relaxed mb-4 sm:mb-5 line-clamp-2">
+                    {project.description}
+                  </p>
                 </div>
-
-                {/* Hover Overlay */}
-                <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10
-                              transition-all duration-500" />
-
-                {/* Zoom effect */}
-                <div className="absolute inset-0 scale-100 group-hover:scale-110
-                              transition-transform duration-700 ease-out
-                              bg-gradient-to-t from-black/30 via-transparent to-transparent" />
               </div>
 
-              {/* Content */}
-              <div className="p-7 sm:p-8">
-                <h3 className="text-lg font-semibold text-foreground mb-3 heading-md
-                             group-hover:text-primary transition-colors duration-300">
-                  {project.title}
-                </h3>
-
-                <p className="text-muted text-sm body-relaxed mb-5 line-clamp-2">
-                  {project.description}
-                </p>
-
-                <div className="flex items-center justify-between pt-5 border-t border-border">
-                  <div className="flex items-center gap-1.5 text-muted">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <div className="px-5 sm:px-7 lg:px-8 pb-5 sm:pb-7 lg:pb-8">
+                <div className="flex items-center justify-between pt-4 border-t border-border">
+                  <div className="flex items-center gap-1.5 text-muted min-w-0 pr-2">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="flex-shrink-0">
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
                     </svg>
-                    <span className="text-xs">{project.location}</span>
+                    <span className="text-xs truncate">{project.location}</span>
                   </div>
-                  <span className="text-xs font-medium text-primary">{project.year}</span>
+                  <span className="text-xs font-medium text-primary flex-shrink-0">{project.year}</span>
                 </div>
               </div>
             </motion.div>

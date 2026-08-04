@@ -10,6 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sceconstruction.com"),
   title: "SCE Construction - Residential Construction, Land Development",
   description:
     "Shylesh Circuits & Engineering - Builders & Developers. Complete construction, land development, real estate, GPS land survey, DTCP approval, layout planning, interior design, and property development in Madurai, Tamil Nadu.",

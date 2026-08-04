@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
@@ -13,8 +14,9 @@ import {
   contactMethods,
   type LeadFormData,
 } from "@/src/lib/validations/lead-schema";
-import SubmissionModal from "./SubmissionModal";
 import CustomSelect from "./CustomSelect";
+
+const SubmissionModal = dynamic(() => import("./SubmissionModal"), { ssr: false });
 
 interface ContactProps {
   id: string;
@@ -29,9 +31,12 @@ const trustStats = [
 
 export default function Contact({ id }: ContactProps) {
   const { ref, inView } = useScrollAnimation<HTMLDivElement>({ threshold: 0.05 });
+  const [isPendingSubmit, setIsPendingSubmit] = useState(false);
   const [modalState, setModalState] = useState<{
     open: boolean;
     type: "success" | "error";
+    title?: string;
+    message?: string;
   }>({ open: false, type: "success" });
 
   const {
@@ -59,8 +64,11 @@ export default function Contact({ id }: ContactProps) {
 
   const formValues = watch();
 
-  /* ── Submit lead to /api/leads API ──────────────────────── */
+  /* ── Submit lead to /api/leads API (Duplicate Protected) ── */
   const onSubmit = async (data: LeadFormData) => {
+    if (isPendingSubmit) return; // Prevent rapid double-clicks
+    setIsPendingSubmit(true);
+
     try {
       const response = await fetch("/api/leads", {
         method: "POST",
@@ -71,20 +79,53 @@ export default function Contact({ id }: ContactProps) {
       const resData = await response.json();
 
       if (response.ok && resData.success) {
-        setModalState({ open: true, type: "success" });
+        setModalState({
+          open: true,
+          type: "success",
+        });
+      } else if (response.status === 409) {
+        setModalState({
+          open: true,
+          type: "error",
+          title: "Enquiry Already Submitted",
+          message:
+            resData.message ||
+            "This enquiry has already been submitted. Please wait before trying again.",
+        });
+        setIsPendingSubmit(false);
       } else {
-        setModalState({ open: true, type: "error" });
+        setModalState({
+          open: true,
+          type: "error",
+          message: resData.message || "Something went wrong. Please try again.",
+        });
+        setIsPendingSubmit(false);
       }
     } catch (err) {
       console.error("Form submission error:", err);
-      setModalState({ open: true, type: "error" });
+      setModalState({
+        open: true,
+        type: "error",
+        message: "Network error occurred. Please check your connection and try again.",
+      });
+      setIsPendingSubmit(false);
     }
   };
 
-  const handleCloseModal = () => setModalState({ open: false, type: "success" });
-  const handleRetry = () => {
+  const handleCloseModal = () => {
+    if (modalState.type === "success") {
+      reset();
+    }
     setModalState({ open: false, type: "success" });
-    reset();
+    setIsPendingSubmit(false);
+  };
+
+  const handleRetry = () => {
+    if (modalState.type === "success") {
+      reset();
+    }
+    setModalState({ open: false, type: "success" });
+    setIsPendingSubmit(false);
   };
 
   /* ── Helper for input field status styling ───────────── */
@@ -167,7 +208,7 @@ export default function Contact({ id }: ContactProps) {
             <form
               onSubmit={handleSubmit(onSubmit)}
               noValidate
-              className="relative p-8 sm:p-10 lg:p-14 rounded-3xl
+              className="relative p-5 sm:p-8 lg:p-12 rounded-2xl sm:rounded-3xl
                          bg-surface border border-border
                          shadow-large"
               style={{
@@ -177,16 +218,16 @@ export default function Contact({ id }: ContactProps) {
               }}
             >
               {/* Subtle gold top accent */}
-              <div className="absolute top-0 left-8 right-8 h-[2px] rounded-b-full bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+              <div className="absolute top-0 left-6 right-6 sm:left-8 sm:right-8 h-[2px] rounded-b-full bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
-              <div className="space-y-7">
+              <div className="space-y-6 sm:space-y-7">
                 {/* ── Row 1: Full Name + Phone Number ────── */}
-                <div className="grid sm:grid-cols-2 gap-6">
+                <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">
                   {/* Full Name */}
                   <div>
                     <label
                       htmlFor="name"
-                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3"
+                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2.5 sm:mb-3"
                     >
                       Full Name <span className="text-primary">*</span>
                     </label>
@@ -218,12 +259,12 @@ export default function Contact({ id }: ContactProps) {
                   <div>
                     <label
                       htmlFor="phone"
-                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3"
+                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2.5 sm:mb-3"
                     >
                       Phone Number <span className="text-primary">*</span>
                     </label>
                     <div className="flex relative">
-                      <span className="inline-flex items-center px-4 rounded-l-xl border border-r-0 border-border bg-surface-elevated text-muted text-sm font-medium select-none">
+                      <span className="inline-flex items-center px-3 sm:px-4 rounded-l-xl border border-r-0 border-border bg-surface-elevated text-muted text-xs sm:text-sm font-medium select-none">
                         +91
                       </span>
                       <input
@@ -431,7 +472,7 @@ export default function Contact({ id }: ContactProps) {
                 <div className="pt-2">
                   <button
                     type="submit"
-                    disabled={!isValid || isSubmitting}
+                    disabled={!isValid || isSubmitting || isPendingSubmit}
                     className="w-full min-h-[56px] py-4 text-sm font-semibold rounded-xl
                                bg-primary text-btn-text hover:bg-primary-dark
                                btn-shine transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]
@@ -439,7 +480,7 @@ export default function Contact({ id }: ContactProps) {
                                disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-none
                                flex items-center justify-center gap-3"
                   >
-                    {isSubmitting ? (
+                    {isSubmitting || isPendingSubmit ? (
                       <>
                         <svg
                           className="animate-spin h-5 w-5"
@@ -490,6 +531,8 @@ export default function Contact({ id }: ContactProps) {
       <SubmissionModal
         isOpen={modalState.open}
         type={modalState.type}
+        customTitle={modalState.title}
+        customMessage={modalState.message}
         onClose={handleCloseModal}
         onRetry={handleRetry}
       />

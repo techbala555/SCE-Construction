@@ -16,7 +16,29 @@ export async function POST(request: Request) {
     // 1. Validate payload with Zod schema
     const validatedData = leadFormSchema.parse(body);
 
-    // 2. Save lead into PostgreSQL database
+    // 2. Server-Side Duplicate Check (within the last 2 minutes)
+    const twoMinutesAgo = new Date(Date.now() - 2 * 60 * 1000);
+
+    const existingLead = await prisma.lead.findFirst({
+      where: {
+        phone: validatedData.phone,
+        projectType: validatedData.projectType,
+        createdAt: { gte: twoMinutesAgo },
+      },
+    });
+
+    if (existingLead) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "This enquiry has already been submitted. Please wait before trying again.",
+        },
+        { status: 409 }
+      );
+    }
+
+    // 3. Save lead into PostgreSQL database
     const lead = await prisma.lead.create({
       data: {
         name: validatedData.name,
@@ -30,7 +52,7 @@ export async function POST(request: Request) {
       },
     });
 
-    // 3. Dispatch Email Notifications (Owner + Customer confirmation)
+    // 4. Dispatch Email Notifications (Owner + Customer confirmation)
     // Non-blocking & fail-safe: failures are logged without breaking response
     sendLeadNotificationEmails(lead).catch((err) => {
       console.error("[API_LEADS_EMAIL_DISPATCH_ERROR]", err);

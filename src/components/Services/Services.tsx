@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { services, serviceDetails, type ServiceDetail } from "@/src/data/content";
 import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
 import { fadeUp, staggerContainer, staggerItem } from "@/src/lib/motion";
-import ServiceModal from "./ServiceModal";
+
+const ServiceModal = dynamic(() => import("./ServiceModal"), { ssr: false });
 
 // Service-specific SVG icons
 const serviceIcons: Record<string, React.ReactNode> = {
@@ -73,58 +75,59 @@ export default function Services({ id }: ServicesProps) {
           </p>
         </motion.div>
 
-        {/* Services Grid - 2x2 on desktop */}
+        {/* Services Grid - 1 col on mobile, 2 cols on sm/md/lg/xl */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 gap-8"
+          className="grid sm:grid-cols-2 gap-6 lg:gap-8"
         >
           {services.map((service) => (
             <motion.div
               key={service.id}
               variants={staggerItem}
-              className="group p-8 lg:p-10 rounded-2xl
+              className="group p-5 sm:p-7 lg:p-10 rounded-2xl
                          bg-surface border border-border
-                         card-hover cursor-default"
+                         card-hover cursor-default flex flex-col justify-between h-full"
             >
-              {/* Icon + Title Row */}
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 rounded-xl bg-primary/10 border border-primary/10
-                              flex items-center justify-center text-primary flex-shrink-0
-                              transition-all duration-300 group-hover:bg-primary/20 group-hover:scale-105">
-                  {serviceIcons[service.id] || <span className="text-2xl">{service.icon}</span>}
+              <div>
+                {/* Icon + Title Row */}
+                <div className="flex items-center gap-3 sm:gap-4 mb-5 sm:mb-6">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 border border-primary/10
+                                flex items-center justify-center text-primary flex-shrink-0
+                                transition-all duration-300 group-hover:bg-primary/20 group-hover:scale-105">
+                    {serviceIcons[service.id] || <span className="text-xl sm:text-2xl">{service.icon}</span>}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg sm:text-xl font-semibold text-foreground heading-md leading-snug">
+                      {service.title}
+                    </h3>
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0 flex items-center justify-center text-center px-2">
-                  <h3 className="text-xl font-semibold text-foreground heading-md">
-                    {service.title}
-                  </h3>
-                </div>
-                <div className="w-14 flex-shrink-0 pointer-events-none" aria-hidden="true" />
+
+                <p className="text-muted body-relaxed text-sm sm:text-[0.9375rem] leading-relaxed mb-6 sm:mb-7">
+                  {service.description}
+                </p>
+
+                {/* Sub-items list */}
+                <ul className="space-y-2.5 sm:space-y-3 mb-6 sm:mb-7">
+                  {service.items.map((item) => (
+                    <li key={item.text} className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-muted">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-primary flex-shrink-0">
+                        <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      <span className="min-w-0">{item.text}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <p className="text-muted body-relaxed text-[0.9375rem] leading-relaxed mb-7">
-                {service.description}
-              </p>
-
-              {/* Sub-items list */}
-              <ul className="space-y-3 mb-7">
-                {service.items.map((item) => (
-                  <li key={item.text} className="flex items-center gap-3 text-sm text-muted">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-primary flex-shrink-0">
-                      <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    <span>{item.text}</span>
-                  </li>
-                ))}
-              </ul>
-
               {/* Learn More Action Button */}
-              <div className="pt-6 border-t border-border">
+              <div className="pt-5 sm:pt-6 border-t border-border">
                 <button
                   type="button"
                   onClick={() => setSelectedService(serviceDetails[service.id] || null)}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-primary
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-primary
                              hover:text-primary-dark transition-all duration-300 group-hover:gap-2.5 cursor-pointer"
                 >
                   Learn More

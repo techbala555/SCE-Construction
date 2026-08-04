@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { companyInfo, statistics } from "@/src/data/content";
 import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
@@ -91,19 +92,17 @@ export default function About({ id }: AboutProps) {
             custom={0.2}
             className="relative"
           >
-            {/* Main Image Placeholder */}
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-surface-elevated">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-muted p-8">
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="mx-auto mb-4 opacity-50">
-                    <rect x="2" y="4" width="20" height="16" rx="2" />
-                    <path d="M2 14l5-5 3 3 4-4 8 8" />
-                    <circle cx="15" cy="9" r="2" />
-                  </svg>
-                  <p className="text-sm">About Image</p>
-                </div>
-              </div>
+            {/* Main Image */}
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-surface-elevated shadow-xl border border-border">
+              <Image
+                src="/images/about-us.jpg"
+                alt="Civil engineers inspecting architectural blueprint plans on construction site"
+                fill
+                quality={80}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover object-center transition-transform duration-700 hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
             </div>
 
             {/* Floating Stats Card */}
@@ -117,17 +116,17 @@ export default function About({ id }: AboutProps) {
                   transition: { duration: 5, repeat: Infinity, ease: "easeInOut" },
                 },
               }}
-              className="absolute -bottom-8 -left-6 sm:-left-12 p-6 rounded-2xl
+              className="absolute -bottom-6 left-4 sm:-left-12 p-4 sm:p-6 rounded-2xl
                          bg-surface dark:bg-surface-elevated border border-border
                          shadow-large z-10"
             >
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <span className="text-2xl">🤝</span>
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl sm:text-2xl">🤝</span>
                 </div>
                 <div>
-                  <p className="text-3xl font-extrabold text-foreground">{statistics[0].value}{statistics[0].suffix}</p>
-                  <p className="text-xs text-muted font-medium mt-1">{statistics[0].label}</p>
+                  <p className="text-2xl sm:text-3xl font-extrabold text-foreground">{statistics[0].value}{statistics[0].suffix}</p>
+                  <p className="text-[11px] sm:text-xs text-muted font-medium mt-0.5 sm:mt-1">{statistics[0].label}</p>
                 </div>
               </div>
             </motion.div>

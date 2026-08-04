@@ -9,6 +9,8 @@ interface SubmissionModalProps {
   isOpen: boolean;
   onClose: () => void;
   type: "success" | "error";
+  customTitle?: string;
+  customMessage?: string;
   onRetry?: () => void;
 }
 
@@ -77,6 +79,8 @@ export default function SubmissionModal({
   isOpen,
   onClose,
   type,
+  customTitle,
+  customMessage,
   onRetry,
 }: SubmissionModalProps) {
   const mounted = useMounted();
@@ -101,10 +105,12 @@ export default function SubmissionModal({
   }, [isOpen, handleKeyDown]);
 
   const isSuccess = type === "success";
-  const title = isSuccess ? "Thank You!" : "Submission Failed";
-  const message = isSuccess
-    ? "Thank you for contacting Shylesh Circuits & Engineering.\n\nYour enquiry has been received successfully. Our team will contact you soon."
-    : "Something went wrong. Please try again.";
+  const title = customTitle || (isSuccess ? "Thank You!" : "Submission Failed");
+  const message =
+    customMessage ||
+    (isSuccess
+      ? "Thank you for contacting Shylesh Circuits & Engineering.\n\nYour enquiry has been received successfully. Our team will contact you soon."
+      : "Something went wrong. Please try again.");
   const primaryLabel = isSuccess ? "Submit Another Enquiry" : "Try Again";
 
   /* Don't render on server (createPortal needs document.body) */

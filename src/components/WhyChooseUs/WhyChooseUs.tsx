@@ -81,36 +81,38 @@ export default function WhyChooseUs({ id }: WhyChooseUsProps) {
           </p>
         </motion.div>
 
-        {/* Reasons Grid - gap-8 (32px) */}
+        {/* Reasons Grid */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
         >
           {whyChooseUs.map((reason) => (
             <motion.div
               key={reason.id}
               variants={staggerItem}
-              className="group p-8 rounded-2xl
+              className="group p-5 sm:p-7 lg:p-8 rounded-2xl
                          bg-deep-surface border border-deep-border
                          hover:bg-deep-surface-hover hover:border-primary/20
-                         transition-all duration-400 cursor-default"
+                         transition-all duration-400 cursor-default flex flex-col justify-between h-full"
             >
-              {/* Icon */}
-              <div className="w-14 h-14 rounded-xl bg-primary/10 border border-primary/15
-                            flex items-center justify-center text-primary mb-7
-                            transition-all duration-300 group-hover:bg-primary/20 group-hover:scale-105">
-                {reasonIcons[reason.id] || <span className="text-2xl">{reason.icon}</span>}
+              <div>
+                {/* Icon */}
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 border border-primary/15
+                              flex items-center justify-center text-primary mb-5 sm:mb-7 flex-shrink-0
+                              transition-all duration-300 group-hover:bg-primary/20 group-hover:scale-105">
+                  {reasonIcons[reason.id] || <span className="text-xl sm:text-2xl">{reason.icon}</span>}
+                </div>
+
+                <h3 className="text-lg sm:text-xl font-semibold text-deep-text mb-3 sm:mb-4">
+                  {reason.title}
+                </h3>
+
+                <p className="text-deep-muted body-relaxed text-xs sm:text-[0.9375rem] leading-relaxed">
+                  {reason.description}
+                </p>
               </div>
-
-              <h3 className="text-xl font-semibold text-deep-text mb-4">
-                {reason.title}
-              </h3>
-
-              <p className="text-deep-muted body-relaxed text-[0.9375rem]">
-                {reason.description}
-              </p>
             </motion.div>
           ))}
         </motion.div>

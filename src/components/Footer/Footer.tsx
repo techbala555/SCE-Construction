@@ -33,14 +33,14 @@ export default function Footer() {
         >
           {/* Brand Column */}
           <motion.div variants={staggerItem} className="sm:col-span-2 lg:col-span-1">
-            {/* Official Logo - footer is always dark, use light logo */}
-            <div className="mb-10">
+            {/* Official Logo */}
+            <div className="mb-6 sm:mb-10">
               <Image
                 src="/logo-light.svg"
                 alt="Shylesh Circuits & Engineering Builders & Developers"
                 width={804}
                 height={572}
-                className="w-auto max-w-none h-20 sm:h-[100px] lg:h-[120px] object-contain"
+                className="w-auto h-16 sm:h-24 lg:h-28 max-w-full object-contain"
               />
             </div>
             <p className="text-deep-muted text-sm body-relaxed max-w-xs">

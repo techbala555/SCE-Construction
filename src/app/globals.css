@@ -288,25 +288,53 @@ textarea,
 }
 
 /* ================================================================
-   SECTION SCROLL OFFSET - matches exact navbar height per breakpoint
+   SECTION SCROLL OFFSET — matches exact navbar height per breakpoint
+   Mobile: 64px | SM: 72px | MD: 80px | LG: 88px | XL: 100px
    ================================================================ */
 section[id] {
-  scroll-margin-top: 5rem;
+  scroll-margin-top: 4.5rem; /* 72px — safe offset for 64px nav */
+}
+@media (min-width: 640px) {
+  section[id] {
+    scroll-margin-top: 5rem; /* 80px — safe offset for 72px nav */
+  }
 }
 @media (min-width: 768px) {
   section[id] {
-    scroll-margin-top: 5.5rem;
+    scroll-margin-top: 5.5rem; /* 88px — safe offset for 80px nav */
   }
 }
 @media (min-width: 1024px) {
   section[id] {
-    scroll-margin-top: 6.25rem;
+    scroll-margin-top: 6rem; /* 96px — safe offset for 88px nav */
   }
 }
 @media (min-width: 1280px) {
   section[id] {
-    scroll-margin-top: 7.5rem;
+    scroll-margin-top: 7rem; /* 112px — safe offset for 100px nav */
   }
+}
+
+/* ================================================================
+   MOBILE MENU OVERLAY & SAFE AREA HELPERS
+   ================================================================ */
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom, 20px), 20px);
+}
+
+/* Custom Thin Scrollbar for Modals */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--clr-border);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--clr-primary);
 }
 
 /* ================================================================
