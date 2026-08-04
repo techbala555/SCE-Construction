@@ -569,6 +569,51 @@ select.input-premium option {
 }
 
 /* ================================================================
+   CINEMATIC HERO KEN BURNS & AMBIENT FOG ANIMATIONS
+   ================================================================ */
+@keyframes ken-burns {
+  0% {
+    transform: scale(1.0) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.035) translate3d(8px, -5px, 0);
+  }
+  100% {
+    transform: scale(1.05) translate3d(-6px, 3px, 0);
+  }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 19s ease-in-out infinite alternate;
+  will-change: transform;
+  transform-origin: center center;
+}
+
+@keyframes ambient-fog-pulse {
+  0%, 100% {
+    opacity: 0.15;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.28;
+    transform: translate3d(12px, -8px, 0) scale(1.04);
+  }
+}
+
+.animate-ambient-fog {
+  animation: ambient-fog-pulse 16s ease-in-out infinite alternate;
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ken-burns,
+  .animate-ambient-fog {
+    animation: none !important;
+    transform: scale(1.02) !important;
+  }
+}
+
+/* ================================================================
    HIDE NEXT.JS DEV INDICATORS & OVERLAYS
    ================================================================ */
 nextjs-portal,

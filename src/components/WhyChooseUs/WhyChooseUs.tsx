@@ -4,7 +4,9 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { whyChooseUs } from "@/src/data/content";
 import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
-import { fadeUp, staggerContainer, staggerItem } from "@/src/lib/motion";
+import { fadeUp } from "@/src/lib/motion";
+
+import type { Variants } from "framer-motion";
 
 const reasonIcons: Record<string, React.ReactNode> = {
   "end-to-end": (
@@ -38,6 +40,38 @@ const reasonIcons: Record<string, React.ReactNode> = {
       <line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
     </svg>
   ),
+};
+
+const smoothEaseOut = [0.25, 0.1, 0.25, 1] as const;
+
+/* ── Motion Variants for Premium Entrance Animation ── */
+const gridStaggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.09,
+    },
+  },
+};
+
+const cardEntranceVariant: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+    rotateY: 10,
+    scale: 0.96,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotateY: 0,
+    scale: 1,
+    transition: {
+      duration: 0.65,
+      ease: smoothEaseOut,
+    },
+  },
 };
 
 interface WhyChooseUsProps {
@@ -121,31 +155,35 @@ export default function WhyChooseUs({ id }: WhyChooseUsProps) {
           </div>
         </motion.div>
 
-        {/* Reasons Grid */}
+        {/* Reasons Grid with Premium Micro-Interactions & 3D Perspective Entrance */}
         <motion.div
-          variants={staggerContainer}
+          variants={gridStaggerContainer}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 [perspective:1000px]"
         >
           {whyChooseUs.map((reason) => (
             <motion.div
               key={reason.id}
-              variants={staggerItem}
+              variants={cardEntranceVariant}
               className="group p-5 sm:p-7 lg:p-8 rounded-2xl
                          bg-deep-surface border border-deep-border
-                         hover:bg-deep-surface-hover hover:border-primary/20
-                         transition-all duration-400 cursor-default flex flex-col justify-between h-full"
+                         hover:bg-deep-surface-hover hover:border-primary/40
+                         hover:shadow-[0_16px_36px_-8px_rgba(214,160,23,0.25)]
+                         hover:-translate-y-2 hover:scale-[1.02]
+                         transition-all duration-300 ease-out cursor-default flex flex-col justify-between h-full"
             >
               <div>
-                {/* Icon */}
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 border border-primary/15
+                {/* Icon Container with Subtle 10° Rotate on Hover */}
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 border border-primary/20
                               flex items-center justify-center text-primary mb-5 sm:mb-7 flex-shrink-0
-                              transition-all duration-300 group-hover:bg-primary/20 group-hover:scale-105">
+                              transition-all duration-300 ease-out
+                              group-hover:bg-primary/25 group-hover:scale-110 group-hover:rotate-12
+                              group-hover:border-primary/40 group-hover:shadow-[0_0_15px_rgba(246,201,69,0.3)]">
                   {reasonIcons[reason.id] || <span className="text-xl sm:text-2xl">{reason.icon}</span>}
                 </div>
 
-                <h3 className="text-lg sm:text-xl font-semibold text-deep-text mb-3 sm:mb-4">
+                <h3 className="text-lg sm:text-xl font-semibold text-deep-text mb-3 sm:mb-4 transition-colors duration-300 group-hover:text-primary">
                   {reason.title}
                 </h3>
 

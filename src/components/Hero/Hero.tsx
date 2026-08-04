@@ -70,7 +70,7 @@ export default function Hero({ id }: HeroProps) {
       className="relative min-h-screen flex flex-col overflow-hidden"
     >
       {/* ── Background layers (z-0 to z-[2]) ──────────────── */}
-      <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
+      <motion.div className="absolute inset-0 z-0 overflow-hidden" style={{ y: bgY }}>
         <Image
           src="/images/hero-bg.jpg"
           alt="Modern commercial building construction and civil engineering project"
@@ -78,11 +78,19 @@ export default function Hero({ id }: HeroProps) {
           priority
           quality={85}
           sizes="100vw"
-          className="object-cover object-center scale-105"
+          className="object-cover object-center animate-ken-burns"
         />
       </motion.div>
+
+      {/* Dark Overlay for max text readability & zero layout shift */}
       <div className="hero-overlay" />
-      <div className="absolute inset-0 z-[2] bg-grid-pattern opacity-40" />
+
+      {/* Lightweight Ambient Light/Fog Particle Pulse */}
+      <div className="absolute inset-0 z-[1] pointer-events-none overflow-hidden">
+        <div className="absolute -top-1/4 -left-1/4 w-[150%] h-[150%] bg-[radial-gradient(ellipse_at_top_right,rgba(246,201,69,0.12),transparent_60%)] animate-ambient-fog pointer-events-none" />
+      </div>
+
+      <div className="absolute inset-0 z-[2] bg-grid-pattern opacity-40 pointer-events-none" />
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent z-[3]" />
       <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent z-[3]" />
 
