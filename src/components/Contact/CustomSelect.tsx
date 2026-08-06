@@ -98,9 +98,9 @@ export default function CustomSelect({
     <div className="relative" ref={containerRef}>
       <label
         htmlFor={id}
-        className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3"
+        className="block text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-2"
       >
-        {label} {required && <span className="text-primary">*</span>}
+        {label} {required && <span className="text-primary font-bold">*</span>}
       </label>
 
       {/* Trigger Button */}
@@ -113,13 +113,16 @@ export default function CustomSelect({
         aria-invalid={showError}
         onClick={() => setIsOpen((prev) => !prev)}
         onKeyDown={handleKeyDown}
-        className={`input-premium flex items-center justify-between text-left cursor-pointer transition-all duration-200 select-none
+        className={`w-full px-4 py-3 bg-white dark:bg-slate-800/80 border border-gray-300 dark:border-white/10 rounded-xl
+          text-gray-900 dark:text-white text-sm font-medium
+          flex items-center justify-between text-left cursor-pointer transition-all duration-200 select-none
+          focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/40
           ${showError ? "!border-red-500/90 focus:!ring-red-500/20" : ""}
           ${showSuccess ? "!border-emerald-500/80 focus:!ring-emerald-500/20" : ""}
           ${isOpen ? "!border-primary shadow-md shadow-primary/10" : ""}
         `}
       >
-        <span className={`truncate text-sm font-medium ${value ? "text-foreground" : "text-muted/70"}`}>
+        <span className={`truncate text-sm font-medium ${value ? "text-gray-900 dark:text-white" : "text-gray-400 dark:text-gray-400"}`}>
           {value || placeholder}
         </span>
 
@@ -128,7 +131,7 @@ export default function CustomSelect({
             <Check className="w-4 h-4 text-emerald-500" strokeWidth={2.5} aria-hidden="true" />
           )}
           <ChevronDown
-            className={`w-4.5 h-4.5 transition-transform duration-300 ${isOpen ? "rotate-180 text-primary" : "text-muted"}`}
+            className={`w-4.5 h-4.5 transition-transform duration-300 ${isOpen ? "rotate-180 text-primary" : "text-gray-400 dark:text-gray-400"}`}
             strokeWidth={2}
             aria-hidden="true"
           />
@@ -137,7 +140,7 @@ export default function CustomSelect({
 
       {/* Inline Error Message */}
       {showError && (
-        <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
+        <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
           <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
           {error}
         </p>
@@ -155,12 +158,7 @@ export default function CustomSelect({
             exit={{ opacity: 0, y: -4, scale: 0.98 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
             className="absolute left-0 right-0 top-full mt-2 z-50 rounded-2xl
-                       bg-surface border border-border shadow-2xl overflow-hidden p-1.5"
-            style={{
-              background: "var(--glass-bg)",
-              backdropFilter: "blur(24px) saturate(180%)",
-              WebkitBackdropFilter: "blur(24px) saturate(180%)",
-            }}
+                       bg-white dark:bg-[#1E293B] border border-gray-200 dark:border-slate-700 shadow-2xl overflow-hidden p-1.5"
           >
             <div className="max-h-60 overflow-y-auto space-y-1 py-0.5 custom-scrollbar">
               {options.map((option, index) => {
@@ -180,8 +178,8 @@ export default function CustomSelect({
                                 ${isSelected
                                   ? "bg-primary/15 text-primary font-semibold"
                                   : isFocused
-                                    ? "bg-primary/10 text-foreground"
-                                    : "text-foreground hover:bg-primary/10 hover:text-foreground"
+                                    ? "bg-gray-100 dark:bg-slate-700 text-gray-900 dark:text-white"
+                                    : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700"
                                 }`}
                   >
                     <span className="truncate">{option}</span>
