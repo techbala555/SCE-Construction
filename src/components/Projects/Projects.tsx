@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { MapPin } from "lucide-react";
 import { projects } from "@/src/data/content";
 import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
 import { fadeUp, staggerContainer, staggerItem } from "@/src/lib/motion";
@@ -91,9 +92,7 @@ export default function Projects({ id }: ProjectsProps) {
               <div className="px-5 sm:px-7 lg:px-8 pb-5 sm:pb-7 lg:pb-8">
                 <div className="flex items-center justify-between pt-4 border-t border-border">
                   <div className="flex items-center gap-1.5 text-muted min-w-0 pr-2">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="flex-shrink-0">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
-                    </svg>
+                    <MapPin className="w-3.5 h-3.5 text-primary flex-shrink-0" strokeWidth={1.8} aria-hidden="true" />
                     <span className="text-xs truncate">{project.location}</span>
                   </div>
                   <span className="text-xs font-medium text-primary flex-shrink-0">{project.year}</span>

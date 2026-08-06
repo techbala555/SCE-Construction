@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback, useId } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown, Check, AlertCircle } from "lucide-react";
 
 interface CustomSelectProps {
   id: string;
@@ -124,30 +125,20 @@ export default function CustomSelect({
 
         <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
           {showSuccess && (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-emerald-500">
-              <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            <Check className="w-4 h-4 text-emerald-500" strokeWidth={2.5} aria-hidden="true" />
           )}
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className={`transition-transform duration-300 ${isOpen ? "rotate-180 text-primary" : "text-muted"}`}
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
+          <ChevronDown
+            className={`w-4.5 h-4.5 transition-transform duration-300 ${isOpen ? "rotate-180 text-primary" : "text-muted"}`}
+            strokeWidth={2}
+            aria-hidden="true"
+          />
         </div>
       </button>
 
       {/* Inline Error Message */}
       {showError && (
         <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+          <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
           {error}
         </p>
       )}
@@ -195,9 +186,7 @@ export default function CustomSelect({
                   >
                     <span className="truncate">{option}</span>
                     {isSelected && (
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-primary flex-shrink-0 ml-2">
-                        <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
+                      <Check className="w-4 h-4 text-primary flex-shrink-0 ml-2" strokeWidth={2.5} aria-hidden="true" />
                     )}
                   </button>
                 );

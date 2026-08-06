@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { MapPin, Phone, Mail } from "lucide-react";
 import { companyInfo, navigationItems, contactDetails, services } from "@/src/data/content";
 import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
 import { fadeUp, staggerContainer, staggerItem } from "@/src/lib/motion";
@@ -92,25 +93,32 @@ export default function Footer() {
               Contact Info
             </h4>
             <div className="space-y-5 text-deep-muted text-sm">
-              <div className="flex gap-3">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary flex-shrink-0 mt-0.5">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" />
-                </svg>
-                <span>{contactDetails.address}</span>
-              </div>
-              <div className="flex gap-3">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary flex-shrink-0 mt-0.5">
-                  <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.98.37 1.93.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.88.33 1.83.57 2.81.7A2 2 0 0122 16.92z" />
-                </svg>
-                <span>{contactDetails.phone}</span>
-              </div>
-              <div className="flex gap-3">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-primary flex-shrink-0 mt-0.5">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
-                <span>{contactDetails.email}</span>
-              </div>
+              <a
+                href={contactDetails.mapUrl || "https://www.google.com/maps/place/Circuit+%26+Engineering+Electrical+Work/@11.0490908,76.9223518,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba859728aa80393:0x1861b2c7c4c52dce!8m2!3d11.0490908!4d76.9223518!16s%2Fg%2F11b8z0k5t_"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex gap-3 items-start hover:text-primary transition-colors group cursor-pointer"
+                aria-label="Open Circuit & Engineering Electrical Work office location on Google Maps (opens in a new tab)"
+              >
+                <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5 transition-transform group-hover:scale-110" strokeWidth={1.8} aria-hidden="true" />
+                <span className="group-hover:underline leading-relaxed">{contactDetails.address}</span>
+              </a>
+              <a
+                href={`tel:${contactDetails.phone.replace(/\s+/g, "")}`}
+                className="flex gap-3 items-center hover:text-primary transition-colors group"
+                aria-label={`Call ${contactDetails.phone}`}
+              >
+                <Phone className="w-4 h-4 text-primary flex-shrink-0 transition-transform group-hover:scale-110" strokeWidth={1.8} aria-hidden="true" />
+                <span className="group-hover:underline">{contactDetails.phone}</span>
+              </a>
+              <a
+                href={`mailto:${contactDetails.email}`}
+                className="flex gap-3 items-center hover:text-primary transition-colors group"
+                aria-label={`Email ${contactDetails.email}`}
+              >
+                <Mail className="w-4 h-4 text-primary flex-shrink-0 transition-transform group-hover:scale-110" strokeWidth={1.8} aria-hidden="true" />
+                <span className="group-hover:underline">{contactDetails.email}</span>
+              </a>
             </div>
           </motion.div>
         </motion.div>

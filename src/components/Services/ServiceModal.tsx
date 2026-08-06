@@ -3,6 +3,16 @@
 import { useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import {
+  X,
+  BookOpen,
+  Briefcase,
+  BadgeCheck,
+  ShieldCheck,
+  CheckCircle2,
+  ArrowRight,
+  Check,
+} from "lucide-react";
 import type { ServiceDetail } from "@/src/data/content";
 import { useMounted } from "@/src/lib/useMounted";
 
@@ -12,52 +22,6 @@ interface ServiceModalProps {
   service: ServiceDetail | null;
   iconSvg?: React.ReactNode;
   onGetQuote: () => void;
-}
-
-/* ── Section SVG Icons ─────────────────────────────────────── */
-
-function BookOpenIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-    </svg>
-  );
-}
-
-function BriefcaseIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-    </svg>
-  );
-}
-
-function BadgeCheckIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76z" />
-      <path d="m9 12 2 2 4-4" />
-    </svg>
-  );
-}
-
-function ShieldCheckIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-      <path d="m9 12 2 2 4-4" />
-    </svg>
-  );
-}
-
-function ArrowRightIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M5 12h14M12 5l7 7-7 7" />
-    </svg>
-  );
 }
 
 /* ── Focus Trap Utility ─────────────────────────────────────── */
@@ -168,7 +132,7 @@ export default function ServiceModal({
                 {/* Service Icon Badge */}
                 <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-primary/10 border border-primary/20
                               flex items-center justify-center text-primary shadow-sm flex-shrink-0">
-                  {iconSvg || <span className="text-xl sm:text-2xl">{service.icon}</span>}
+                  {iconSvg}
                 </div>
 
                 {/* Title & Category Badge */}
@@ -196,19 +160,7 @@ export default function ServiceModal({
                            transition-all duration-300 active:scale-95 flex items-center justify-center flex-shrink-0"
                 aria-label="Close modal"
               >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
+                <X className="w-5 h-5" strokeWidth={2} aria-hidden="true" />
               </button>
             </div>
 
@@ -223,7 +175,7 @@ export default function ServiceModal({
               >
                 <div className="flex items-center gap-3.5 mb-5 sm:mb-6">
                   <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary/10 border border-primary/25 flex items-center justify-center text-primary shadow-sm flex-shrink-0">
-                    <BookOpenIcon />
+                    <BookOpen className="w-4.5 h-4.5 text-primary" strokeWidth={1.8} aria-hidden="true" />
                   </div>
                   <div className="flex items-center gap-3 min-w-0 flex-1">
                     <h4 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
@@ -250,7 +202,7 @@ export default function ServiceModal({
               >
                 <div className="flex items-center gap-3.5 mb-5 sm:mb-6">
                   <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary/10 border border-primary/25 flex items-center justify-center text-primary shadow-sm flex-shrink-0">
-                    <BriefcaseIcon />
+                    <Briefcase className="w-4.5 h-4.5 text-primary" strokeWidth={1.8} aria-hidden="true" />
                   </div>
                   <div className="flex items-center gap-3 min-w-0 flex-1">
                     <h4 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
@@ -274,9 +226,7 @@ export default function ServiceModal({
                     >
                       <div className="w-8 h-8 rounded-xl bg-primary/10 border border-primary/20
                                     flex items-center justify-center text-primary flex-shrink-0 transition-transform group-hover:scale-110">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        <Check className="w-4 h-4 text-primary" strokeWidth={2.2} aria-hidden="true" />
                       </div>
                       <span className="text-xs sm:text-sm font-semibold text-foreground leading-snug">
                         {item}
@@ -294,7 +244,7 @@ export default function ServiceModal({
               >
                 <div className="flex items-center gap-3.5 mb-5 sm:mb-6">
                   <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary/10 border border-primary/25 flex items-center justify-center text-primary shadow-sm flex-shrink-0">
-                    <BadgeCheckIcon />
+                    <BadgeCheck className="w-4.5 h-4.5 text-primary" strokeWidth={1.8} aria-hidden="true" />
                   </div>
                   <div className="flex items-center gap-3 min-w-0 flex-1">
                     <h4 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
@@ -316,9 +266,7 @@ export default function ServiceModal({
                       className="p-4.5 rounded-2xl bg-surface dark:bg-surface-elevated/60 border border-border/80 dark:border-border/70 shadow-sm flex items-start gap-3.5"
                     >
                       <div className="w-7 h-7 rounded-lg bg-primary/15 flex items-center justify-center text-primary flex-shrink-0 mt-0.5">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                        </svg>
+                        <CheckCircle2 className="w-4 h-4 text-primary" strokeWidth={2} aria-hidden="true" />
                       </div>
                       <span className="text-xs sm:text-sm text-muted leading-relaxed">
                         {benefit}
@@ -338,7 +286,7 @@ export default function ServiceModal({
               >
                 <div className="flex items-center gap-3.5 mb-5">
                   <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center text-primary shadow-sm flex-shrink-0">
-                    <ShieldCheckIcon />
+                    <ShieldCheck className="w-5 h-5 text-primary" strokeWidth={1.8} aria-hidden="true" />
                   </div>
                   <h4 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
                     Why Choose SCE Construction for {service.title}?
@@ -349,9 +297,7 @@ export default function ServiceModal({
                   {service.whyChooseUs.map((reason) => (
                     <li key={reason} className="flex items-start gap-3 text-xs sm:text-sm text-foreground/90 font-medium">
                       <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center text-primary flex-shrink-0 mt-0.5">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                          <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        <Check className="w-3.5 h-3.5 text-primary" strokeWidth={2.5} aria-hidden="true" />
                       </div>
                       <span>{reason}</span>
                     </li>
@@ -387,10 +333,10 @@ export default function ServiceModal({
                   onClick={onGetQuote}
                   className="flex-1 sm:flex-none btn-shine bg-primary text-btn-text hover:bg-primary-dark
                              h-12 px-8 rounded-xl text-sm font-bold transition-all duration-300
-                             hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+                             hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group"
                 >
                   <span>Get Free Quote</span>
-                  <ArrowRightIcon />
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2.2} aria-hidden="true" />
                 </button>
               </div>
             </div>

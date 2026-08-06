@@ -1,5 +1,5 @@
 // ============================================================
-// SCE Construction - Central Content Data
+// SCE Construction - Central Content Data (Human-Audited & Rewritten)
 // ============================================================
 
 // ── Navigation ──────────────────────────────────────────────
@@ -20,25 +20,25 @@ export const navigationItems: NavItem[] = [
 // ── Company Information ─────────────────────────────────────
 export const companyInfo = {
   name: "SCE Construction",
-  tagline: "Building Tomorrow's Landmarks Today",
+  tagline: "Quality Construction & Land Development You Can Trust",
   description:
-    "Shylesh Circuits & Engineering is a trusted name in construction, land development, and real estate. We deliver end-to-end solutions - from residential building construction and villa projects to GPS land surveys, DTCP approvals, layout planning, and property development. Every project is backed by professional engineering standards, modern planning practices, and a deep commitment to quality.",
+    "Shylesh Circuits & Engineering helps you build quality homes and commercial buildings with proper planning, skilled workers, and on-time delivery. From independent houses and villas to land development and DTCP approvals, we take care of your project from planning to final handover.",
   mission:
-    "To deliver dependable construction, land development that exceed client expectations - built on trust, precision, and professional integrity.",
+    "To build strong, beautiful homes and planned layouts with transparent pricing, quality materials, and dedicated customer support.",
   vision:
-    "To become a leading force in residential construction, land development, and property solutions - known for quality craftsmanship, transparent execution, and lasting client relationships.",
+    "To be Tamil Nadu's most trusted builder by delivering every project on time, within budget, and to the highest quality standards.",
   cta: "Get Free Quote",
 };
 
 // ── Hero ────────────────────────────────────────────────────
 export const heroContent = {
-  subtitle: "CONSTRUCTION • LAND DEVELOPMENT • REAL ESTATE",
-  title: "Building Tomorrow's",
-  titleAccent: "Landmarks Today",
+  subtitle: "RESIDENTIAL CONSTRUCTION • LAND DEVELOPMENT • 3D ELEVATION",
+  title: "Build Your Dream Home",
+  titleAccent: "With Complete Peace of Mind",
   description:
-    "Complete construction, land development, engineering - delivered with a commitment to quality, trust, and timely execution.",
-  ctaPrimary: "Start Your Project",
-  ctaSecondary: "View Our Work",
+    "We handle your entire house construction and land development project with quality materials, transparent pricing, and on-time completion across Tamil Nadu.",
+  ctaPrimary: "Get Free Quote",
+  ctaSecondary: "View Our Projects",
 };
 
 // ── Statistics ──────────────────────────────────────────────
@@ -49,10 +49,10 @@ export interface Statistic {
 }
 
 export const statistics: Statistic[] = [
-  { value: 100, suffix: "+", label: "Projects Delivered" },
-  { value: 4, suffix: "", label: "Service Verticals" },
-  { value: 50, suffix: "+", label: "Skilled Professionals" },
-  { value: 100, suffix: "%", label: "Client Commitment" },
+  { value: 100, suffix: "+", label: "Projects Completed" },
+  { value: 10, suffix: "+", label: "Years of Experience" },
+  { value: 50, suffix: "+", label: "Skilled Team Members" },
+  { value: 5, suffix: "", label: "Core Services" },
 ];
 
 // ── Services ────────────────────────────────────────────────
@@ -71,56 +71,66 @@ export interface Service {
 export const services: Service[] = [
   {
     id: "construction",
-    title: "Construction Services",
+    title: "House & Building Construction",
     description:
-      "From independent houses and villas to apartments and complete interior finishing - we handle every aspect of residential building construction with professional-grade execution.",
-    icon: "🏗️",
+      "We construct independent houses, luxury villas, and apartments with quality materials, experienced site supervisors, and on-time completion.",
+    icon: "Building2",
     items: [
-      { text: "Residential Building Construction" },
       { text: "Independent House Construction" },
-      { text: "Villa Construction" },
-      { text: "Apartment Construction" },
-      { text: "Interior Design & Finishing Works" },
+      { text: "Luxury Villa Construction" },
+      { text: "Apartment Building Construction" },
+      { text: "Interior Works & Finishing" },
     ],
   },
   {
     id: "land-development",
-    title: "Land Development",
+    title: "Land & Layout Development",
     description:
-      "Professional land development services including GPS-based surveys, DTCP approval assistance, layout planning, site preparation, and complete infrastructure development.",
-    icon: "📐",
+      "GPS land surveying, DTCP approval assistance, layout development, internal roads, and site preparation for plot owners and developers.",
+    icon: "MapPinned",
     items: [
-      { text: "GPS Land Survey & Site Measurement" },
+      { text: "GPS Land Survey & Boundary Mapping" },
       { text: "DTCP Approval Assistance" },
-      { text: "Layout Planning & Development" },
-      { text: "Land Development & Site Preparation" },
-      { text: "Road, Drainage & Water Tank Construction" },
-      { text: "Compound Wall Construction" },
+      { text: "Internal Roads & Drainage Systems" },
+      { text: "Compound Wall & Site Prep" },
     ],
   },
   {
     id: "real-estate",
-    title: "Real Estate Development",
+    title: "Real Estate Plot Promotion",
     description:
-      "Strategic property promotion and residential plot development - creating well-planned layouts and land development projects that maximize value for investors and homebuyers alike.",
-    icon: "🏘️",
+      "Planned residential layout development and plot promotion in prime growing locations with clear legal titles and complete infrastructure.",
+    icon: "Building",
     items: [
-      { text: "Property Promotion" },
-      { text: "Residential Plot Development" },
-      { text: "Layout Development" },
-      { text: "Land Development Projects" },
+      { text: "Residential Plot Promotion" },
+      { text: "Approved Layout Planning" },
+      { text: "Infrastructure Ready Plots" },
+      { text: "Clear Title Verification" },
     ],
   },
   {
     id: "future-projects",
     title: "Farmhouse Projects",
     description:
-      "Specialized farmhouse planning, construction, and land development - helping you create premium countryside retreats designed for comfort, privacy, and long-term value.",
-    icon: "🌿",
+      "Custom farmhouse planning, land preparation, and construction to build your peaceful weekend retreat surrounded by nature.",
+    icon: "Trees",
     items: [
-      { text: "Farmhouse Planning" },
-      { text: "Farmhouse Construction" },
-      { text: "Farmhouse Land Development" },
+      { text: "Farmhouse Design & Planning" },
+      { text: "Site Fencing & Water Setup" },
+      { text: "Custom Countryside Build" },
+    ],
+  },
+  {
+    id: "elevation-3d",
+    title: "3D Elevation Design",
+    description:
+      "Realistic 3D architectural elevation designs that help you see your building's exterior design before construction starts.",
+    icon: "Box",
+    items: [
+      { text: "Residential 3D Elevation" },
+      { text: "Villa Exterior Design" },
+      { text: "Commercial Facade Renders" },
+      { text: "Color & Material Visualization" },
     ],
   },
 ];
@@ -140,37 +150,37 @@ export interface ServiceDetail {
 export const serviceDetails: Record<string, ServiceDetail> = {
   construction: {
     id: "construction",
-    title: "Construction Services",
+    title: "House & Building Construction",
     icon: "🏗️",
-    shortIntro: "Engineering-Led Residential & Villa Construction",
+    shortIntro: "Quality Independent House & Villa Construction",
     fullDescription:
-      "Shylesh Circuits & Engineering delivers high-caliber residential construction across Madurai and Tamil Nadu. From single-family independent houses and luxury custom villas to modern apartment complexes and bespoke interior finishing, our end-to-end execution ensures structural integrity, architectural elegance, and transparent cost management.",
+      "We build independent houses, luxury villas, and residential buildings tailored to your family's needs. Our experienced team manages everything from foundation work and structural engineering to modern interior finishing, ensuring durable quality and transparent cost management.",
     items: [
       "Residential Building Construction",
       "Independent House Construction",
       "Villa Construction",
       "Apartment Construction",
-      "Interior Design & Interior Finishing Works",
+      "Interior Design & Finishing Works",
     ],
     keyBenefits: [
-      "Turnkey management from foundation engineering to final key handover",
-      "Strict compliance with BIS codes and structural safety standards",
-      "Complete material quality transparency with zero hidden costs",
-      "Dedicated site engineers and daily progress monitoring",
+      "Complete project management from floor plan to key handover",
+      "Top-grade building materials and structural safety checks",
+      "Transparent pricing with no hidden charges",
+      "Experienced site engineers supervising daily work",
     ],
     whyChooseUs: [
-      "Over 100+ successfully delivered projects across residential sectors",
-      "In-house engineering team providing customized blueprint designs",
-      "Seamless integration of structural build with luxury interior finishing",
+      "100+ successfully completed homes and villas",
+      "In-house team for custom plan drawing and 3D elevation",
+      "Timely completion with regular progress updates",
     ],
   },
   "land-development": {
     id: "land-development",
-    title: "Land Development",
+    title: "Land & Layout Development",
     icon: "📐",
-    shortIntro: "GPS Surveying, Approvals & Complete Site Preparation",
+    shortIntro: "GPS Survey, Layout Planning & DTCP Approvals",
     fullDescription:
-      "Our Land Development division turns raw land into approved, infrastructure-ready residential and commercial plots. Utilizing modern GPS surveying instruments, we guarantee sub-centimeter boundary accuracy, streamline DTCP government approvals, and construct complete layout infrastructure including asphalt/concrete internal roads, underground drainage, overhead water tanks, and secure compound walls.",
+      "We turn raw land into well-planned, government-approved residential layouts. Using precision GPS survey instruments, we map accurate boundaries, assist with DTCP approvals, and build complete layout infrastructure including tar/concrete roads, drainage, water tanks, and compound walls.",
     items: [
       "GPS Land Survey & Site Measurement",
       "DTCP Approval Assistance",
@@ -182,24 +192,24 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       "Compound Wall Construction",
     ],
     keyBenefits: [
-      "High-precision GPS land survey and boundary mapping",
-      "End-to-end assistance for DTCP and local body layout approvals",
-      "Robust heavy civil work: internal roads, stormwater drainage, compound walls",
-      "Maximizes land utilization efficiency and overall property appraisal value",
+      "Accurate boundary measurement using modern GPS survey tools",
+      "Step-by-step support for DTCP layout and plot approvals",
+      "Complete road, drainage, and utility construction",
+      "Increases overall land usability and market value",
     ],
     whyChooseUs: [
-      "Proven technical expertise in multi-acre layout engineering",
-      "Deep understanding of regional land development compliance and documentation",
-      "Heavy machinery and dedicated site preparation workforce",
+      "Over 10 years of experience in layout engineering",
+      "Clear knowledge of local land rules and paperwork",
+      "In-house earthmoving equipment and site workers",
     ],
   },
   "real-estate": {
     id: "real-estate",
-    title: "Real Estate Development",
+    title: "Real Estate Plot Promotion",
     icon: "🏘️",
-    shortIntro: "Strategic Plot Promotion & Premium Layout Development",
+    shortIntro: "Approved Residential Plot & Layout Development",
     fullDescription:
-      "SCE Construction's Real Estate Development division specializes in developing strategic residential layouts, property promotion, and prime plot promotion. We identify fast-growing residential zones, curate legal-clear plot layouts, and equip every project with essential civic infrastructure to offer homebuyers and real estate investors secure, high-appreciation land opportunities.",
+      "We create well-planned residential layouts in fast-growing areas across Tamil Nadu. Every plot layout comes with clear legal titles, approved documentation, and essential amenities like roads, water connections, and drainage, giving buyers secure land investment opportunities.",
     items: [
       "Property Promotion",
       "Residential Plot Development",
@@ -207,39 +217,66 @@ export const serviceDetails: Record<string, ServiceDetail> = {
       "Land Development Projects",
     ],
     keyBenefits: [
-      "100% legal-clear title verification and transparent documentation",
-      "Strategically located in high-growth residential and investment corridors",
-      "Fully developed plots with roads, drainage, water supply, and electrification ready",
-      "Direct developer pricing with comprehensive buyer guidance",
+      "100% legal clear titles and verified land documents",
+      "Located in promising growth corridors with high appreciation",
+      "Fully developed plots ready for immediate house construction",
+      "Direct builder pricing with complete buyer support",
     ],
     whyChooseUs: [
-      "Established brand reputation built on engineering integrity and trust",
-      "Hassle-free plot registration and documentation support",
-      "Strong focus on long-term capital appreciation for property buyers",
+      "Trusted name backed by 10+ years of construction experience",
+      "Hassle-free registration and documentation assistance",
+      "Honest guidance for homebuyers and land investors",
     ],
   },
   "future-projects": {
     id: "future-projects",
     title: "Farmhouse Projects",
     icon: "🌿",
-    shortIntro: "Countryside Retreat Planning, Land Prep & Custom Build",
+    shortIntro: "Farmhouse Planning, Land Prep & Construction",
     fullDescription:
-      "Experience peaceful living with our specialized Farmhouse Projects service. We assist land owners in planning, developing, and constructing private countryside farmhouses and resort-style holiday homes. From initial land contouring and fencing to sustainable architectural design and luxury construction, we create personal sanctuaries tailored for relaxation and value.",
+      "Build your private weekend retreat with our custom farmhouse services. We help land owners clear site terrain, install perimeter fencing, plan water sources, and construct comfortable farmhouses designed for family gatherings, relaxation, and long-term value.",
     items: [
       "Farmhouse Planning",
       "Farmhouse Construction",
       "Farmhouse Land Development",
     ],
     keyBenefits: [
-      "Tailored layout planning harmonizing natural terrain with modern living",
-      "Complete site prep: perimeter fencing, water source planning, and access roads",
-      "Climate-conscious, durable building structures for leisure and long-term utility",
-      "Turnkey execution from land clearing to turnkey interior setup",
+      "Thoughtful layout planning suited for natural land contours",
+      "Full site preparation including fencing, roads, and water supply",
+      "Durable construction designed for countryside climate",
+      "Complete execution from land prep to interior setup",
     ],
     whyChooseUs: [
-      "Specialized expertise in rural and semi-urban land development",
-      "Custom architectural styles combining rustic aesthetics with modern luxury",
-      "Dedicated management for private estate and holiday home construction",
+      "Hands-on experience in rural land development",
+      "Custom designs blending natural surroundings with modern comfort",
+      "Personalized attention for private estate builds",
+    ],
+  },
+  "elevation-3d": {
+    id: "elevation-3d",
+    title: "3D Elevation Design",
+    icon: "🎨",
+    shortIntro: "Realistic 3D Exterior Elevation & Facade Design",
+    fullDescription:
+      "Visualize your dream home before breaking ground. Our 3D design team creates realistic architectural elevation renders, helping you try out different exterior colors, material finishes, wall textures, and lighting options before construction begins.",
+    items: [
+      "Residential 3D Elevation",
+      "Villa Exterior Design",
+      "Commercial Building Elevation",
+      "Modern Facade Design",
+      "Exterior Visualization",
+      "Architectural Rendering",
+    ],
+    keyBenefits: [
+      "See your building's exact exterior look before starting work",
+      "Make design changes early to save material costs and time",
+      "High-resolution 3D images for plan approval and visualization",
+      "Custom color and elevation choices within your budget",
+    ],
+    whyChooseUs: [
+      "Experienced architectural designers and 3D visualizers",
+      "Clear renders showing exact color and material details",
+      "Easy transition from 3D plan to actual building construction",
     ],
   },
 };
@@ -258,61 +295,61 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "villa-project",
-    title: "Premium Villa Project",
+    title: "Premium Villa Construction",
     category: "Residential",
     description:
-      "A custom-designed villa with modern architecture, spacious interiors, and premium finishing - built to the highest construction standards.",
-    location: "Madurai, Tamil Nadu",
+      "A custom-designed luxury villa with modern elevation, spacious rooms, and quality interior finishing built for a family.",
+    location: "Coimbatore, Tamil Nadu",
     year: 2024,
     image: "/images/projects/villa-project.jpg",
   },
   {
     id: "independent-house",
-    title: "Independent House Construction",
+    title: "Independent House Build",
     category: "Residential",
     description:
-      "Complete independent house construction from foundation to finishing, featuring contemporary design and durable materials.",
-    location: "Madurai, Tamil Nadu",
+      "Complete independent house construction from foundation to final paint finish, delivered on schedule with quality materials.",
+    location: "Coimbatore, Tamil Nadu",
     year: 2024,
     image: "/images/projects/independent-house.jpg",
   },
   {
     id: "layout-development",
-    title: "Residential Layout Development",
+    title: "Residential Layout Planning",
     category: "Layout Development",
     description:
-      "A professionally planned residential layout with DTCP approval, internal roads, drainage systems, and essential infrastructure.",
-    location: "Madurai, Tamil Nadu",
+      "A 5-acre DTCP approved residential layout with tar roads, underground drainage, and street lighting.",
+    location: "Coimbatore, Tamil Nadu",
     year: 2024,
     image: "/images/projects/layout-development.jpg",
   },
   {
     id: "land-survey",
-    title: "GPS Land Survey & Site Planning",
+    title: "GPS Land Survey & Site Mapping",
     category: "Land Development",
     description:
-      "Precision GPS-based land survey and site measurement for accurate layout planning and development readiness.",
-    location: "Madurai, Tamil Nadu",
+      "Accurate GPS boundary survey and contour mapping for land plot development and government approval paperwork.",
+    location: "Coimbatore, Tamil Nadu",
     year: 2024,
     image: "/images/projects/land-survey.jpg",
   },
   {
     id: "interior-finishing",
-    title: "Interior Design & Finishing",
+    title: "Interior Design & Woodwork",
     category: "Interior",
     description:
-      "Complete interior design and finishing works - including modular kitchens, wardrobes, false ceilings, and premium flooring solutions.",
-    location: "Madurai, Tamil Nadu",
+      "Modern home interiors including modular kitchen, hall TV units, bedroom wardrobes, and false ceiling lighting.",
+    location: "Coimbatore, Tamil Nadu",
     year: 2024,
     image: "/images/projects/interior-finishing.jpg",
   },
   {
     id: "plot-development",
-    title: "Residential Plot Development",
+    title: "Plot Development Project",
     category: "Layout Development",
     description:
-      "Strategic residential plot development with proper approvals, infrastructure planning, and value-driven positioning for homebuyers.",
-    location: "Madurai, Tamil Nadu",
+      "Site clearing, road work, and compound fencing for an approved residential plot layout.",
+    location: "Coimbatore, Tamil Nadu",
     year: 2024,
     image: "/images/projects/plot-development.jpg",
   },
@@ -328,55 +365,58 @@ export interface Reason {
 
 export const whyChooseUs: Reason[] = [
   {
-    id: "end-to-end",
-    title: "End-to-End Solutions",
+    id: "experience",
+    title: "10+ Years Experience",
     description:
-      "From land surveys and approvals to construction and interior finishing - we manage every stage of your project under one roof.",
-    icon: "✅",
+      "Over a decade of hands-on experience building homes, villas, and land layouts across Tamil Nadu.",
+    icon: "Clock3",
   },
   {
-    id: "land-development",
-    title: "Professional Land Development",
+    id: "delivered",
+    title: "100+ Projects Completed",
     description:
-      "GPS-based surveys, DTCP approval assistance, layout planning, and complete site infrastructure - executed with technical precision.",
-    icon: "📐",
+      "A proven track record of over 100 successful house builds, plot layouts, and engineering projects.",
+    icon: "Trophy",
+  },
+  {
+    id: "team",
+    title: "50+ Skilled Team",
+    description:
+      "An experienced team of civil engineers, architects, survey experts, site supervisors, and skilled workers.",
+    icon: "Users",
+  },
+  {
+    id: "elevation-3d",
+    title: "Realistic 3D Elevation",
+    description:
+      "Detailed 3D designs that let you preview your building's exterior before construction begins.",
+    icon: "Box",
   },
   {
     id: "quality",
-    title: "Quality Engineering Standards",
+    title: "Quality Construction Materials",
     description:
-      "We follow strict engineering standards at every stage - using quality materials, proven methods, and professional site supervision.",
-    icon: "⭐",
+      "We use certified brand-name materials and follow proper structural standards for long-lasting strength.",
+    icon: "ShieldCheck",
   },
   {
-    id: "customer-focus",
-    title: "Customer-Focused Approach",
+    id: "end-to-end",
+    title: "Complete Project Handover",
     description:
-      "Your vision drives every decision. We prioritize clear communication, transparent updates, and a hassle-free construction experience.",
-    icon: "🤝",
-  },
-  {
-    id: "modern-planning",
-    title: "Modern Planning & Execution",
-    description:
-      "We leverage modern planning tools, GPS technology, and systematic project workflows to ensure on-time, on-budget delivery.",
-    icon: "📊",
-  },
-  {
-    id: "transparency",
-    title: "Transparent Project Management",
-    description:
-      "No hidden costs, no surprises. Detailed project plans, regular progress updates, and full cost transparency from day one.",
-    icon: "💰",
+      "From land survey and plan approval to civil construction and interior work, we manage everything.",
+    icon: "Building2",
   },
 ];
 
 // ── Contact Details ─────────────────────────────────────────
 export const contactDetails = {
-  address: "Madurai, Tamil Nadu, India",
-  phone: "+91 00000 00000",
+  name: "Shyles Circuit & Engineering Electrical Work",
+  address: "PMR Nagar, TVS Nagar, Coimbatore, Tamil Nadu – 641025",
+  fullAddress: "Shyles Circuit & Engineering Electrical Work, PMR Nagar, TVS Nagar, Coimbatore, Tamil Nadu – 641025",
+  mapUrl: "https://www.google.com/maps/place/Circuit+%26+Engineering+Electrical+Work/@11.0490908,76.9223518,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba859728aa80393:0x1861b2c7c4c52dce!8m2!3d11.0490908!4d76.9223518!16s%2Fg%2F11b8z0k5t_",
+  phone: "+91 91760 38819",
   email: "info@sceconstruction.com",
-  workingHours: "Mon – Sat: 9:00 AM – 6:00 PM",
+  workingHours: "Mon – Sat: 9:00 AM – 7:00 PM",
   socials: {
     facebook: "#",
     instagram: "#",

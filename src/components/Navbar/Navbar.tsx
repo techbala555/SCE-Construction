@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
 import { navigationItems, companyInfo } from "@/src/data/content";
 import ThemeToggle from "@/src/components/ThemeToggle/ThemeToggle";
 import { useMounted } from "@/src/lib/useMounted";
@@ -56,12 +57,7 @@ export default function Navbar() {
   const mounted = useMounted();
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  // Logo follows the NAVBAR BACKGROUND, not the theme:
-  //   • Transparent over the dark Hero   → white logo (/logo-light.svg)
-  //   • Glass once scrolled (light theme) → dark logo  (/logo-dark.svg)
-  //   • Glass once scrolled (dark theme)  → keep white logo
   const isDark = mounted && resolvedTheme === "dark";
-  const showDarkLogo = isScrolled && !isDark;
 
   /* ── Auto-hide scroll tracking refs ────────────────────── */
   const lastScrollY = useRef(0);
@@ -75,8 +71,9 @@ export default function Navbar() {
 
   /* ── Optimised scroll handler (rAF-throttled) ──────────── */
   useEffect(() => {
-    const HIDE_DELTA = 10;
-    const SHOW_DELTA = 5;
+    const HIDE_DELTA = 20;
+    const SHOW_DELTA = 15;
+    const SCROLL_THRESHOLD = 20; // Transition to solid dark navbar as soon as user scrolls slightly
 
     const onScroll = () => {
       if (ticking.current) return;
@@ -92,11 +89,10 @@ export default function Navbar() {
           scrollDelta.current = (scrollDelta.current > 0 ? 0 : scrollDelta.current) + diff;
         }
 
-        const heroEl = document.getElementById("home");
-        const heroThreshold = heroEl ? Math.max(300, heroEl.offsetHeight - 120) : 400;
+        // Navbar becomes solid as soon as user scrolls past 20px
+        setIsScrolled(y > SCROLL_THRESHOLD);
 
-        setIsScrolled(y > heroThreshold);
-
+        // Update active section highlight
         const sections = navigationItems.map((item) => item.href.replace("#", ""));
         let current = sections[0];
         for (const id of sections) {
@@ -107,10 +103,13 @@ export default function Navbar() {
         }
         setActiveSection(`#${current}`);
 
-        const shouldHide = y > heroThreshold && scrollDelta.current > HIDE_DELTA && !isMobileOpen;
+        // Smooth auto-hide on fast downward scroll (only after passing hero section)
+        const heroEl = document.getElementById("home");
+        const heroHeight = heroEl ? heroEl.offsetHeight : 500;
+        const shouldHide = y > heroHeight && scrollDelta.current > HIDE_DELTA && !isMobileOpen;
         const shouldShow = scrollDelta.current < -SHOW_DELTA;
 
-        if (y <= heroThreshold) {
+        if (y <= heroHeight) {
           setNavHidden(false);
         } else if (shouldHide) {
           setNavHidden(true);
@@ -191,14 +190,14 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full z-50 ${
-          isScrolled ? "glass" : "bg-transparent"
+        className={`fixed top-0 left-0 w-full z-[100] transition-transform duration-300 ease-in-out ${
+          isScrolled
+            ? "bg-[#0B1220] border-b border-white/[0.06] shadow-md shadow-black/20 backdrop-blur-md"
+            : "bg-transparent border-b border-transparent shadow-none"
         } ${navHidden ? "pointer-events-none" : ""}`}
         style={{
           transform: navHidden ? "translateY(-100%)" : "translateY(0)",
-          opacity: navHidden ? 0 : 1,
-          transition:
-            "transform 0.3s ease-in-out, opacity 0.3s ease-in-out, background-color 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out, border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+          willChange: "transform",
         }}
         onFocusCapture={() => setNavHidden(false)}
         role="navigation"
@@ -207,11 +206,11 @@ export default function Navbar() {
         {/* Full-width container */}
         <div className="w-full px-5 md:px-8 lg:px-10 xl:px-12">
           <div className="relative flex items-center h-16 sm:h-[72px] md:h-[80px] lg:h-[88px] xl:h-[100px] xl:grid xl:grid-cols-[1fr_auto_1fr]">
-            {/* ── LEFT: Logo ── */}
+            {/* ── LEFT: Brand Logo ── */}
             <a
               href="#home"
               onClick={(e) => scrollTo(e, "#home")}
-              className="relative flex items-center flex-shrink-0 xl:justify-self-start"
+              className="relative flex items-center flex-shrink-0 xl:justify-self-start group"
             >
               <Image
                 src="/logo-light.svg"
@@ -219,92 +218,70 @@ export default function Navbar() {
                 width={804}
                 height={572}
                 priority
-                className={`w-auto h-[48px] sm:h-[54px] md:h-[62px] lg:h-[70px] xl:h-[76px] max-w-none object-contain transition-opacity duration-300 ease-out ${
-                  showDarkLogo ? "opacity-0" : "opacity-100"
-                }`}
-              />
-              <Image
-                src="/logo-dark.svg"
-                alt=""
-                aria-hidden="true"
-                width={804}
-                height={572}
-                priority
-                className={`absolute left-0 top-1/2 -translate-y-1/2 w-auto h-[48px] sm:h-[54px] md:h-[62px] lg:h-[70px] xl:h-[76px] max-w-none object-contain transition-opacity duration-300 ease-out ${
-                  showDarkLogo ? "opacity-100" : "opacity-0"
-                }`}
+                className="w-auto h-[48px] sm:h-[54px] md:h-[62px] lg:h-[70px] xl:h-[76px] max-w-none object-contain transition-transform duration-300 group-hover:scale-[1.02]"
               />
             </a>
 
-            {/* ── CENTER: Navigation (Desktop) ── */}
+            {/* ── CENTER: Navigation Links (Desktop) ── */}
             <div className="hidden xl:flex items-center justify-center min-w-0">
               <ul className="flex items-center gap-6 2xl:gap-8">
-                {navigationItems.map((item) => (
-                  <li key={item.href}>
-                    <a
-                      href={item.href}
-                      onClick={(e) => scrollTo(e, item.href)}
-                      className={`relative py-3 px-1 text-[0.9375rem] font-medium tracking-wide whitespace-nowrap transition-colors duration-300 ${
-                        activeSection === item.href
-                          ? "text-primary"
-                          : isScrolled
-                          ? "text-muted hover:text-foreground"
-                          : "text-white/70 hover:text-white"
-                      }`}
-                    >
-                      {item.label}
-                      {activeSection === item.href && (
-                        <motion.span
-                          layoutId="active-nav"
-                          className="absolute -bottom-1 left-0 right-0 h-[2px] bg-primary rounded-full"
-                          transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                        />
-                      )}
-                    </a>
-                  </li>
-                ))}
+                {navigationItems.map((item) => {
+                  const isActive = activeSection === item.href;
+                  return (
+                    <li key={item.href}>
+                      <a
+                        href={item.href}
+                        onClick={(e) => scrollTo(e, item.href)}
+                        className={`relative py-3 px-1 text-[0.9375rem] font-medium tracking-wide whitespace-nowrap transition-colors duration-300 ${
+                          isActive
+                            ? "text-primary font-semibold"
+                            : "text-white/80 hover:text-white"
+                        }`}
+                      >
+                        {item.label}
+                        {isActive && (
+                          <motion.span
+                            layoutId="active-nav"
+                            className="absolute -bottom-1 left-0 right-0 h-[2.5px] bg-primary rounded-full shadow-[0_0_8px_rgba(212,160,23,0.6)]"
+                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                          />
+                        )}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
-            {/* ── RIGHT: Theme Toggle + CTA + Hamburger ── */}
+            {/* ── RIGHT: Theme Toggle + CTA + Mobile Hamburger ── */}
             <div className="flex items-center ml-auto xl:ml-0 flex-shrink-0 gap-3 sm:gap-4 md:gap-5 xl:gap-6 xl:justify-self-end">
               <ThemeToggle />
 
               <a
                 href="#contact"
                 onClick={(e) => scrollTo(e, "#contact")}
-                className="hidden lg:inline-flex items-center justify-center h-11 xl:h-12 px-6 xl:px-8 text-sm font-semibold rounded-lg
+                className="hidden lg:inline-flex items-center justify-center h-11 xl:h-12 px-6 xl:px-8 text-sm font-bold rounded-xl
                            bg-primary text-btn-text hover:bg-primary-dark
-                           btn-shine transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                           btn-shine transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]
+                           shadow-md shadow-primary/20"
               >
                 {companyInfo.cta}
               </a>
 
-              {/* Hamburger button (visible below xl) */}
+              {/* Hamburger Button (visible on mobile / tablet) */}
               <button
                 onClick={() => setIsMobileOpen(true)}
                 className="xl:hidden relative w-10 h-10 flex flex-col justify-center items-center gap-[5px]
-                           rounded-lg transition-colors duration-200
+                           rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-white
+                           transition-all duration-200 active:scale-95
                            focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 aria-label="Open mobile menu"
                 aria-expanded={isMobileOpen}
                 aria-controls="mobile-menu-portal"
               >
-                <span
-                  className={`block w-[20px] h-[2px] rounded-full transition-colors ${
-                    isScrolled ? "bg-foreground" : "bg-white"
-                  }`}
-                />
-                <span
-                  className={`block w-[20px] h-[2px] rounded-full transition-colors ${
-                    isScrolled ? "bg-foreground" : "bg-white"
-                  }`}
-                />
-                <span
-                  className={`block w-[20px] h-[2px] rounded-full transition-colors ${
-                    isScrolled ? "bg-foreground" : "bg-white"
-                  }`}
-                />
+                <span className="block w-[20px] h-[2px] rounded-full bg-white transition-colors" />
+                <span className="block w-[20px] h-[2px] rounded-full bg-white transition-colors" />
+                <span className="block w-[20px] h-[2px] rounded-full bg-white transition-colors" />
               </button>
             </div>
           </div>
@@ -362,18 +339,7 @@ export default function Navbar() {
                       className="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-elevated text-foreground hover:bg-primary/20 hover:text-primary transition-all duration-200 border border-border/50"
                       aria-label="Close menu"
                     >
-                      <svg
-                        width="22"
-                        height="22"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M18 6L6 18M6 6l12 12" />
-                      </svg>
+                      <X className="w-5 h-5" strokeWidth={2} aria-hidden="true" />
                     </button>
                   </div>
                 </div>
@@ -433,7 +399,7 @@ export default function Navbar() {
                         Shylesh Circuits & Engineering
                       </p>
                       <p className="text-[11px] text-muted/70">
-                        Builders & Developers • Madurai, Tamil Nadu
+                        Builders & Developers • Coimbatore, Tamil Nadu
                       </p>
                     </div>
                   </div>

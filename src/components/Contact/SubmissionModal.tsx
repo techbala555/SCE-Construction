@@ -3,6 +3,7 @@
 import { useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { Check, AlertCircle } from "lucide-react";
 import { useMounted } from "@/src/lib/useMounted";
 
 interface SubmissionModalProps {
@@ -61,22 +62,7 @@ function CheckmarkIcon() {
       transition={{ type: "spring", stiffness: 280, damping: 20, delay: 0.12 }}
       className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-emerald-500 text-white shadow-xl shadow-emerald-500/25 ring-8 ring-emerald-500/10 dark:ring-emerald-500/20"
     >
-      <svg
-        className="h-10 w-10 text-white"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={3}
-      >
-        <motion.path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M5 13l4 4L19 7"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: 0.4, delay: 0.3 }}
-        />
-      </svg>
+      <Check className="h-10 w-10 text-white" strokeWidth={3} aria-hidden="true" />
     </motion.div>
   );
 }
@@ -89,15 +75,7 @@ function ErrorIcon() {
       transition={{ type: "spring", stiffness: 280, damping: 20, delay: 0.12 }}
       className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-red-500 text-white shadow-xl shadow-red-500/25 ring-8 ring-red-500/10 dark:ring-red-500/20"
     >
-      <svg
-        className="h-10 w-10 text-white"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={3}
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v4m0 4h.01" />
-      </svg>
+      <AlertCircle className="h-10 w-10 text-white" strokeWidth={2.5} aria-hidden="true" />
     </motion.div>
   );
 }

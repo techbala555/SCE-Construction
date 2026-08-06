@@ -6,6 +6,8 @@ import Projects from "@/src/components/Projects/Projects";
 import WhyChooseUs from "@/src/components/WhyChooseUs/WhyChooseUs";
 import Contact from "@/src/components/Contact/Contact";
 import Footer from "@/src/components/Footer/Footer";
+import LeadPopup from "@/src/components/LeadPopup/LeadPopup";
+import BackToTop from "@/src/components/BackToTop/BackToTop";
 
 export default function Home() {
   return (
@@ -18,6 +20,8 @@ export default function Home() {
       <WhyChooseUs id="why-us" />
       <Contact id="contact" />
       <Footer />
+      <LeadPopup />
+      <BackToTop />
     </>
   );
 }

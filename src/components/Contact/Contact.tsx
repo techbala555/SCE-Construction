@@ -5,6 +5,15 @@ import dynamic from "next/dynamic";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
+import {
+  Check,
+  AlertCircle,
+  PhoneCall,
+  MessageSquare,
+  ArrowRight,
+  Loader2,
+  MapPinned,
+} from "lucide-react";
 import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
 import { fadeUp, staggerContainer, staggerItem } from "@/src/lib/motion";
 import {
@@ -24,9 +33,9 @@ interface ContactProps {
 
 /* ── Trust stats shown beside the header ─────────────────── */
 const trustStats = [
-  { value: "22+", label: "Years Experience" },
-  { value: "500+", label: "Projects Delivered" },
-  { value: "98%", label: "Client Satisfaction" },
+  { value: "10+", label: "Years Experience" },
+  { value: "100+", label: "Projects Delivered" },
+  { value: "50+", label: "Professional Team" },
 ];
 
 export default function Contact({ id }: ContactProps) {
@@ -172,9 +181,7 @@ export default function Contact({ id }: ContactProps) {
               Start Your <span className="text-gold-gradient">Dream Project</span>
             </h2>
             <p className="text-muted body-lg max-w-2xl mx-auto mb-12">
-              Ready to bring your vision to life? Fill out the form below and our
-              expert team will get back to you within 24 hours with a free
-              consultation.
+              Fill out the form below and our team will get back to you within 24 hours to discuss your project requirements.
             </p>
 
             {/* ── Trust indicators ─────────────────────── */}
@@ -197,20 +204,21 @@ export default function Contact({ id }: ContactProps) {
             </motion.div>
           </motion.div>
 
-          {/* ── Form card ──────────────────────────────── */}
+          {/* ── Form & Map Grid (Two-column layout on Desktop) ───── */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
             custom={0.15}
-            className="max-w-4xl mx-auto"
+            className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch max-w-7xl mx-auto"
           >
+            {/* Left Column: Contact Form */}
             <form
               onSubmit={handleSubmit(onSubmit)}
               noValidate
-              className="relative p-5 sm:p-8 lg:p-12 rounded-2xl sm:rounded-3xl
+              className="relative p-5 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl
                          bg-surface border border-border
-                         shadow-large"
+                         shadow-large h-full flex flex-col justify-between"
               style={{
                 background: "var(--glass-bg)",
                 backdropFilter: "blur(24px) saturate(180%)",
@@ -218,7 +226,7 @@ export default function Contact({ id }: ContactProps) {
               }}
             >
               {/* Subtle gold top accent */}
-              <div className="absolute top-0 left-6 right-6 sm:left-8 sm:right-8 h-[2px] rounded-b-full bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+              <div className="absolute top-0 left-6 right-6 sm:left-8 sm:right-8 h-[2px] rounded-b-full bg-gradient-to-r from-transparent via-primary/40 to-transparent pointer-events-none" />
 
               <div className="space-y-6 sm:space-y-7">
                 {/* ── Row 1: Full Name + Phone Number ────── */}
@@ -241,15 +249,13 @@ export default function Contact({ id }: ContactProps) {
                       />
                       {touchedFields.name && formValues.name && !errors.name && (
                         <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
+                          <Check className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
                         </div>
                       )}
                     </div>
                     {errors.name && (
                       <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+                        <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
                         {errors.name.message}
                       </p>
                     )}
@@ -274,7 +280,6 @@ export default function Contact({ id }: ContactProps) {
                         maxLength={10}
                         placeholder="9876543210"
                         onChange={(e) => {
-                          // Allow only numeric digits 0-9 up to 10 digits
                           const clean = e.target.value.replace(/\D/g, "").slice(0, 10);
                           setValue("phone", clean, { shouldValidate: true, shouldTouch: true });
                         }}
@@ -282,15 +287,13 @@ export default function Contact({ id }: ContactProps) {
                       />
                       {touchedFields.phone && formValues.phone && !errors.phone && (
                         <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
+                          <Check className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
                         </div>
                       )}
                     </div>
                     {errors.phone && (
                       <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+                        <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
                         {errors.phone.message}
                       </p>
                     )}
@@ -317,15 +320,13 @@ export default function Contact({ id }: ContactProps) {
                       />
                       {touchedFields.email && formValues.email && !errors.email && (
                         <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
+                          <Check className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
                         </div>
                       )}
                     </div>
                     {errors.email && (
                       <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+                        <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
                         {errors.email.message}
                       </p>
                     )}
@@ -367,20 +368,18 @@ export default function Contact({ id }: ContactProps) {
                         {...register("location")}
                         type="text"
                         id="location"
-                        placeholder="Madurai, Tamil Nadu"
+                        placeholder="Coimbatore, Tamil Nadu"
                         className={`input-premium transition-all duration-200 ${getFieldStatusClass("location")}`}
                       />
                       {touchedFields.location && formValues.location && !errors.location && (
                         <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
+                          <Check className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
                         </div>
                       )}
                     </div>
                     {errors.location && (
                       <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+                        <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
                         {errors.location.message}
                       </p>
                     )}
@@ -407,40 +406,37 @@ export default function Contact({ id }: ContactProps) {
 
                 {/* ── Row 4: Preferred Contact Method ──── */}
                 <div>
-                  {/* Preferred Contact Method (Phone / WhatsApp) */}
-                  <div>
-                    <p className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3">
-                      Preferred Contact Method <span className="text-muted text-[10px] normal-case tracking-normal">(optional)</span>
-                    </p>
-                    <div className="flex flex-wrap gap-3">
-                      {contactMethods.map((method) => (
-                        <label key={method} className="relative cursor-pointer">
-                          <input
-                            {...register("preferredContactMethod")}
-                            type="radio"
-                            value={method}
-                            className="peer sr-only"
-                          />
-                          <span className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium
-                                         border border-border text-muted
-                                         peer-checked:border-primary peer-checked:text-primary peer-checked:bg-primary/10
-                                         hover:border-primary/50 hover:text-foreground
-                                         transition-all duration-300 select-none">
-                            {method === "Phone Call" && (
-                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
-                            )}
-                            {method === "WhatsApp" && (
-                              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                            )}
-                            {method}
-                          </span>
-                        </label>
-                      ))}
-                    </div>
+                  <p className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3">
+                    Preferred Contact Method <span className="text-muted text-[10px] normal-case tracking-normal">(optional)</span>
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {contactMethods.map((method) => (
+                      <label key={method} className="relative cursor-pointer">
+                        <input
+                          {...register("preferredContactMethod")}
+                          type="radio"
+                          value={method}
+                          className="peer sr-only"
+                        />
+                        <span className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium
+                                       border border-border text-muted
+                                       peer-checked:border-primary peer-checked:text-primary peer-checked:bg-primary/10
+                                       hover:border-primary/50 hover:text-foreground
+                                       transition-all duration-300 select-none">
+                          {method === "Phone Call" && (
+                            <PhoneCall className="w-4 h-4 text-primary" strokeWidth={1.8} aria-hidden="true" />
+                          )}
+                          {method === "WhatsApp" && (
+                            <MessageSquare className="w-4 h-4 text-primary" strokeWidth={1.8} aria-hidden="true" />
+                          )}
+                          {method}
+                        </span>
+                      </label>
+                    ))}
                   </div>
                 </div>
 
-                {/* ── Row 4: Your Message ─────────────────── */}
+                {/* ── Row 5: Your Message ─────────────────── */}
                 <div>
                   <label
                     htmlFor="message"
@@ -455,14 +451,12 @@ export default function Contact({ id }: ContactProps) {
                       {...register("message")}
                       id="message"
                       placeholder="Tell us about your project vision, requirements, and timeline..."
-                      rows={5}
+                      rows={4}
                       className={`input-premium resize-none transition-all duration-200 ${getFieldStatusClass("message")}`}
                     />
                     {touchedFields.message && formValues.message && !errors.message && (
                       <div className="absolute right-3.5 bottom-3.5 text-emerald-500">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                          <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        <Check className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
                       </div>
                     )}
                   </div>
@@ -478,51 +472,72 @@ export default function Contact({ id }: ContactProps) {
                                btn-shine transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]
                                shadow-md shadow-primary/20
                                disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-none
-                               flex items-center justify-center gap-3"
+                               flex items-center justify-center gap-3 group"
                   >
                     {isSubmitting || isPendingSubmit ? (
                       <>
-                        <svg
-                          className="animate-spin h-5 w-5"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                        >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="3"
-                            className="opacity-25"
-                          />
-                          <path
-                            d="M4 12a8 8 0 018-8"
-                            stroke="currentColor"
-                            strokeWidth="3"
-                            strokeLinecap="round"
-                            className="opacity-75"
-                          />
-                        </svg>
+                        <Loader2 className="w-5 h-5 animate-spin" strokeWidth={2} aria-hidden="true" />
                         <span>Submitting...</span>
                       </>
                     ) : (
                       <>
                         <span>Get Free Consultation</span>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
+                        <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2.2} aria-hidden="true" />
                       </>
                     )}
                   </button>
 
-                  <p className="text-center text-xs text-muted mt-5">
+                  <p className="text-center text-xs text-muted mt-4">
                     By submitting, you agree to receive a callback from our team.
-                    <br />
-                    We respect your privacy and never share your information.
                   </p>
                 </div>
               </div>
             </form>
+
+            {/* Right Column: Google Map Embed */}
+            <div className="flex flex-col h-full space-y-3">
+              <div
+                className="relative w-full flex-1 min-h-[380px] sm:min-h-[420px] lg:min-h-[460px]
+                           rounded-2xl sm:rounded-3xl overflow-hidden
+                           bg-surface border border-border
+                           shadow-large"
+                style={{
+                  background: "var(--glass-bg)",
+                  backdropFilter: "blur(24px) saturate(180%)",
+                  WebkitBackdropFilter: "blur(24px) saturate(180%)",
+                }}
+              >
+                {/* Subtle gold top accent matching the form card */}
+                <div className="absolute top-0 left-6 right-6 sm:left-8 sm:right-8 h-[2px] rounded-b-full bg-gradient-to-r from-transparent via-primary/40 to-transparent z-10 pointer-events-none" />
+
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.860409729857!2d76.9223518!3d11.0490908!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859728aa80393%3A0x1861b2c7c4c52dce!2sCircuit%20%26%20Engineering%20Electrical%20Work!5e0!3m2!1sen!2sin!4v1786038415428!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  title="Google Maps Location of Circuit & Engineering Electrical Work"
+                  className="w-full h-full min-h-[380px] sm:min-h-[420px] lg:min-h-[460px] filter contrast-[1.02] rounded-2xl sm:rounded-3xl"
+                />
+              </div>
+
+              {/* Small "Open in Google Maps" Link */}
+              <div className="flex items-center justify-end px-2">
+                <a
+                  href="https://www.google.com/maps/place/Circuit+%26+Engineering+Electrical+Work/@11.0490908,76.9223518,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba859728aa80393:0x1861b2c7c4c52dce!8m2!3d11.0490908!4d76.9223518!16s%2Fg%2F11b8z0k5t_"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-primary
+                             hover:text-primary-dark transition-all duration-200 group hover:underline cursor-pointer"
+                  aria-label="Open Circuit & Engineering Electrical Work office location on Google Maps (opens in a new tab)"
+                >
+                  <MapPinned className="w-4 h-4 text-primary transition-transform duration-200 group-hover:scale-110" strokeWidth={2} aria-hidden="true" />
+                  <span>Open in Google Maps</span>
+                </a>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>

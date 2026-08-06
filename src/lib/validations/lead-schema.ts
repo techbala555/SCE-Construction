@@ -6,6 +6,7 @@ export const projectTypes = [
   "Villa Construction",
   "Apartment Construction",
   "Interior Design",
+  "3D Elevation Design",
   "GPS Land Survey",
   "DTCP Approval",
   "Layout Planning",

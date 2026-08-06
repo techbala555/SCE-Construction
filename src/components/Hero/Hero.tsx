@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { heroContent, statistics } from "@/src/data/content";
 import { heroReveal } from "@/src/lib/motion";
 import { scrollToSection } from "@/src/lib/scrollToSection";
@@ -163,10 +164,10 @@ export default function Hero({ id }: HeroProps) {
               onClick={(e) => { e.preventDefault(); scrollToSection("#projects"); }}
               className="w-full sm:w-auto min-h-[52px] sm:min-h-[56px] flex items-center justify-center px-8 sm:px-10 py-3.5 text-sm sm:text-base font-semibold rounded-xl
                          border border-white/20 text-white hover:bg-white/10
-                         transition-all duration-300 hover:border-white/40 group"
+                         transition-all duration-300 hover:border-white/40 group gap-2"
             >
-              {heroContent.ctaSecondary}
-              <span className="inline-block ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
+              <span>{heroContent.ctaSecondary}</span>
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
             </a>
           </motion.div>
         </div>

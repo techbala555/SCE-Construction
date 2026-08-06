@@ -4,36 +4,27 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import {
+  Building2,
+  MapPinned,
+  Building,
+  Trees,
+  Box,
+  ArrowRight,
+} from "lucide-react";
 import { services, serviceDetails, type ServiceDetail } from "@/src/data/content";
 import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
 import { fadeUp, staggerContainer, staggerItem } from "@/src/lib/motion";
 
 const ServiceModal = dynamic(() => import("./ServiceModal"), { ssr: false });
 
-// Service-specific SVG icons
+// Service-specific Lucide React icons
 const serviceIcons: Record<string, React.ReactNode> = {
-  construction: (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-      <polyline points="9 22 9 12 15 12 15 22" />
-    </svg>
-  ),
-  "land-development": (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M2 20h20" /><path d="M5 20V8l4 4V8l4 4V4l4 4v12" /><path d="M19 20V10l-2-2" />
-    </svg>
-  ),
-  "real-estate": (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="4" y="2" width="16" height="20" rx="1" />
-      <path d="M9 22V6h6v16" /><path d="M8 6h8" /><path d="M8 10h2" /><path d="M14 10h2" /><path d="M8 14h2" /><path d="M14 14h2" />
-    </svg>
-  ),
-  "future-projects": (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M2 22c1-6 5.5-12 16-12" /><path d="M18 10c0-8-12-6-12 0s12 8 12 0z" />
-    </svg>
-  ),
+  construction: <Building2 className="w-6 h-6 text-primary" strokeWidth={1.8} aria-hidden="true" />,
+  "land-development": <MapPinned className="w-6 h-6 text-primary" strokeWidth={1.8} aria-hidden="true" />,
+  "real-estate": <Building className="w-6 h-6 text-primary" strokeWidth={1.8} aria-hidden="true" />,
+  "future-projects": <Trees className="w-6 h-6 text-primary" strokeWidth={1.8} aria-hidden="true" />,
+  "elevation-3d": <Box className="w-6 h-6 text-primary" strokeWidth={1.8} aria-hidden="true" />,
 };
 
 // Service banner images
@@ -54,6 +45,10 @@ const serviceBanners: Record<string, { src: string; alt: string }> = {
     src: "/images/services/farmhouse.jpg",
     alt: "Specialized farmhouse planning, construction, and estate development",
   },
+  "elevation-3d": {
+    src: "/images/services/elevation-3d.jpg",
+    alt: "Photorealistic 3D elevation and exterior facade rendering by SCE Construction",
+  },
 };
 
 interface ServicesProps {
@@ -71,11 +66,11 @@ export default function Services({ id }: ServicesProps) {
 
   return (
     <section id={id} className="section-padding px-6 md:px-8 lg:px-12 bg-accent relative overflow-hidden">
-      {/* Decorative dots */}
-      <div className="absolute inset-0 bg-dots-pattern opacity-30 dark:opacity-20" />
+      {/* Decorative background grid pattern */}
+      <div className="absolute inset-0 bg-dots-pattern opacity-30 dark:opacity-20 pointer-events-none" />
 
       <div ref={ref} className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
+        {/* Section Header */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -92,7 +87,7 @@ export default function Services({ id }: ServicesProps) {
             Our Professional <span className="text-gold-gradient">Services</span>
           </h2>
           <p className="text-muted body-lg max-w-2xl mx-auto">
-            Complete construction, land development - delivered with precision, quality materials, and professional project management
+            We offer complete house construction, 3D elevation design, and land layout development with quality materials, clear pricing, and on-time delivery.
           </p>
         </motion.div>
 
@@ -116,112 +111,115 @@ export default function Services({ id }: ServicesProps) {
 
           <div className="p-4 sm:p-4.5 rounded-2xl bg-surface border border-border/80 shadow-sm flex items-center gap-3.5 sm:gap-4 h-full min-h-[76px]">
             <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-extrabold text-sm sm:text-base flex-shrink-0 leading-none select-none">
-              4
+              10+
             </div>
             <div className="flex flex-col justify-center min-w-0 flex-1">
-              <div className="text-xs sm:text-sm font-bold text-foreground truncate leading-snug">Service Categories</div>
-              <div className="text-[11px] sm:text-xs text-muted truncate mt-1 leading-none font-medium">End-to-End Execution</div>
+              <div className="text-xs sm:text-sm font-bold text-foreground truncate leading-snug">Years Experience</div>
+              <div className="text-[11px] sm:text-xs text-muted truncate mt-1 leading-none font-medium">Proven Track Record</div>
             </div>
           </div>
 
           <div className="p-4 sm:p-4.5 rounded-2xl bg-surface border border-border/80 shadow-sm flex items-center gap-3.5 sm:gap-4 h-full min-h-[76px]">
             <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-extrabold text-sm sm:text-base flex-shrink-0 leading-none select-none">
-              100%
+              50+
             </div>
             <div className="flex flex-col justify-center min-w-0 flex-1">
-              <div className="text-xs sm:text-sm font-bold text-foreground truncate leading-snug">Client Commitment</div>
-              <div className="text-[11px] sm:text-xs text-muted truncate mt-1 leading-none font-medium">Zero Hidden Costs</div>
+              <div className="text-xs sm:text-sm font-bold text-foreground truncate leading-snug">Professional Team</div>
+              <div className="text-[11px] sm:text-xs text-muted truncate mt-1 leading-none font-medium">In-House Experts</div>
             </div>
           </div>
 
           <div className="p-4 sm:p-4.5 rounded-2xl bg-surface border border-border/80 shadow-sm flex items-center gap-3.5 sm:gap-4 h-full min-h-[76px]">
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary flex-shrink-0 leading-none select-none">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                <path d="m9 12 2 2 4-4" />
-              </svg>
+            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-extrabold text-sm sm:text-base flex-shrink-0 leading-none select-none">
+              5
             </div>
             <div className="flex flex-col justify-center min-w-0 flex-1">
-              <div className="text-xs sm:text-sm font-bold text-foreground truncate leading-snug">Engineering Support</div>
-              <div className="text-[11px] sm:text-xs text-muted truncate mt-1 leading-none font-medium">Dedicated Site Engineers</div>
+              <div className="text-xs sm:text-sm font-bold text-foreground truncate leading-snug">Core Services</div>
+              <div className="text-[11px] sm:text-xs text-muted truncate mt-1 leading-none font-medium">End-to-End Execution</div>
             </div>
           </div>
         </motion.div>
 
-        {/* Services Grid - 1 col on mobile, 2 cols on sm/md/lg/xl */}
+        {/* Premium Horizontal Service Cards Stack */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="grid sm:grid-cols-2 gap-6 lg:gap-8"
+          className="space-y-8 lg:space-y-10"
         >
           {services.map((service) => (
             <motion.div
               key={service.id}
               variants={staggerItem}
-              className="group p-5 sm:p-7 rounded-2xl
-                         bg-surface border border-border/80
-                         card-hover cursor-default flex flex-col justify-between h-full shadow-sm"
+              className="group rounded-2xl sm:rounded-3xl bg-surface border border-border/80
+                         hover:border-primary/50 hover:shadow-[0_20px_40px_-15px_rgba(214,160,23,0.18)]
+                         hover:-translate-y-[6px] transition-all duration-300 ease-out
+                         overflow-hidden shadow-md"
             >
-              <div>
-                {/* Service Card Top Banner Image */}
-                <div className="relative h-44 sm:h-48 lg:h-52 rounded-xl overflow-hidden mb-6 bg-surface-elevated">
+              <div className="grid lg:grid-cols-12 items-stretch min-h-[300px] lg:min-h-[320px]">
+                {/* ── LEFT (40% Desktop): HD Image ────────────────────── */}
+                <div className="lg:col-span-5 relative w-full h-64 sm:h-72 lg:h-full min-h-[260px] sm:min-h-[300px] lg:min-h-[340px] overflow-hidden bg-surface-elevated">
                   {serviceBanners[service.id] && (
                     <Image
                       src={serviceBanners[service.id].src}
                       alt={serviceBanners[service.id].alt}
                       fill
-                      quality={80}
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
-                      className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                      quality={85}
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-
-                  {/* Icon Badge Overlay */}
-                  <div className="absolute top-4 left-4 z-10">
-                    <div className="w-10 h-10 rounded-xl bg-surface/90 backdrop-blur-md border border-border/60
-                                  flex items-center justify-center text-primary shadow-md">
-                      {serviceIcons[service.id] || <span className="text-lg">{service.icon}</span>}
-                    </div>
-                  </div>
+                  {/* Soft gradient overlay for atmospheric depth */}
+                  <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-black/40 via-transparent to-transparent pointer-events-none" />
                 </div>
 
-                {/* Title */}
-                <h3 className="text-lg sm:text-xl font-bold text-foreground heading-md leading-snug mb-3">
-                  {service.title}
-                </h3>
+                {/* ── RIGHT (60% Desktop): Service Content ────────────── */}
+                <div className="lg:col-span-7 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+                  <div>
+                    {/* Icon + Title Header */}
+                    <div className="flex items-center gap-3.5 mb-3.5">
+                      <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary flex-shrink-0 group-hover:bg-primary/20 group-hover:scale-105 transition-all duration-300">
+                        {serviceIcons[service.id]}
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-foreground heading-md group-hover:text-primary transition-colors duration-300">
+                        {service.title}
+                      </h3>
+                    </div>
 
-                <p className="text-muted body-relaxed text-sm sm:text-[0.9375rem] leading-relaxed mb-6">
-                  {service.description}
-                </p>
+                    {/* Short Description (Max 2 lines) */}
+                    <p className="text-muted body-relaxed text-sm sm:text-base line-clamp-2 leading-relaxed mb-6">
+                      {service.description}
+                    </p>
 
-                {/* Sub-items list */}
-                <ul className="space-y-2.5 sm:space-y-3 mb-6">
-                  {service.items.map((item) => (
-                    <li key={item.text} className="flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm text-muted">
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" className="text-primary flex-shrink-0">
-                        <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                      <span className="min-w-0">{item.text}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                    {/* 3 Feature Chips ONLY (Replacing long bullet lists) */}
+                    <div className="flex flex-wrap gap-2.5 sm:gap-3 mb-6 lg:mb-8">
+                      {service.items.slice(0, 3).map((item) => (
+                        <span
+                          key={item.text}
+                          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs sm:text-sm font-semibold bg-primary/10 text-primary border border-primary/20 select-none"
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                          <span>{item.text}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
 
-              {/* Learn More Action Button */}
-              <div className="pt-5 border-t border-border/80">
-                <button
-                  type="button"
-                  onClick={() => setSelectedService(serviceDetails[service.id] || null)}
-                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-primary
-                             hover:text-primary-dark transition-all duration-300 group-hover:gap-2.5 cursor-pointer"
-                >
-                  <span>Learn More</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </button>
+                  {/* Action Button Section */}
+                  <div className="pt-4 sm:pt-5 border-t border-border/80 flex items-center justify-between">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedService(serviceDetails[service.id] || null)}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-btn-text text-sm font-bold
+                                 btn-shine hover:bg-primary-dark shadow-sm shadow-primary/20
+                                 hover:shadow-[0_8px_25px_-5px_rgba(214,160,23,0.3)]
+                                 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer group/btn"
+                    >
+                      <span>View Details</span>
+                      <ArrowRight className="w-4 h-4 transition-transform duration-300 ease-out group-hover/btn:translate-x-1" strokeWidth={2.2} aria-hidden="true" />
+                    </button>
+                  </div>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -240,17 +238,15 @@ export default function Services({ id }: ServicesProps) {
             Need a Custom Construction Solution?
           </h3>
           <p className="text-muted body-relaxed text-sm sm:text-base max-w-xl mx-auto mb-7">
-            Whether you need turnkey villa construction, GPS land survey, layout planning, or property development — our expert engineering team is ready to assist.
+            Whether you need turnkey villa construction, 3D elevation design, GPS land survey, layout planning, or property development — our expert engineering team is ready to assist.
           </p>
           <a
             href="#contact"
             className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl bg-primary text-btn-text font-bold text-sm
-                       btn-shine hover:bg-primary-dark shadow-md shadow-primary/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                       btn-shine hover:bg-primary-dark shadow-md shadow-primary/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] group"
           >
             <span>Get Free Consultation</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2.2} aria-hidden="true" />
           </a>
         </motion.div>
       </div>
