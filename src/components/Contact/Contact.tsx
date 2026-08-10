@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -41,6 +41,28 @@ const trustStats = [
 export default function Contact({ id }: ContactProps) {
   const { ref, inView } = useScrollAnimation<HTMLDivElement>({ threshold: 0.05 });
   const [isPendingSubmit, setIsPendingSubmit] = useState(false);
+  const [shouldLoadMap, setShouldLoadMap] = useState(false);
+  const [isMapInteractive, setIsMapInteractive] = useState(false);
+  const mapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = mapRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoadMap(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "250px 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const [modalState, setModalState] = useState<{
     open: boolean;
     type: "success" | "error";
@@ -217,13 +239,8 @@ export default function Contact({ id }: ContactProps) {
               onSubmit={handleSubmit(onSubmit)}
               noValidate
               className="relative p-5 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl
-                         bg-surface border border-border
+                         bg-surface/95 backdrop-blur-md border border-border
                          shadow-large h-full flex flex-col justify-between"
-              style={{
-                background: "var(--glass-bg)",
-                backdropFilter: "blur(24px) saturate(180%)",
-                WebkitBackdropFilter: "blur(24px) saturate(180%)",
-              }}
             >
               {/* Subtle gold top accent */}
               <div className="absolute top-0 left-6 right-6 sm:left-8 sm:right-8 h-[2px] rounded-b-full bg-gradient-to-r from-transparent via-primary/40 to-transparent pointer-events-none" />
@@ -497,30 +514,47 @@ export default function Contact({ id }: ContactProps) {
             {/* Right Column: Google Map Embed */}
             <div className="flex flex-col h-full space-y-3">
               <div
+                ref={mapRef}
+                onClick={() => setIsMapInteractive(true)}
+                onMouseLeave={() => setIsMapInteractive(false)}
                 className="relative w-full flex-1 min-h-[380px] sm:min-h-[420px] lg:min-h-[460px]
                            rounded-2xl sm:rounded-3xl overflow-hidden
                            bg-surface border border-border
-                           shadow-large"
-                style={{
-                  background: "var(--glass-bg)",
-                  backdropFilter: "blur(24px) saturate(180%)",
-                  WebkitBackdropFilter: "blur(24px) saturate(180%)",
-                }}
+                           shadow-large flex items-center justify-center group cursor-pointer"
               >
                 {/* Subtle gold top accent matching the form card */}
                 <div className="absolute top-0 left-6 right-6 sm:left-8 sm:right-8 h-[2px] rounded-b-full bg-gradient-to-r from-transparent via-primary/40 to-transparent z-10 pointer-events-none" />
 
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.860409729857!2d76.9223518!3d11.0490908!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859728aa80393%3A0x1861b2c7c4c52dce!2sCircuit%20%26%20Engineering%20Electrical%20Work!5e0!3m2!1sen!2sin!4v1786038415428!5m2!1sen!2sin"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  title="Google Maps Location of Circuit & Engineering Electrical Work"
-                  className="w-full h-full min-h-[380px] sm:min-h-[420px] lg:min-h-[460px] filter contrast-[1.02] rounded-2xl sm:rounded-3xl"
-                />
+                {/* Click to Interact Overlay Badge (Prevents unintended scroll locking) */}
+                {!isMapInteractive && shouldLoadMap && (
+                  <div className="absolute top-4 right-4 z-20 pointer-events-none">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-white text-xs font-semibold shadow-md">
+                      <MapPinned className="w-3.5 h-3.5 text-primary" strokeWidth={2} aria-hidden="true" />
+                      Click to interact
+                    </span>
+                  </div>
+                )}
+
+                {shouldLoadMap ? (
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.860409729857!2d76.9223518!3d11.0490908!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859728aa80393%3A0x1861b2c7c4c52dce!2sCircuit%20%26%20Engineering%20Electrical%20Work!5e0!3m2!1sen!2sin"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    title="Google Maps Location of Circuit & Engineering Electrical Work"
+                    className={`w-full h-full min-h-[380px] sm:min-h-[420px] lg:min-h-[460px] filter contrast-[1.02] rounded-2xl sm:rounded-3xl transition-all duration-200 ${
+                      isMapInteractive ? "pointer-events-auto" : "pointer-events-none"
+                    }`}
+                  />
+                ) : (
+                  <div className="text-center p-6">
+                    <MapPinned className="w-8 h-8 text-primary mx-auto mb-2 opacity-60 animate-pulse" strokeWidth={1.8} aria-hidden="true" />
+                    <p className="text-sm font-medium text-muted">Loading map location...</p>
+                  </div>
+                )}
               </div>
 
               {/* Small "Open in Google Maps" Link */}

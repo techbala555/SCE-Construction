@@ -301,7 +301,7 @@ export const projects: Project[] = [
       "A custom-designed luxury villa with modern elevation, spacious rooms, and quality interior finishing built for a family.",
     location: "Coimbatore, Tamil Nadu",
     year: 2024,
-    image: "/images/projects/villa-project.jpg",
+    image: "/images/projects/villa-project.webp",
   },
   {
     id: "independent-house",
@@ -311,7 +311,7 @@ export const projects: Project[] = [
       "Complete independent house construction from foundation to final paint finish, delivered on schedule with quality materials.",
     location: "Coimbatore, Tamil Nadu",
     year: 2024,
-    image: "/images/projects/independent-house.jpg",
+    image: "/images/projects/independent-house.webp",
   },
   {
     id: "layout-development",
@@ -321,7 +321,7 @@ export const projects: Project[] = [
       "A 5-acre DTCP approved residential layout with tar roads, underground drainage, and street lighting.",
     location: "Coimbatore, Tamil Nadu",
     year: 2024,
-    image: "/images/projects/layout-development.jpg",
+    image: "/images/projects/layout-development.webp",
   },
   {
     id: "land-survey",
@@ -331,7 +331,7 @@ export const projects: Project[] = [
       "Accurate GPS boundary survey and contour mapping for land plot development and government approval paperwork.",
     location: "Coimbatore, Tamil Nadu",
     year: 2024,
-    image: "/images/projects/land-survey.jpg",
+    image: "/images/projects/land-survey.webp",
   },
   {
     id: "interior-finishing",
@@ -341,7 +341,7 @@ export const projects: Project[] = [
       "Modern home interiors including modular kitchen, hall TV units, bedroom wardrobes, and false ceiling lighting.",
     location: "Coimbatore, Tamil Nadu",
     year: 2024,
-    image: "/images/projects/interior-finishing.jpg",
+    image: "/images/projects/interior-finishing.webp",
   },
   {
     id: "plot-development",
@@ -414,8 +414,8 @@ export const contactDetails = {
   address: "PMR Nagar, TVS Nagar, Coimbatore, Tamil Nadu – 641025",
   fullAddress: "Shyles Circuit & Engineering Electrical Work, PMR Nagar, TVS Nagar, Coimbatore, Tamil Nadu – 641025",
   mapUrl: "https://www.google.com/maps/place/Circuit+%26+Engineering+Electrical+Work/@11.0490908,76.9223518,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba859728aa80393:0x1861b2c7c4c52dce!8m2!3d11.0490908!4d76.9223518!16s%2Fg%2F11b8z0k5t_",
-  phone: "+91 91760 38819",
-  email: "info@sceconstruction.com",
+  phone: "+91 98422 29272",
+  email: "info@scedevelopers.in",
   workingHours: "Mon – Sat: 9:00 AM – 7:00 PM",
   socials: {
     facebook: "#",

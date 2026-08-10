@@ -71,14 +71,17 @@ export default function Hero({ id }: HeroProps) {
       className="relative min-h-screen flex flex-col overflow-hidden"
     >
       {/* ── Background layers (z-0 to z-[2]) ──────────────── */}
-      <motion.div className="absolute inset-0 z-0 overflow-hidden" style={{ y: bgY }}>
+      <motion.div
+        className="absolute inset-0 z-0 overflow-hidden"
+        style={{ y: bgY, willChange: "transform" }}
+      >
         <Image
-          src="/images/hero-bg.jpg"
-          alt="Modern commercial building construction and civil engineering project"
+          src="/images/hero-bg.webp"
+          alt="Modern commercial building construction and civil engineering project in Tamil Nadu"
           fill
           priority
-          quality={85}
-          sizes="100vw"
+          quality={80}
+          sizes="(max-width: 768px) 100vw, 100vw"
           className="object-cover object-center animate-ken-burns"
         />
       </motion.div>
@@ -96,9 +99,8 @@ export default function Hero({ id }: HeroProps) {
       <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent z-[3]" />
 
       {/* ── All content in normal document flow ──────────── */}
-      <motion.div
+      <div
         className="relative z-10 flex flex-col items-center flex-1 pt-28 sm:pt-36 md:pt-44 lg:pt-52 xl:pt-56 pb-10 md:pb-14"
-        style={{ opacity }}
       >
         {/* ── Hero Text Block ──────────────────────────────── */}
         <div className="text-center px-4 sm:px-6 md:px-8 lg:px-12 max-w-5xl mx-auto">
@@ -209,7 +211,7 @@ export default function Hero({ id }: HeroProps) {
             <div className="w-1 h-2 rounded-full bg-primary animate-scroll-bounce" />
           </div>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }

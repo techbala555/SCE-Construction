@@ -113,11 +113,11 @@ export default function Footer() {
               </a>
               <a
                 href={`mailto:${contactDetails.email}`}
-                className="flex gap-3 items-center hover:text-primary transition-colors group"
-                aria-label={`Email ${contactDetails.email}`}
+                className="flex gap-3 items-center hover:text-primary transition-colors duration-300 group min-w-0 cursor-pointer"
+                aria-label={`Send email to ${contactDetails.email}`}
               >
-                <Mail className="w-4 h-4 text-primary flex-shrink-0 transition-transform group-hover:scale-110" strokeWidth={1.8} aria-hidden="true" />
-                <span className="group-hover:underline">{contactDetails.email}</span>
+                <Mail className="w-4 h-4 text-primary flex-shrink-0 transition-transform duration-300 group-hover:scale-110" strokeWidth={1.8} aria-hidden="true" />
+                <span className="group-hover:underline break-all sm:break-normal">{contactDetails.email}</span>
               </a>
             </div>
           </motion.div>

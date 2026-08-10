@@ -69,11 +69,33 @@ export default function Navbar() {
     navHiddenRef.current = navHidden;
   }, [navHidden]);
 
+  /* ── Active Section Intersection Observer (Zero Main-Thread Reflows) ── */
+  useEffect(() => {
+    const sectionIds = navigationItems.map((item) => item.href.replace("#", ""));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(`#${entry.target.id}`);
+          }
+        });
+      },
+      { rootMargin: "-15% 0px -65% 0px", threshold: 0 }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   /* ── Optimised scroll handler (rAF-throttled) ──────────── */
   useEffect(() => {
-    const HIDE_DELTA = 20;
+    const HIDE_DELTA = 25;
     const SHOW_DELTA = 15;
-    const SCROLL_THRESHOLD = 20; // Transition to solid dark navbar as soon as user scrolls slightly
+    const SCROLL_THRESHOLD = 20;
 
     const onScroll = () => {
       if (ticking.current) return;
@@ -89,33 +111,20 @@ export default function Navbar() {
           scrollDelta.current = (scrollDelta.current > 0 ? 0 : scrollDelta.current) + diff;
         }
 
-        // Navbar becomes solid as soon as user scrolls past 20px
-        setIsScrolled(y > SCROLL_THRESHOLD);
+        // Navbar background solid past 20px (guarded against redundant state updates)
+        setIsScrolled((prev) => (prev !== (y > SCROLL_THRESHOLD) ? (y > SCROLL_THRESHOLD) : prev));
 
-        // Update active section highlight
-        const sections = navigationItems.map((item) => item.href.replace("#", ""));
-        let current = sections[0];
-        for (const id of sections) {
-          const el = document.getElementById(id);
-          if (el && el.getBoundingClientRect().top <= 140) {
-            current = id;
-          }
-        }
-        setActiveSection(`#${current}`);
-
-        // Smooth auto-hide on fast downward scroll (only after passing hero section)
-        const heroEl = document.getElementById("home");
-        const heroHeight = heroEl ? heroEl.offsetHeight : 500;
-        const shouldHide = y > heroHeight && scrollDelta.current > HIDE_DELTA && !isMobileOpen;
+        // Auto-hide navbar past 450px threshold on fast downward scroll
+        const shouldHide = y > 450 && scrollDelta.current > HIDE_DELTA && !isMobileOpen;
         const shouldShow = scrollDelta.current < -SHOW_DELTA;
 
-        if (y <= heroHeight) {
-          setNavHidden(false);
+        if (y <= 450) {
+          setNavHidden((prev) => (prev ? false : prev));
         } else if (shouldHide) {
-          setNavHidden(true);
+          setNavHidden((prev) => (!prev ? true : prev));
           scrollDelta.current = 0;
         } else if (shouldShow) {
-          setNavHidden(false);
+          setNavHidden((prev) => (prev ? false : prev));
           scrollDelta.current = 0;
         }
 

@@ -122,10 +122,10 @@ export default function About({ id }: AboutProps) {
             {/* Main Image */}
             <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-surface-elevated shadow-xl border border-border">
               <Image
-                src="/images/about-us.jpg"
+                src="/images/about-us.webp"
                 alt="Indian civil engineers inspecting building plans on construction site"
                 fill
-                quality={85}
+                quality={80}
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover object-center transition-transform duration-700 hover:scale-105"
               />

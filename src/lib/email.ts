@@ -10,7 +10,7 @@ const FROM_EMAIL =
 
 // Business Owner recipient email address
 const NOTIFICATION_EMAIL =
-  process.env.NOTIFICATION_EMAIL || "info@sceconstruction.com";
+  process.env.NOTIFICATION_EMAIL || "info@sceconstruction@gmail.com";
 
 interface LeadEmailData {
   id: string;
@@ -258,7 +258,7 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<v
                       </div>
 
                       <p class="mobile-text" style="font-size: 15px; color: #334155; margin-bottom: 30px; line-height: 1.6;">
-                        If you have any urgent queries, feel free to call us directly at <a href="tel:+919176038819" style="color: #B8860B; font-weight: 600; text-decoration: none;">+91 91760 38819</a>.
+                        If you have any urgent queries, feel free to call us directly at <a href="tel:+919842229272" style="color: #B8860B; font-weight: 600; text-decoration: none;">+91 98422 29272</a>.
                       </p>
 
                       <div style="border-top: 1px solid #E2E8F0; padding-top: 20px;">

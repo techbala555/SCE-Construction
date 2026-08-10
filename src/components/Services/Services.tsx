@@ -30,23 +30,23 @@ const serviceIcons: Record<string, React.ReactNode> = {
 // Service banner images
 const serviceBanners: Record<string, { src: string; alt: string }> = {
   construction: {
-    src: "/images/projects/villa-project.jpg",
+    src: "/images/projects/villa-project.webp",
     alt: "Luxury residential building and villa construction by SCE Construction",
   },
   "land-development": {
-    src: "/images/projects/layout-development.jpg",
+    src: "/images/projects/layout-development.webp",
     alt: "Professional land development, GPS survey, and site planning",
   },
   "real-estate": {
-    src: "/images/projects/plot-development.jpg",
+    src: "/images/projects/plot-development.webp",
     alt: "Strategic plot promotion and residential layout development",
   },
   "future-projects": {
-    src: "/images/services/farmhouse.jpg",
+    src: "/images/services/farmhouse.webp",
     alt: "Specialized farmhouse planning, construction, and estate development",
   },
   "elevation-3d": {
-    src: "/images/services/elevation-3d.jpg",
+    src: "/images/services/elevation-3d.webp",
     alt: "Photorealistic 3D elevation and exterior facade rendering by SCE Construction",
   },
 };

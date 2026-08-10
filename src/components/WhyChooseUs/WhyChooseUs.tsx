@@ -110,10 +110,10 @@ export default function WhyChooseUs({ id }: WhyChooseUsProps) {
           className="relative mb-12 sm:mb-16 rounded-2xl sm:rounded-3xl overflow-hidden border border-deep-border/90 shadow-2xl aspect-[16/9] sm:aspect-[21/9] bg-surface-elevated group"
         >
           <Image
-            src="/images/why-choose-us.jpg"
+            src="/images/why-choose-us.webp"
             alt="Authentic Indian civil engineers and project managers reviewing architectural blueprints on active construction site"
             fill
-            quality={85}
+            quality={80}
             sizes="(max-width: 1280px) 100vw, 1280px"
             className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
           />

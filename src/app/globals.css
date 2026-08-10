@@ -576,17 +576,32 @@ select.input-premium option {
     transform: scale(1.0) translate3d(0, 0, 0);
   }
   50% {
-    transform: scale(1.035) translate3d(8px, -5px, 0);
+    transform: scale(1.03) translate3d(6px, -4px, 0);
   }
   100% {
-    transform: scale(1.05) translate3d(-6px, 3px, 0);
+    transform: scale(1.05) translate3d(-5px, 3px, 0);
+  }
+}
+
+@keyframes ken-burns-mobile {
+  0% {
+    transform: scale(1.0);
+  }
+  100% {
+    transform: scale(1.03);
   }
 }
 
 .animate-ken-burns {
-  animation: ken-burns 19s ease-in-out infinite alternate;
+  animation: ken-burns 20s ease-in-out infinite alternate;
   will-change: transform;
   transform-origin: center center;
+}
+
+@media (max-width: 768px) {
+  .animate-ken-burns {
+    animation: ken-burns-mobile 18s ease-in-out infinite alternate;
+  }
 }
 
 @keyframes ambient-fog-pulse {
@@ -609,7 +624,7 @@ select.input-premium option {
   .animate-ken-burns,
   .animate-ambient-fog {
     animation: none !important;
-    transform: scale(1.02) !important;
+    transform: scale(1.0) !important;
   }
 }
 

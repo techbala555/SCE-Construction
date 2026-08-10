@@ -22,7 +22,7 @@ export default function BackToTop() {
       ticking = true;
 
       requestAnimationFrame(() => {
-        setIsVisible(window.scrollY > SCROLL_SHOW_THRESHOLD);
+        setIsVisible((prev) => (prev !== (window.scrollY > SCROLL_SHOW_THRESHOLD) ? (window.scrollY > SCROLL_SHOW_THRESHOLD) : prev));
         ticking = false;
       });
     };
