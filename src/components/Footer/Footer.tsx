@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { companyInfo, navigationItems, contactDetails, services } from "@/src/data/content";
@@ -135,8 +136,12 @@ export default function Footer() {
             © {new Date().getFullYear()} {companyInfo.name}. All rights reserved.
           </p>
           <div className="flex gap-8 text-deep-muted/70 text-xs">
-            <span className="hover:text-deep-muted transition-colors cursor-pointer">Privacy Policy</span>
-            <span className="hover:text-deep-muted transition-colors cursor-pointer">Terms of Service</span>
+            <Link href="/privacy-policy" className="hover:text-primary transition-colors cursor-pointer">
+              Privacy Policy
+            </Link>
+            <Link href="/terms-of-service" className="hover:text-primary transition-colors cursor-pointer">
+              Terms of Service
+            </Link>
           </div>
         </motion.div>
       </div>

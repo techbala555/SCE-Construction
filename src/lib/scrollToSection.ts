@@ -7,7 +7,10 @@ export function scrollToSection(href: string): void {
 
   const targetId = href.replace("#", "");
   const targetEl = document.getElementById(targetId);
-  if (!targetEl) return;
+  if (!targetEl) {
+    window.location.href = "/" + href;
+    return;
+  }
 
   // Measure actual navbar height dynamically
   const navEl = document.querySelector("nav");
