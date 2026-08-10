@@ -187,7 +187,7 @@ export default function ServiceModal({
                     <div className="h-[1px] flex-1 bg-gradient-to-r from-primary/30 via-border/80 to-transparent ml-2" />
                   </div>
                 </div>
-                <div className="p-6 sm:p-7 rounded-2xl bg-surface dark:bg-surface-elevated/60 border border-border/80 dark:border-border/70 shadow-sm">
+                <div className="p-6 sm:p-7 rounded-2xl bg-surface-elevated border border-border shadow-sm">
                   <p className="text-foreground/90 body-relaxed text-sm sm:text-base leading-relaxed">
                     {service.fullDescription}
                   </p>
@@ -221,7 +221,7 @@ export default function ServiceModal({
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.03 * idx + 0.1, duration: 0.3 }}
-                      className="group p-4.5 rounded-2xl bg-surface dark:bg-surface-elevated/70 border border-border/80 dark:border-border/70
+                      className="group p-4.5 rounded-2xl bg-surface-elevated border border-border
                                  hover:border-primary/40 hover:shadow-md transition-all duration-300 card-hover shadow-sm flex items-center gap-4"
                     >
                       <div className="w-8 h-8 rounded-xl bg-primary/10 border border-primary/20
@@ -263,7 +263,7 @@ export default function ServiceModal({
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.03 * idx + 0.15, duration: 0.3 }}
-                      className="p-4.5 rounded-2xl bg-surface dark:bg-surface-elevated/60 border border-border/80 dark:border-border/70 shadow-sm flex items-start gap-3.5"
+                      className="p-4.5 rounded-2xl bg-surface-elevated border border-border shadow-sm flex items-start gap-3.5"
                     >
                       <div className="w-7 h-7 rounded-lg bg-primary/15 flex items-center justify-center text-primary flex-shrink-0 mt-0.5">
                         <CheckCircle2 className="w-4 h-4 text-primary" strokeWidth={2} aria-hidden="true" />

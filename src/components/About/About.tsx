@@ -144,7 +144,7 @@ export default function About({ id }: AboutProps) {
                 },
               }}
               className="absolute -bottom-6 left-4 sm:-left-12 p-4 sm:p-6 rounded-2xl
-                         bg-surface dark:bg-surface-elevated border border-border
+                         bg-surface-elevated border border-border
                          shadow-large z-10"
             >
               <div className="flex items-center gap-3 sm:gap-4">
@@ -196,8 +196,8 @@ export default function About({ id }: AboutProps) {
               <motion.div
                 key={member.title}
                 variants={staggerItem}
-                className="group p-5 sm:p-6 rounded-2xl bg-surface/80 dark:bg-surface-elevated/70
-                           backdrop-blur-md border border-border/80 hover:border-primary/40
+                className="group p-5 sm:p-6 rounded-2xl bg-surface-elevated
+                           border border-border hover:border-primary/40
                            shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full"
               >
                 <div>

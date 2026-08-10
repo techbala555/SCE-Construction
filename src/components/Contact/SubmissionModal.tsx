@@ -153,7 +153,7 @@ export default function SubmissionModal({
             aria-modal="true"
             aria-label={title}
             className="relative w-full max-w-md rounded-3xl p-8 sm:p-10
-                       bg-white dark:bg-surface border border-slate-200 dark:border-border/80
+                       bg-surface border border-border
                        shadow-2xl overflow-hidden select-none"
           >
             {/* Top Gold Accent Line */}
@@ -165,12 +165,12 @@ export default function SubmissionModal({
             </div>
 
             {/* Title */}
-            <h2 className="mb-3 text-center text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-foreground leading-snug">
+            <h2 className="mb-3 text-center text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground leading-snug">
               {title}
             </h2>
 
             {/* Message Description */}
-            <p className="mb-8 whitespace-pre-line text-center text-sm sm:text-base leading-relaxed text-slate-600 dark:text-muted max-w-sm mx-auto">
+            <p className="mb-8 whitespace-pre-line text-center text-sm sm:text-base leading-relaxed text-muted max-w-sm mx-auto">
               {message}
             </p>
 
@@ -194,8 +194,8 @@ export default function SubmissionModal({
                 type="button"
                 onClick={onClose}
                 className="w-full min-h-[50px] sm:min-h-[52px] py-3.5 px-6 rounded-2xl
-                           bg-white dark:bg-surface border border-slate-300 dark:border-border/80 text-slate-800 dark:text-foreground text-sm sm:text-base font-bold
-                           hover:bg-slate-100 dark:hover:bg-surface-elevated transition-all duration-300
+                           bg-surface-elevated border border-border text-foreground text-sm sm:text-base font-bold
+                           hover:bg-surface-elevated/80 transition-all duration-300
                            shadow-xs hover:scale-[1.01] active:scale-[0.98]
                            flex items-center justify-center"
               >
