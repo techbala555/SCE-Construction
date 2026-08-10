@@ -51,9 +51,9 @@ export default function Footer() {
 
           {/* Quick Links */}
           <motion.div variants={staggerItem}>
-            <h4 className="text-sm font-semibold text-primary uppercase tracking-wider mb-7">
+            <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-7">
               Quick Links
-            </h4>
+            </h3>
             <ul className="space-y-4">
               {navigationItems.map((item) => (
                 <li key={item.href}>
@@ -73,9 +73,9 @@ export default function Footer() {
 
           {/* Services */}
           <motion.div variants={staggerItem}>
-            <h4 className="text-sm font-semibold text-primary uppercase tracking-wider mb-7">
+            <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-7">
               Services
-            </h4>
+            </h3>
             <ul className="space-y-4">
               {services.slice(0, 5).map((service) => (
                 <li key={service.id}>
@@ -89,9 +89,9 @@ export default function Footer() {
 
           {/* Contact */}
           <motion.div variants={staggerItem}>
-            <h4 className="text-sm font-semibold text-primary uppercase tracking-wider mb-7">
+            <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-7">
               Contact Info
-            </h4>
+            </h3>
             <div className="space-y-5 text-deep-muted text-sm">
               <a
                 href={contactDetails.mapUrl || "https://www.google.com/maps/place/Circuit+%26+Engineering+Electrical+Work/@11.0490908,76.9223518,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba859728aa80393:0x1861b2c7c4c52dce!8m2!3d11.0490908!4d76.9223518!16s%2Fg%2F11b8z0k5t_"}

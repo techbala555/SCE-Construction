@@ -126,7 +126,7 @@ export default function About({ id }: AboutProps) {
                 alt="Indian civil engineers inspecting building plans on construction site"
                 fill
                 quality={80}
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 640px) 92vw, (max-width: 1024px) 48vw, 600px"
                 className="object-cover object-center transition-transform duration-700 hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />

@@ -105,32 +105,20 @@ export default function Hero({ id }: HeroProps) {
         {/* ── Hero Text Block ──────────────────────────────── */}
         <div className="text-center px-4 sm:px-6 md:px-8 lg:px-12 max-w-5xl mx-auto">
           {/* Subtitle Badge */}
-          <motion.div
-            variants={heroReveal}
-            initial="hidden"
-            animate="visible"
-            custom={0.2}
-            className="inline-flex items-center gap-2.5 sm:gap-3 mb-6 sm:mb-8"
-          >
+          <div className="inline-flex items-center gap-2.5 sm:gap-3 mb-6 sm:mb-8">
             <span className="h-[1px] w-6 sm:w-10 bg-primary/60" />
             <span className="label-sm text-primary tracking-[0.15em] sm:tracking-[0.2em] text-xs sm:text-sm">
               {heroContent.subtitle}
             </span>
             <span className="h-[1px] w-6 sm:w-10 bg-primary/60" />
-          </motion.div>
+          </div>
 
-          {/* Main Title */}
-          <motion.h1
-            variants={heroReveal}
-            initial="hidden"
-            animate="visible"
-            custom={0.4}
-            className="heading-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-6 sm:mb-8 leading-tight"
-          >
+          {/* Main Title (LCP Element - Renders Immediately with 0ms Delay) */}
+          <h1 className="heading-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-6 sm:mb-8 leading-tight">
             {heroContent.title}
             <br />
             <span className="text-gold-gradient">{heroContent.titleAccent}</span>
-          </motion.h1>
+          </h1>
 
           {/* Description */}
           <motion.p
