@@ -62,9 +62,10 @@ export async function POST(request: Request) {
     );
 
     // 4. Dispatch Email Notifications (Owner + Customer confirmation)
-    // Await email dispatch to ensure execution completes cleanly in serverless context
+    let emailResult = null;
     try {
-      await sendLeadNotificationEmails(lead);
+      emailResult = await sendLeadNotificationEmails(lead);
+      console.log(`[API_LEADS_POST] 📧 Email Dispatch Detailed Status:`, JSON.stringify(emailResult, null, 2));
     } catch (emailErr) {
       console.error("[API_LEADS_POST] ❌ Non-fatal email dispatch exception:", emailErr);
     }

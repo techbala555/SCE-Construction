@@ -306,8 +306,8 @@ export default function LeadPopup() {
                     {/* Row 1: Name & Phone */}
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="popup-name" className="block text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-2">
-                          Full Name <span className="text-primary font-bold">*</span>
+                        <label htmlFor="popup-name" className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2">
+                          Full Name <span className="text-primary font-bold ml-0.5">*</span>
                         </label>
                         <div className="relative">
                           <input
@@ -315,7 +315,7 @@ export default function LeadPopup() {
                             type="text"
                             id="popup-name"
                             placeholder="Enter your name"
-                            className={`w-full px-4 py-3 bg-white dark:bg-slate-800/80 border border-gray-300 dark:border-white/10 rounded-xl text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 text-sm font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary/40 transition-all duration-200 ${getFieldStatusClass("name")}`}
+                            className={`input-premium transition-all duration-200 ${getFieldStatusClass("name")}`}
                           />
                           {touchedFields.name && formValues.name && !errors.name && (
                             <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
@@ -332,11 +332,11 @@ export default function LeadPopup() {
                       </div>
 
                       <div>
-                        <label htmlFor="popup-phone" className="block text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-2">
-                          Phone Number <span className="text-primary font-bold">*</span>
+                        <label htmlFor="popup-phone" className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2">
+                          Phone Number <span className="text-primary font-bold ml-0.5">*</span>
                         </label>
                         <div className="flex relative">
-                          <span className="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-gray-300 dark:border-white/10 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 text-xs font-medium select-none">
+                          <span className="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-border bg-surface-elevated text-muted text-xs font-medium select-none">
                             +91
                           </span>
                           <input
@@ -349,7 +349,7 @@ export default function LeadPopup() {
                               const clean = e.target.value.replace(/\D/g, "").slice(0, 10);
                               setValue("phone", clean, { shouldValidate: true, shouldTouch: true });
                             }}
-                            className={`w-full px-4 py-3 bg-white dark:bg-slate-800/80 border border-gray-300 dark:border-white/10 !rounded-l-none rounded-r-xl text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 text-sm font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary/40 transition-all duration-200 ${getFieldStatusClass("phone")}`}
+                            className={`input-premium !rounded-l-none transition-all duration-200 ${getFieldStatusClass("phone")}`}
                           />
                           {touchedFields.phone && formValues.phone && !errors.phone && (
                             <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
@@ -388,8 +388,8 @@ export default function LeadPopup() {
                       />
 
                       <div>
-                        <label htmlFor="popup-location" className="block text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-2">
-                          Location <span className="text-primary font-bold">*</span>
+                        <label htmlFor="popup-location" className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2">
+                          Location <span className="text-primary font-bold ml-0.5">*</span>
                         </label>
                         <div className="relative">
                           <input
@@ -397,7 +397,7 @@ export default function LeadPopup() {
                             type="text"
                             id="popup-location"
                             placeholder="Coimbatore, Tamil Nadu"
-                            className={`w-full px-4 py-3 bg-white dark:bg-slate-800/80 border border-gray-300 dark:border-white/10 rounded-xl text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 text-sm font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary/40 transition-all duration-200 ${getFieldStatusClass("location")}`}
+                            className={`input-premium transition-all duration-200 ${getFieldStatusClass("location")}`}
                           />
                           {touchedFields.location && formValues.location && !errors.location && (
                             <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
@@ -416,15 +416,15 @@ export default function LeadPopup() {
 
                     {/* Row 3: Your Message */}
                     <div>
-                      <label htmlFor="popup-message" className="block text-xs font-semibold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-2">
-                        Your Message <span className="text-gray-500 dark:text-gray-400 text-[10px] normal-case tracking-normal">(optional)</span>
+                      <label htmlFor="popup-message" className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2">
+                        Your Message <span className="text-muted text-[10px] normal-case tracking-normal">(optional)</span>
                       </label>
                       <textarea
                         {...register("message")}
                         id="popup-message"
                         placeholder="Tell us briefly about your project..."
                         rows={2}
-                        className={`w-full px-4 py-3 bg-white dark:bg-slate-800/80 border border-gray-300 dark:border-white/10 rounded-xl text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 text-sm font-medium outline-none focus:border-primary focus:ring-1 focus:ring-primary/40 resize-none transition-all duration-200 ${getFieldStatusClass("message")}`}
+                        className={`input-premium resize-none transition-all duration-200 ${getFieldStatusClass("message")}`}
                       />
                     </div>
 

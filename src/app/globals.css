@@ -248,6 +248,20 @@ textarea,
   box-shadow: 0 0 16px 2px rgba(246, 201, 69, 0.5) !important;
 }
 
+.btn-shine:disabled {
+  background: var(--clr-surface-elevated) !important;
+  color: var(--clr-muted) !important;
+  border: 1px solid var(--clr-border) !important;
+  box-shadow: none !important;
+  transform: none !important;
+  opacity: 0.65 !important;
+  cursor: not-allowed !important;
+}
+
+.btn-shine:disabled::after {
+  display: none !important;
+}
+
 /* Sweep Light Micro-Interaction */
 .btn-shine::after {
   content: "";

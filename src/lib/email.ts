@@ -4,13 +4,13 @@ import { Resend } from "resend";
 const resendApiKey = process.env.RESEND_API_KEY;
 const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
-// Sender address supported by Resend (default testing domain: onboarding@resend.dev)
+// Sender address supported by Resend (Domain: scedevelopers.in)
 const FROM_EMAIL =
-  process.env.FROM_EMAIL || "Shylesh Circuits & Engineering <onboarding@resend.dev>";
+  process.env.FROM_EMAIL || "Shylesh Circuits & Engineering <info@scedevelopers.in>";
 
-// Business Owner recipient email address
+// Business Owner / Admin notification recipient email address
 const NOTIFICATION_EMAIL =
-  process.env.NOTIFICATION_EMAIL || "info@sceconstruction@gmail.com";
+  process.env.NOTIFICATION_EMAIL || "info@scedevelopers.in";
 
 interface LeadEmailData {
   id: string;
@@ -25,14 +25,28 @@ interface LeadEmailData {
   createdAt: Date | string;
 }
 
+export interface SendEmailResult {
+  adminSent: boolean;
+  customerSent: boolean;
+  adminError?: string | null;
+  customerError?: string | null;
+}
+
 /**
  * Sends notification emails after a new lead is saved.
- * 1. Owner Notification Email -> NOTIFICATION_EMAIL
+ * 1. Owner / Admin Notification Email -> NOTIFICATION_EMAIL
  * 2. Customer Confirmation Email -> Customer Email (if provided)
  *
  * Fully logged & audited. Logs complete Resend API responses and error objects.
  */
-export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<void> {
+export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<SendEmailResult> {
+  const result: SendEmailResult = {
+    adminSent: false,
+    customerSent: false,
+    adminError: null,
+    customerError: null,
+  };
+
   console.log(`[EMAIL_SERVICE] 📧 Initiating email dispatch for Lead ID: ${lead.id}`);
   console.log(`[EMAIL_SERVICE] 📋 Lead Input Data:`, {
     id: lead.id,
@@ -44,10 +58,11 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<v
   });
 
   if (!resend) {
-    console.warn(
-      "[EMAIL_SERVICE] ⚠️ RESEND_API_KEY is not configured in environment variables. Skipping email dispatch."
-    );
-    return;
+    const errorMsg = "RESEND_API_KEY is not configured in environment variables.";
+    console.warn(`[EMAIL_SERVICE] ⚠️ ${errorMsg} Skipping email dispatch.`);
+    result.adminError = errorMsg;
+    result.customerError = errorMsg;
+    return result;
   }
 
   const contactMethodDisplay = lead.preferredContactMethod || "Phone Call";
@@ -176,6 +191,7 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<v
     const ownerRes = await resend.emails.send({
       from: FROM_EMAIL,
       to: NOTIFICATION_EMAIL,
+      replyTo: lead.email && lead.email.trim().length > 0 ? lead.email.trim() : undefined,
       subject: `New Website Enquiry - ${lead.name} (${contactMethodDisplay})`,
       html: ownerHtml,
     });
@@ -183,11 +199,16 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<v
     console.log(`[EMAIL_SERVICE] 📥 Resend API Raw Response (Admin Email):`, JSON.stringify(ownerRes, null, 2));
 
     if (ownerRes.error) {
+      result.adminSent = false;
+      result.adminError = ownerRes.error.message || ownerRes.error.name;
       console.error(`[EMAIL_SERVICE] ❌ Admin Email Failed (Code ${ownerRes.error.name}):`, JSON.stringify(ownerRes.error, null, 2));
     } else {
+      result.adminSent = true;
       console.log(`[EMAIL_SERVICE] ✅ Admin Email Sent Successfully (ID: ${ownerRes.data?.id})`);
     }
   } catch (error) {
+    result.adminSent = false;
+    result.adminError = error instanceof Error ? error.message : String(error);
     console.error("[EMAIL_SERVICE] 💥 Exception sending Admin Email:", error);
   }
 
@@ -285,6 +306,7 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<v
       const customerRes = await resend.emails.send({
         from: FROM_EMAIL,
         to: customerRecipient,
+        replyTo: "info@scedevelopers.in",
         subject: "Thank You for Contacting Shylesh Circuits & Engineering",
         html: customerHtml,
       });
@@ -292,14 +314,21 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<v
       console.log(`[EMAIL_SERVICE] 📥 Resend API Raw Response (Customer Email):`, JSON.stringify(customerRes, null, 2));
 
       if (customerRes.error) {
+        result.customerSent = false;
+        result.customerError = customerRes.error.message || customerRes.error.name;
         console.error(`[EMAIL_SERVICE] ❌ Customer Confirmation Email Failed (Code ${customerRes.error.name}):`, JSON.stringify(customerRes.error, null, 2));
       } else {
+        result.customerSent = true;
         console.log(`[EMAIL_SERVICE] ✅ Customer Confirmation Email Sent Successfully to ${customerRecipient} (ID: ${customerRes.data?.id})`);
       }
     } catch (error) {
+      result.customerSent = false;
+      result.customerError = error instanceof Error ? error.message : String(error);
       console.error("[EMAIL_SERVICE] 💥 Exception sending Customer Email:", error);
     }
   } else {
     console.log(`[EMAIL_SERVICE] ℹ️ Customer email not provided in form. Skipping customer confirmation email.`);
   }
+
+  return result;
 }

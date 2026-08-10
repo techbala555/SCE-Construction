@@ -332,7 +332,7 @@ export default function Contact({ id }: ContactProps) {
                         {...register("email")}
                         type="email"
                         id="email"
-                        placeholder="your@email.com"
+                        placeholder="name@example.com"
                         className={`input-premium transition-all duration-200 ${getFieldStatusClass("email")}`}
                       />
                       {touchedFields.email && formValues.email && !errors.email && (

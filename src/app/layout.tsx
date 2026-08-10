@@ -10,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sceconstruction.com"),
+  metadataBase: new URL("https://scedevelopers.in"),
   title: "SCE Construction - House Construction & Land Development in Tamil Nadu",
   description:
     "Shylesh Circuits & Engineering is a trusted builder in Coimbatore, Tamil Nadu. We specialize in independent house construction, villa building, land development, GPS land survey, DTCP approvals, and 3D elevation design.",
