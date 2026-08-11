@@ -6,18 +6,25 @@ import { ArrowLeft, Scale, Mail, Phone, MapPin } from "lucide-react";
 import { contactDetails } from "@/src/data/content";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | SCE Developers",
+  title: "Terms of Service",
   description:
     "Terms of Service for Shylesh Circuits & Engineering (SCE Developers). Read the terms governing the use of our website and services.",
   alternates: {
-    canonical: "https://scedevelopers.in/terms-of-service",
+    canonical: "https://www.scedevelopers.in/terms-of-service",
   },
   openGraph: {
     title: "Terms of Service | SCE Developers",
     description:
       "Terms of Service for Shylesh Circuits & Engineering (SCE Developers). Read our terms and conditions.",
-    url: "https://scedevelopers.in/terms-of-service",
+    url: "https://www.scedevelopers.in/terms-of-service",
+    siteName: "SCE Developers",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Terms of Service | SCE Developers",
+    description:
+      "Terms of Service for Shylesh Circuits & Engineering (SCE Developers). Read our terms and conditions.",
   },
 };
 

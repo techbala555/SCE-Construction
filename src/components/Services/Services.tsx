@@ -3,6 +3,7 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Building2,
@@ -49,6 +50,14 @@ const serviceBanners: Record<string, { src: string; alt: string }> = {
     src: "/images/services/elevation-3d.webp",
     alt: "Photorealistic 3D elevation and exterior facade rendering by SCE Construction",
   },
+};
+
+const serviceRoutes: Record<string, string> = {
+  construction: "/services/house-construction",
+  "land-development": "/services/land-development",
+  "real-estate": "/services/plot-promotion",
+  "future-projects": "/services/farmhouse-projects",
+  "elevation-3d": "/services/3d-elevation-design",
 };
 
 interface ServicesProps {
@@ -206,18 +215,28 @@ export default function Services({ id }: ServicesProps) {
                   </div>
 
                   {/* Action Button Section */}
-                  <div className="pt-4 sm:pt-5 border-t border-border/80 flex items-center justify-between">
+                  <div className="pt-4 sm:pt-5 border-t border-border/80 flex items-center justify-between gap-3">
                     <button
                       type="button"
                       onClick={() => setSelectedService(serviceDetails[service.id] || null)}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-btn-text text-sm font-bold
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-btn-text text-sm font-bold
                                  btn-shine hover:bg-primary-dark shadow-sm shadow-primary/20
                                  hover:shadow-[0_8px_25px_-5px_rgba(214,160,23,0.3)]
                                  transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer group/btn"
                     >
-                      <span>View Details</span>
+                      <span>Quick View</span>
                       <ArrowRight className="w-4 h-4 transition-transform duration-300 ease-out group-hover/btn:translate-x-1" strokeWidth={2.2} aria-hidden="true" />
                     </button>
+
+                    {serviceRoutes[service.id] && (
+                      <Link
+                        href={serviceRoutes[service.id]}
+                        className="text-xs font-bold text-primary hover:text-primary-dark hover:underline inline-flex items-center gap-1 transition-colors"
+                      >
+                        <span>Full Page</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>

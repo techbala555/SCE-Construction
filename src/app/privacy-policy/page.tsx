@@ -6,18 +6,25 @@ import { ArrowLeft, ShieldCheck, Mail, Phone, MapPin } from "lucide-react";
 import { contactDetails } from "@/src/data/content";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | SCE Developers",
+  title: "Privacy Policy",
   description:
     "Privacy Policy for Shylesh Circuits & Engineering (SCE Developers). Learn how we collect, use, and protect your project enquiry information.",
   alternates: {
-    canonical: "https://scedevelopers.in/privacy-policy",
+    canonical: "https://www.scedevelopers.in/privacy-policy",
   },
   openGraph: {
     title: "Privacy Policy | SCE Developers",
     description:
       "Privacy Policy for Shylesh Circuits & Engineering (SCE Developers). Learn how we handle your information.",
-    url: "https://scedevelopers.in/privacy-policy",
+    url: "https://www.scedevelopers.in/privacy-policy",
+    siteName: "SCE Developers",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Privacy Policy | SCE Developers",
+    description:
+      "Privacy Policy for Shylesh Circuits & Engineering (SCE Developers). Learn how we handle your information.",
   },
 };
 

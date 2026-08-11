@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import type { ServiceDetail } from "@/src/data/content";
 import { useMounted } from "@/src/lib/useMounted";
+import Link from "next/link";
 
 interface ServiceModalProps {
   isOpen: boolean;
@@ -23,6 +24,14 @@ interface ServiceModalProps {
   iconSvg?: React.ReactNode;
   onGetQuote: () => void;
 }
+
+const serviceRoutes: Record<string, string> = {
+  construction: "/services/house-construction",
+  "land-development": "/services/land-development",
+  "real-estate": "/services/plot-promotion",
+  "future-projects": "/services/farmhouse-projects",
+  "elevation-3d": "/services/3d-elevation-design",
+};
 
 /* ── Focus Trap Utility ─────────────────────────────────────── */
 function useFocusTrap(isActive: boolean, containerRef: React.RefObject<HTMLDivElement | null>) {
@@ -318,7 +327,17 @@ export default function ServiceModal({
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 w-full sm:w-auto">
+              <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-end">
+                {serviceRoutes[service.id] && (
+                  <Link
+                    href={serviceRoutes[service.id]}
+                    onClick={onClose}
+                    className="h-12 px-5 rounded-xl border border-primary/30 text-primary hover:bg-primary/10 text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-1.5 whitespace-nowrap"
+                  >
+                    <span>View Full Service Page</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                )}
                 <button
                   type="button"
                   onClick={onClose}

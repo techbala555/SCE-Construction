@@ -9,6 +9,14 @@ import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
 import { fadeUp, staggerContainer, staggerItem } from "@/src/lib/motion";
 import { scrollToSection } from "@/src/lib/scrollToSection";
 
+const serviceRoutes: Record<string, string> = {
+  construction: "/services/house-construction",
+  "land-development": "/services/land-development",
+  "real-estate": "/services/plot-promotion",
+  "future-projects": "/services/farmhouse-projects",
+  "elevation-3d": "/services/3d-elevation-design",
+};
+
 export default function Footer() {
   const { ref, inView } = useScrollAnimation<HTMLElement>({ threshold: 0.1 });
 
@@ -80,9 +88,19 @@ export default function Footer() {
             <ul className="space-y-4">
               {services.slice(0, 5).map((service) => (
                 <li key={service.id}>
-                  <span className="text-deep-muted text-sm cursor-default">
-                    {service.title}
-                  </span>
+                  {serviceRoutes[service.id] ? (
+                    <Link
+                      href={serviceRoutes[service.id]}
+                      className="text-deep-muted hover:text-primary text-sm transition-colors duration-300 inline-flex items-center gap-1.5 group"
+                    >
+                      <span className="w-0 group-hover:w-2 h-[1px] bg-primary transition-all duration-300" />
+                      {service.title}
+                    </Link>
+                  ) : (
+                    <span className="text-deep-muted text-sm cursor-default">
+                      {service.title}
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
