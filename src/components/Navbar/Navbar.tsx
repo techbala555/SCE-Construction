@@ -334,7 +334,6 @@ export default function Navbar() {
                       alt="Shylesh Circuits & Engineering"
                       width={804}
                       height={572}
-                      priority
                       className="w-auto h-[44px] sm:h-[50px] object-contain"
                     />
                   </a>

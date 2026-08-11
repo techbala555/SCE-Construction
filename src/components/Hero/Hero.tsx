@@ -62,7 +62,6 @@ export default function Hero({ id }: HeroProps) {
   });
 
   const bgY = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <section
@@ -73,14 +72,15 @@ export default function Hero({ id }: HeroProps) {
       {/* ── Background layers (z-0 to z-[2]) ──────────────── */}
       <motion.div
         className="absolute inset-0 z-0 overflow-hidden"
-        style={{ y: bgY, willChange: "transform" }}
+        style={{ y: bgY }}
       >
         <Image
           src="/images/hero-bg.webp"
           alt="Modern commercial building construction and civil engineering project in Tamil Nadu"
           fill
           priority
-          quality={80}
+          fetchPriority="high"
+          quality={75}
           sizes="(max-width: 768px) 100vw, 100vw"
           className="object-cover object-center animate-ken-burns"
         />

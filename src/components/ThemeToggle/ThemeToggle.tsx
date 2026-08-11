@@ -5,6 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 import { useMounted } from "@/src/lib/useMounted";
 
+const MotionSun = motion.create(Sun);
+const MotionMoon = motion.create(Moon);
+
 export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const mounted = useMounted();
@@ -22,9 +25,6 @@ export default function ThemeToggle() {
       document.documentElement.classList.remove("transitioning");
     }, 500);
   };
-
-  const MotionSun = motion.create(Sun);
-  const MotionMoon = motion.create(Moon);
 
   return (
     <button

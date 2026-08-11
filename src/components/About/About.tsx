@@ -125,7 +125,7 @@ export default function About({ id }: AboutProps) {
                 src="/images/about-us.webp"
                 alt="Indian civil engineers inspecting building plans on construction site"
                 fill
-                quality={80}
+                quality={75}
                 sizes="(max-width: 640px) 92vw, (max-width: 1024px) 48vw, 600px"
                 className="object-cover object-center transition-transform duration-700 hover:scale-105"
               />

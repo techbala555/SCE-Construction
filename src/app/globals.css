@@ -608,7 +608,6 @@ select.input-premium option {
 
 .animate-ken-burns {
   animation: ken-burns 20s ease-in-out infinite alternate;
-  will-change: transform;
   transform-origin: center center;
 }
 
@@ -631,7 +630,6 @@ select.input-premium option {
 
 .animate-ambient-fog {
   animation: ambient-fog-pulse 16s ease-in-out infinite alternate;
-  will-change: opacity, transform;
 }
 
 @media (prefers-reduced-motion: reduce) {

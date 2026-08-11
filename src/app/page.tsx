@@ -3,12 +3,12 @@ import Navbar from "@/src/components/Navbar/Navbar";
 import Hero from "@/src/components/Hero/Hero";
 import About from "@/src/components/About/About";
 import Services from "@/src/components/Services/Services";
-import Projects from "@/src/components/Projects/Projects";
-import WhyChooseUs from "@/src/components/WhyChooseUs/WhyChooseUs";
-import Contact from "@/src/components/Contact/Contact";
 import Footer from "@/src/components/Footer/Footer";
 
-// Lazy-load non-critical interactive components to keep initial bundle size lean
+// Lazy-load non-critical interactive & below-the-fold components to keep initial bundle size lean
+const Projects = dynamic(() => import("@/src/components/Projects/Projects"));
+const WhyChooseUs = dynamic(() => import("@/src/components/WhyChooseUs/WhyChooseUs"));
+const Contact = dynamic(() => import("@/src/components/Contact/Contact"));
 const LeadPopup = dynamic(() => import("@/src/components/LeadPopup/LeadPopup"));
 const BackToTop = dynamic(() => import("@/src/components/BackToTop/BackToTop"));
 
