@@ -78,7 +78,7 @@ const jsonLd = {
   "@type": "GeneralContractor",
   "@id": "https://www.scedevelopers.in/#organization",
   name: "Shylesh Circuits & Engineering",
-  alternateName: ["SCE Developers", "SCE Construction"],
+  alternateName: "SCE Developers",
   url: "https://www.scedevelopers.in",
   logo: "https://www.scedevelopers.in/logo-dark.svg",
   image: "https://www.scedevelopers.in/images/hero-bg.webp",

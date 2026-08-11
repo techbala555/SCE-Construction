@@ -117,7 +117,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex gap-3 items-start hover:text-primary transition-colors group cursor-pointer"
-                aria-label="Open Circuit & Engineering Electrical Work office location on Google Maps (opens in a new tab)"
+                aria-label="Open Shylesh Circuits & Engineering office location on Google Maps (opens in a new tab)"
               >
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5 transition-transform group-hover:scale-110" strokeWidth={1.8} aria-hidden="true" />
                 <span className="group-hover:underline leading-relaxed">{contactDetails.address}</span>

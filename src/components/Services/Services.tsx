@@ -32,7 +32,7 @@ const serviceIcons: Record<string, React.ReactNode> = {
 const serviceBanners: Record<string, { src: string; alt: string }> = {
   construction: {
     src: "/images/projects/villa-project.webp",
-    alt: "Luxury residential building and villa construction by SCE Construction",
+    alt: "Luxury residential building and villa construction by SCE Developers",
   },
   "land-development": {
     src: "/images/projects/layout-development.webp",
@@ -48,7 +48,7 @@ const serviceBanners: Record<string, { src: string; alt: string }> = {
   },
   "elevation-3d": {
     src: "/images/services/elevation-3d.webp",
-    alt: "Photorealistic 3D elevation and exterior facade rendering by SCE Construction",
+    alt: "Photorealistic 3D elevation and exterior facade rendering by SCE Developers",
   },
 };
 

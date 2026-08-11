@@ -19,7 +19,7 @@ export const navigationItems: NavItem[] = [
 
 // ── Company Information ─────────────────────────────────────
 export const companyInfo = {
-  name: "SCE Construction",
+  name: "SCE Developers",
   tagline: "Quality Construction & Land Development You Can Trust",
   description:
     "Shylesh Circuits & Engineering helps you build quality homes and commercial buildings with proper planning, skilled workers, and on-time delivery. From independent houses and villas to land development and DTCP approvals, we take care of your project from planning to final handover.",
@@ -410,9 +410,9 @@ export const whyChooseUs: Reason[] = [
 
 // ── Contact Details ─────────────────────────────────────────
 export const contactDetails = {
-  name: "Shyles Circuit & Engineering Electrical Work",
+  name: "Shylesh Circuits & Engineering",
   address: "PMR Nagar, TVS Nagar, Coimbatore, Tamil Nadu – 641025",
-  fullAddress: "Shyles Circuit & Engineering Electrical Work, PMR Nagar, TVS Nagar, Coimbatore, Tamil Nadu – 641025",
+  fullAddress: "PMR Nagar, TVS Nagar, Coimbatore, Tamil Nadu – 641025",
   mapUrl: "https://www.google.com/maps/place/Circuit+%26+Engineering+Electrical+Work/@11.0490908,76.9223518,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba859728aa80393:0x1861b2c7c4c52dce!8m2!3d11.0490908!4d76.9223518!16s%2Fg%2F11b8z0k5t_",
   phone: "+91 98422 29272",
   email: "info@scedevelopers.in",

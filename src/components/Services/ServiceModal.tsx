@@ -298,7 +298,7 @@ export default function ServiceModal({
                     <ShieldCheck className="w-5 h-5 text-primary" strokeWidth={1.8} aria-hidden="true" />
                   </div>
                   <h4 className="text-base sm:text-lg font-bold text-foreground tracking-tight">
-                    Why Choose SCE Construction for {service.title}?
+                    Why Choose SCE Developers for {service.title}?
                   </h4>
                 </div>
 

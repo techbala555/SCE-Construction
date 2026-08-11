@@ -544,7 +544,7 @@ export default function Contact({ id }: ContactProps) {
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="strict-origin-when-cross-origin"
-                    title="Google Maps Location of Circuit & Engineering Electrical Work"
+                    title="Google Maps Location of Shylesh Circuits & Engineering"
                     className={`w-full h-full min-h-[380px] sm:min-h-[420px] lg:min-h-[460px] filter contrast-[1.02] rounded-2xl sm:rounded-3xl transition-all duration-200 ${
                       isMapInteractive ? "pointer-events-auto" : "pointer-events-none"
                     }`}
@@ -565,7 +565,7 @@ export default function Contact({ id }: ContactProps) {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-primary
                              hover:text-primary-dark transition-all duration-200 group hover:underline cursor-pointer"
-                  aria-label="Open Circuit & Engineering Electrical Work office location on Google Maps (opens in a new tab)"
+                  aria-label="Open Shylesh Circuits & Engineering office location on Google Maps (opens in a new tab)"
                 >
                   <MapPinned className="w-4 h-4 text-primary transition-transform duration-200 group-hover:scale-110" strokeWidth={2} aria-hidden="true" />
                   <span>Open in Google Maps</span>
