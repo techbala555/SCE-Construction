@@ -1,0 +1,17 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="96" fill="#0B1220"/>
+  <g transform="translate(26, 108) scale(0.572)">
+    <!-- Architectural Building Skyline in crisp white/silver with subtle structural definition -->
+    <path d="M396.858 70.5906V178.103L418.93 197.533L420.228 87.4299L430.615 93.9066V204.01L446.195 215.668V87.4299L455.283 79.6579V222.145L509.813 261.005V27.8446L582.519 104.269V290.797H574.729L569.536 183.285L538.376 210.487V283.025L553.956 290.797L559.149 207.896L561.746 299.865L572.132 307.637L631.855 351.678V198.829L692.876 253.233L694.175 283.025L653.927 253.233V263.595L696.771 303.751V342.611L653.927 312.818V325.771L696.771 360.745V381.471L653.927 349.087V377.585L774.671 459.191L777.268 451.419L711.053 399.605V258.414L599.397 161.264V97.7926L504.619 0.642578L396.858 70.5906Z" fill="#F8FAFC" stroke="#FFFFFF" stroke-width="2"/>
+    <!-- Signature Gold Roofline Arch -->
+    <path d="M389.661 189.818L125.99 406.001V369.536H66.2423V448.977L0 502.371H79.231L231.509 378.485L389.661 244.397L572.52 378.485L737.758 502.371H804L389.661 189.818Z" fill="url(#gold_grad)"/>
+  </g>
+  <defs>
+    <linearGradient id="gold_grad" x1="74" y1="485" x2="761" y2="502" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E59B18"/>
+      <stop offset="0.45" stop-color="#F5A412"/>
+      <stop offset="0.7" stop-color="#FDBA3B"/>
+      <stop offset="1" stop-color="#D27F1C"/>
+    </linearGradient>
+  </defs>
+</svg>
