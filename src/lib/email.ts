@@ -9,8 +9,12 @@ const FROM_EMAIL =
   process.env.FROM_EMAIL || "Shylesh Circuits & Engineering <info@scedevelopers.in>";
 
 // Business Owner / Admin notification recipient email address
+// Strictly configured for official business inbox info@scedevelopers.in
+const rawNotificationEmail = process.env.NOTIFICATION_EMAIL?.trim();
 const NOTIFICATION_EMAIL =
-  process.env.NOTIFICATION_EMAIL || "info@scedevelopers.in";
+  rawNotificationEmail && !rawNotificationEmail.includes("iplbala")
+    ? rawNotificationEmail
+    : "info@scedevelopers.in";
 
 interface LeadEmailData {
   id: string;
