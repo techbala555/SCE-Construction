@@ -100,8 +100,12 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<S
             .mobile-stack-tr { display: block !important; width: 100% !important; }
             .mobile-label { display: block !important; width: 100% !important; box-sizing: border-box !important; padding: 10px 14px 4px 14px !important; background-color: #1F2937 !important; border-bottom: none !important; }
             .mobile-value { display: block !important; width: 100% !important; box-sizing: border-box !important; padding: 0 14px 12px 14px !important; background-color: #111827 !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important; }
-            .btn-container { text-align: center !important; }
-            .btn-mobile { display: block !important; width: 100% !important; box-sizing: border-box !important; margin: 0 0 12px 0 !important; text-align: center !important; padding: 14px 16px !important; min-height: 48px !important; }
+            .btn-table-wrapper { width: 100% !important; max-width: 100% !important; margin: 20px 0 0 0 !important; }
+            .btn-row { display: block !important; width: 100% !important; }
+            .btn-cell { display: block !important; width: 100% !important; max-width: 100% !important; height: 48px !important; margin: 0 0 12px 0 !important; box-sizing: border-box !important; border-radius: 8px !important; }
+            .btn-cell-last { margin-bottom: 0 !important; }
+            .btn-spacer { display: none !important; width: 0 !important; height: 0 !important; line-height: 0 !important; }
+            .btn-link { display: block !important; width: 100% !important; height: 48px !important; line-height: 48px !important; box-sizing: border-box !important; border-radius: 8px !important; }
           }
         </style>
       </head>
@@ -172,10 +176,21 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<S
                       </div>
                     ` : ''}
 
-                    <div class="btn-container" style="text-align: center; margin-top: 25px;">
-                      <a href="tel:+91${lead.phone}" class="btn-mobile" style="display: inline-block; background-color: #D4A017; color: #0B1220; padding: 14px 24px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; margin-right: 12px; min-height: 48px; box-sizing: border-border;">Call Client</a>
-                      <a href="https://wa.me/91${lead.phone}" class="btn-mobile" style="display: inline-block; background-color: #25D366; color: #FFFFFF; padding: 14px 24px; border-radius: 10px; font-weight: 700; font-size: 15px; text-decoration: none; min-height: 48px; box-sizing: border-border;">WhatsApp Client</a>
-                    </div>
+                    <!-- ── CTA Action Buttons (Equal Dimensions & Email-Safe Table Layout) ── -->
+                    <table border="0" cellpadding="0" cellspacing="0" align="center" class="btn-table-wrapper" style="margin: 25px auto 0 auto; border-collapse: separate;">
+                      <tr class="btn-row">
+                        <!-- Call Client Button (160x48px) -->
+                        <td align="center" valign="middle" class="btn-cell" style="width: 160px; height: 48px; background-color: #D4A017; border-radius: 8px; text-align: center;">
+                          <a href="tel:+91${lead.phone}" class="btn-link" style="display: block; width: 160px; height: 48px; line-height: 48px; background-color: #D4A017; color: #0B1220; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 8px; text-align: center; mso-line-height-rule: exactly; box-sizing: border-box;">Call Client</a>
+                        </td>
+                        <!-- Desktop Spacer (16px) -->
+                        <td width="16" class="btn-spacer" style="width: 16px; font-size: 1px; line-height: 1px;">&nbsp;</td>
+                        <!-- WhatsApp Client Button (160x48px) -->
+                        <td align="center" valign="middle" class="btn-cell btn-cell-last" style="width: 160px; height: 48px; background-color: #25D366; border-radius: 8px; text-align: center;">
+                          <a href="https://wa.me/91${lead.phone}" class="btn-link" style="display: block; width: 160px; height: 48px; line-height: 48px; background-color: #25D366; color: #FFFFFF; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 8px; text-align: center; mso-line-height-rule: exactly; box-sizing: border-box;">WhatsApp Client</a>
+                        </td>
+                      </tr>
+                    </table>
                   </td>
                 </tr>
                 <tr>
