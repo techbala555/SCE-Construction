@@ -325,13 +325,17 @@ export default function Contact({ id }: ContactProps) {
                       htmlFor="email"
                       className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3"
                     >
-                      Email Address <span className="text-muted text-[10px] normal-case tracking-normal">(optional)</span>
+                      Email Address <span className="text-primary">*</span>
                     </label>
                     <div className="relative">
                       <input
                         {...register("email")}
                         type="email"
                         id="email"
+                        inputMode="email"
+                        autoComplete="email"
+                        autoCapitalize="none"
+                        spellCheck="false"
                         placeholder="name@example.com"
                         className={`input-premium transition-all duration-200 ${getFieldStatusClass("email")}`}
                       />
