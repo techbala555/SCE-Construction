@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { navigationItems, companyInfo } from "@/src/data/content";
 import ThemeToggle from "@/src/components/ThemeToggle/ThemeToggle";
@@ -249,10 +248,8 @@ export default function Navbar() {
                       >
                         {item.label}
                         {isActive && (
-                          <motion.span
-                            layoutId="active-nav"
-                            className="absolute -bottom-1 left-0 right-0 h-[2.5px] bg-primary rounded-full shadow-[0_0_8px_rgba(212,160,23,0.6)]"
-                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                          <span
+                            className="absolute -bottom-1 left-0 right-0 h-[2.5px] bg-primary rounded-full shadow-[0_0_8px_rgba(212,160,23,0.6)] transition-all duration-300"
                           />
                         )}
                       </a>
@@ -300,123 +297,109 @@ export default function Navbar() {
       {/* ── FULL SCREEN MOBILE MENU OVERLAY (Rendered via Portal) ──────── */}
       {mounted &&
         createPortal(
-          <AnimatePresence>
-            {isMobileOpen && (
-              <motion.div
-                ref={mobileMenuRef}
-                id="mobile-menu-portal"
-                role="dialog"
-                aria-modal="true"
-                aria-label="Mobile navigation menu"
-                initial={{ opacity: 0, y: -16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.28, ease: [0.33, 1, 0.68, 1] }}
-                className="xl:hidden fixed inset-0 z-[100] flex flex-col w-screen h-[100dvh] overflow-hidden select-none"
-                style={{
-                  background: isDark
-                    ? "rgba(11, 18, 32, 0.98)"
-                    : "rgba(255, 255, 255, 0.98)",
-                  backdropFilter: "blur(24px) saturate(200%)",
-                  WebkitBackdropFilter: "blur(24px) saturate(200%)",
-                }}
-              >
-                {/* ── Top Bar inside Portal ── */}
-                <div className="flex items-center justify-between px-5 sm:px-8 h-16 sm:h-[72px] border-b border-border/50 flex-shrink-0">
-                  {/* Brand Logo */}
-                  <a
-                    href="#home"
-                    onClick={(e) => scrollTo(e, "#home")}
-                    className="flex items-center"
+          isMobileOpen && (
+            <div
+              ref={mobileMenuRef}
+              id="mobile-menu-portal"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation menu"
+              className="xl:hidden fixed inset-0 z-[100] flex flex-col w-screen h-[100dvh] overflow-hidden select-none transition-all duration-300 ease-out"
+              style={{
+                background: isDark
+                  ? "rgba(11, 18, 32, 0.98)"
+                  : "rgba(255, 255, 255, 0.98)",
+                backdropFilter: "blur(24px) saturate(200%)",
+                WebkitBackdropFilter: "blur(24px) saturate(200%)",
+              }}
+            >
+              {/* ── Top Bar inside Portal ── */}
+              <div className="flex items-center justify-between px-5 sm:px-8 h-16 sm:h-[72px] border-b border-border/50 flex-shrink-0">
+                {/* Brand Logo */}
+                <a
+                  href="#home"
+                  onClick={(e) => scrollTo(e, "#home")}
+                  className="flex items-center"
+                >
+                  <Image
+                    src={isDark ? "/logo-light.svg" : "/logo-dark.svg"}
+                    alt="Shylesh Circuits & Engineering"
+                    width={804}
+                    height={572}
+                    className="w-auto h-[44px] sm:h-[50px] object-contain"
+                  />
+                </a>
+
+                {/* Header Actions: Theme Toggle + Close (X) */}
+                <div className="flex items-center gap-3">
+                  <ThemeToggle />
+
+                  <button
+                    onClick={() => setIsMobileOpen(false)}
+                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-elevated text-foreground hover:bg-primary/20 hover:text-primary transition-all duration-200 border border-border/50"
+                    aria-label="Close menu"
                   >
-                    <Image
-                      src={isDark ? "/logo-light.svg" : "/logo-dark.svg"}
-                      alt="Shylesh Circuits & Engineering"
-                      width={804}
-                      height={572}
-                      className="w-auto h-[44px] sm:h-[50px] object-contain"
-                    />
+                    <X className="w-5 h-5" strokeWidth={2} aria-hidden="true" />
+                  </button>
+                </div>
+              </div>
+
+              {/* ── Scrollable Menu Content ── */}
+              <div className="flex-1 flex flex-col justify-between overflow-y-auto px-6 py-8">
+                {/* Navigation Links */}
+                <ul className="flex flex-col gap-2.5 max-w-sm mx-auto w-full">
+                  {navigationItems.map((item) => {
+                    const isActive = activeSection === item.href;
+                    return (
+                      <li key={item.href}>
+                        <a
+                          href={item.href}
+                          onClick={(e) => scrollTo(e, item.href)}
+                          className={`flex items-center gap-4 px-5 py-3.5 text-lg font-semibold rounded-xl transition-all duration-200 ${
+                            isActive
+                              ? "bg-primary/15 text-primary border border-primary/20 shadow-sm"
+                              : "text-foreground hover:bg-surface-elevated hover:text-primary"
+                          }`}
+                        >
+                          <span
+                            className={`w-2.5 h-2.5 rounded-full transition-transform ${
+                              isActive
+                                ? "bg-primary scale-110"
+                                : "bg-muted/40"
+                            }`}
+                          />
+                          <span>{item.label}</span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+
+                {/* ── Bottom Section: Primary CTA + Branding ── */}
+                <div className="mt-8 max-w-sm mx-auto w-full space-y-6 pt-6 border-t border-border/50 text-center">
+                  <a
+                    href="#contact"
+                    onClick={(e) => scrollTo(e, "#contact")}
+                    className="flex items-center justify-center w-full h-14 text-base font-bold rounded-xl bg-primary text-btn-text hover:bg-primary-dark btn-shine shadow-lg transition-all active:scale-[0.98]"
+                  >
+                    {companyInfo.cta}
                   </a>
 
-                  {/* Header Actions: Theme Toggle + Close (X) */}
-                  <div className="flex items-center gap-3">
-                    <ThemeToggle />
-
-                    <button
-                      onClick={() => setIsMobileOpen(false)}
-                      className="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-elevated text-foreground hover:bg-primary/20 hover:text-primary transition-all duration-200 border border-border/50"
-                      aria-label="Close menu"
-                    >
-                      <X className="w-5 h-5" strokeWidth={2} aria-hidden="true" />
-                    </button>
+                  <div className="space-y-1">
+                    <p className="text-xs font-bold tracking-widest text-muted uppercase">
+                      Shylesh Circuits & Engineering
+                    </p>
+                    <p className="text-[11px] text-muted/70">
+                      Builders & Developers • Coimbatore, Tamil Nadu
+                    </p>
                   </div>
                 </div>
-
-                {/* ── Scrollable Menu Content ── */}
-                <div className="flex-1 flex flex-col justify-between overflow-y-auto px-6 py-8">
-                  {/* Navigation Links */}
-                  <ul className="flex flex-col gap-2.5 max-w-sm mx-auto w-full">
-                    {navigationItems.map((item, i) => {
-                      const isActive = activeSection === item.href;
-                      return (
-                        <motion.li
-                          key={item.href}
-                          initial={{ opacity: 0, y: 14 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{
-                            delay: 0.04 * i,
-                            duration: 0.3,
-                            ease: [0.33, 1, 0.68, 1],
-                          }}
-                        >
-                          <a
-                            href={item.href}
-                            onClick={(e) => scrollTo(e, item.href)}
-                            className={`flex items-center gap-4 px-5 py-3.5 text-lg font-semibold rounded-xl transition-all duration-200 ${
-                              isActive
-                                ? "bg-primary/15 text-primary border border-primary/20 shadow-sm"
-                                : "text-foreground hover:bg-surface-elevated hover:text-primary"
-                            }`}
-                          >
-                            <span
-                              className={`w-2.5 h-2.5 rounded-full transition-transform ${
-                                isActive
-                                  ? "bg-primary scale-110"
-                                  : "bg-muted/40"
-                              }`}
-                            />
-                            <span>{item.label}</span>
-                          </a>
-                        </motion.li>
-                      );
-                    })}
-                  </ul>
-
-                  {/* ── Bottom Section: Primary CTA + Branding ── */}
-                  <div className="mt-8 max-w-sm mx-auto w-full space-y-6 pt-6 border-t border-border/50 text-center">
-                    <a
-                      href="#contact"
-                      onClick={(e) => scrollTo(e, "#contact")}
-                      className="flex items-center justify-center w-full h-14 text-base font-bold rounded-xl bg-primary text-btn-text hover:bg-primary-dark btn-shine shadow-lg transition-all active:scale-[0.98]"
-                    >
-                      {companyInfo.cta}
-                    </a>
-
-                    <div className="space-y-1">
-                      <p className="text-xs font-bold tracking-widest text-muted uppercase">
-                        Shylesh Circuits & Engineering
-                      </p>
-                      <p className="text-[11px] text-muted/70">
-                        Builders & Developers • Coimbatore, Tamil Nadu
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>,
+              </div>
+            </div>
+          ),
           document.body
         )}
     </>
   );
 }
+

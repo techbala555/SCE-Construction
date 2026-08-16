@@ -1,90 +1,31 @@
-"use client";
-
-import { useRef, useEffect, useState } from "react";
-import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { heroContent, statistics } from "@/src/data/content";
-import { heroReveal } from "@/src/lib/motion";
-import { scrollToSection } from "@/src/lib/scrollToSection";
-
-function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const started = useRef(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          const duration = 2000;
-          const steps = 60;
-          const increment = value / steps;
-          let current = 0;
-          const timer = setInterval(() => {
-            current += increment;
-            if (current >= value) {
-              setCount(value);
-              clearInterval(timer);
-            } else {
-              setCount(Math.floor(current));
-            }
-          }, duration / steps);
-        }
-      },
-      { threshold: 0.5 },
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [value]);
-
-  return (
-    <div ref={ref} className="text-4xl md:text-5xl font-extrabold text-gold-gradient">
-      {count}{suffix}
-    </div>
-  );
-}
+import AnimatedCounter from "./AnimatedCounter";
 
 interface HeroProps {
   id: string;
 }
 
 export default function Hero({ id }: HeroProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const bgY = useTransform(scrollYProgress, [0, 1], [0, 150]);
-
   return (
     <section
       id={id}
-      ref={containerRef}
       className="relative min-h-screen flex flex-col overflow-hidden"
     >
       {/* ── Background layers (z-0 to z-[2]) ──────────────── */}
-      <motion.div
-        className="absolute inset-0 z-0 overflow-hidden"
-        style={{ y: bgY }}
-      >
-        <Image
-          src="/images/hero-bg.webp"
-          alt="Modern commercial building construction and civil engineering project in Tamil Nadu"
-          fill
-          priority
-          fetchPriority="high"
-          quality={75}
-          sizes="(max-width: 768px) 100vw, 100vw"
-          className="object-cover object-center animate-ken-burns"
-        />
-      </motion.div>
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <picture className="block w-full h-full">
+          <source media="(max-width: 767px)" srcSet="/images/hero-bg-mobile.webp" />
+          <source media="(min-width: 768px)" srcSet="/images/hero-bg.webp" />
+          <img
+            src="/images/hero-bg.webp"
+            alt="Modern commercial building construction and civil engineering project in Tamil Nadu"
+            fetchPriority="high"
+            decoding="async"
+            className="w-full h-full object-cover object-center animate-ken-burns"
+          />
+        </picture>
+      </div>
 
       {/* Dark Overlay for max text readability & zero layout shift */}
       <div className="hero-overlay" />
@@ -121,27 +62,14 @@ export default function Hero({ id }: HeroProps) {
           </h1>
 
           {/* Description */}
-          <motion.p
-            variants={heroReveal}
-            initial="hidden"
-            animate="visible"
-            custom={0.6}
-            className="text-white/70 text-sm sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 sm:mb-12 body-relaxed"
-          >
+          <p className="text-white/70 text-sm sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 sm:mb-12 body-relaxed">
             {heroContent.description}
-          </motion.p>
+          </p>
 
           {/* CTA Buttons */}
-          <motion.div
-            variants={heroReveal}
-            initial="hidden"
-            animate="visible"
-            custom={0.8}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full max-w-md sm:max-w-none mx-auto"
-          >
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full max-w-md sm:max-w-none mx-auto">
             <a
               href="#contact"
-              onClick={(e) => { e.preventDefault(); scrollToSection("#contact"); }}
               className="w-full sm:w-auto min-h-[52px] sm:min-h-[56px] flex items-center justify-center px-8 sm:px-10 py-3.5 text-sm sm:text-base font-semibold rounded-xl
                          bg-primary text-btn-text hover:bg-primary-dark
                          btn-shine transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]
@@ -151,7 +79,6 @@ export default function Hero({ id }: HeroProps) {
             </a>
             <a
               href="#projects"
-              onClick={(e) => { e.preventDefault(); scrollToSection("#projects"); }}
               className="w-full sm:w-auto min-h-[52px] sm:min-h-[56px] flex items-center justify-center px-8 sm:px-10 py-3.5 text-sm sm:text-base font-semibold rounded-xl
                          border border-white/20 text-white hover:bg-white/10
                          transition-all duration-300 hover:border-white/40 group gap-2"
@@ -159,16 +86,11 @@ export default function Hero({ id }: HeroProps) {
               <span>{heroContent.ctaSecondary}</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
             </a>
-          </motion.div>
+          </div>
         </div>
 
         {/* ── Statistics Card ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8, ease: [0.33, 1, 0.68, 1] }}
-          className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 mt-10 sm:mt-14 lg:mt-20"
-        >
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 mt-10 sm:mt-14 lg:mt-20">
           <div
             className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8
                        py-6 sm:py-8 px-4 sm:px-8 md:px-10 rounded-2xl
@@ -183,23 +105,19 @@ export default function Hero({ id }: HeroProps) {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* ── Scroll Indicator - normal flow, mt-20 (80px) ── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8, duration: 0.6 }}
-          className="hidden md:flex flex-col items-center mt-12 lg:mt-20"
-        >
+        <div className="hidden md:flex flex-col items-center mt-12 lg:mt-20">
           <span className="text-white/30 text-[10px] uppercase tracking-[0.25em] mb-3">
             Scroll
           </span>
           <div className="w-5 h-9 rounded-full border border-white/20 flex justify-center pt-2">
             <div className="w-1 h-2 rounded-full bg-primary animate-scroll-bounce" />
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 }
+

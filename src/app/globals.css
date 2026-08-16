@@ -613,7 +613,8 @@ select.input-premium option {
 
 @media (max-width: 768px) {
   .animate-ken-burns {
-    animation: ken-burns-mobile 18s ease-in-out infinite alternate;
+    animation: none;
+    transform: scale(1.0);
   }
 }
 

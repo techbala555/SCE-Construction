@@ -142,6 +142,22 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} h-full`} suppressHydrationWarning>
       <head>
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-bg-mobile.webp"
+          media="(max-width: 767px)"
+          fetchPriority="high"
+          type="image/webp"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-bg.webp"
+          media="(min-width: 768px)"
+          fetchPriority="high"
+          type="image/webp"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

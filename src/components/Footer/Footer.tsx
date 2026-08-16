@@ -1,13 +1,7 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { companyInfo, navigationItems, contactDetails, services } from "@/src/data/content";
-import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
-import { fadeUp, staggerContainer, staggerItem } from "@/src/lib/motion";
-import { scrollToSection } from "@/src/lib/scrollToSection";
 
 const serviceRoutes: Record<string, string> = {
   construction: "/services/house-construction",
@@ -18,31 +12,16 @@ const serviceRoutes: Record<string, string> = {
 };
 
 export default function Footer() {
-  const { ref, inView } = useScrollAnimation<HTMLElement>({ threshold: 0.1 });
-
-  const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    scrollToSection(href);
-  };
-
   return (
-    <footer
-      ref={ref}
-      className="bg-footer-bg text-deep-text relative overflow-hidden"
-    >
+    <footer className="bg-footer-bg text-deep-text relative overflow-hidden">
       {/* Top Gold Line */}
       <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 pt-16 lg:pt-[120px] pb-10 lg:pb-[60px]">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16"
-        >
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
           {/* Brand Column */}
-          <motion.div variants={staggerItem} className="sm:col-span-2 lg:col-span-1">
+          <div className="sm:col-span-2 lg:col-span-1">
             {/* Official Logo */}
             <div className="mb-6 sm:mb-10">
               <Image
@@ -56,10 +35,10 @@ export default function Footer() {
             <p className="text-deep-muted text-sm body-relaxed max-w-xs">
               {companyInfo.tagline}. Complete construction, land development, and real estate solutions built on trust and quality.
             </p>
-          </motion.div>
+          </div>
 
           {/* Quick Links */}
-          <motion.div variants={staggerItem}>
+          <div>
             <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-7">
               Quick Links
             </h3>
@@ -68,7 +47,6 @@ export default function Footer() {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    onClick={(e) => scrollTo(e, item.href)}
                     className="text-deep-muted hover:text-primary text-sm transition-colors duration-300
                                inline-flex items-center gap-1.5 group"
                   >
@@ -78,10 +56,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Services */}
-          <motion.div variants={staggerItem}>
+          <div>
             <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-7">
               Services
             </h3>
@@ -104,10 +82,10 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Contact */}
-          <motion.div variants={staggerItem}>
+          <div>
             <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-7">
               Contact Info
             </h3>
@@ -117,7 +95,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex gap-3 items-start hover:text-primary transition-colors group cursor-pointer"
-                aria-label="Open Shylesh Circuits & Engineering office location on Google Maps (opens in a new tab)"
+                aria-label={`${contactDetails.address}. Open Shylesh Circuits & Engineering office location on Google Maps (opens in a new tab)`}
               >
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5 transition-transform group-hover:scale-110" strokeWidth={1.8} aria-hidden="true" />
                 <span className="group-hover:underline leading-relaxed">{contactDetails.address}</span>
@@ -139,21 +117,15 @@ export default function Footer() {
                 <span className="group-hover:underline break-all sm:break-normal">{contactDetails.email}</span>
               </a>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Bottom Bar */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0.3}
-          className="mt-16 lg:mt-20 pt-8 border-t border-deep-border flex flex-col sm:flex-row items-center justify-between gap-4"
-        >
-          <p className="text-deep-muted/70 text-xs">
+        <div className="mt-16 lg:mt-20 pt-8 border-t border-deep-border flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-deep-muted text-xs">
             © {new Date().getFullYear()} {companyInfo.name}. All rights reserved.
           </p>
-          <div className="flex gap-8 text-deep-muted/70 text-xs">
+          <div className="flex gap-8 text-deep-muted text-xs">
             <Link href="/privacy-policy" className="hover:text-primary transition-colors cursor-pointer">
               Privacy Policy
             </Link>
@@ -161,8 +133,9 @@ export default function Footer() {
               Terms of Service
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );
 }
+

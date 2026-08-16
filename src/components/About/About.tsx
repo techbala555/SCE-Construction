@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
 import {
   Compass,
   PencilRuler,
@@ -11,8 +8,6 @@ import {
   CheckCircle2,
   Trophy,
 } from "lucide-react";
-import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
-import { fadeUp, slideRight, slideLeft, staggerContainer, staggerItem } from "@/src/lib/motion";
 
 interface AboutProps {
   id: string;
@@ -46,24 +41,17 @@ const teamComposition = [
 ];
 
 export default function About({ id }: AboutProps) {
-  const { ref: sectionRef, inView } = useScrollAnimation<HTMLDivElement>({ threshold: 0.08 });
-
   return (
     <section id={id} className="section-padding px-6 md:px-8 lg:px-12 bg-background relative overflow-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/[0.02] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-64 h-64 bg-primary/[0.02] rounded-full translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
-      <div ref={sectionRef} className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Main Grid: Content & Image */}
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center mb-20 lg:mb-24">
           {/* Left - Content */}
-          <motion.div
-            variants={slideRight}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            custom={0}
-          >
+          <div>
             {/* Section Label */}
             <div className="flex items-center gap-3 mb-6">
               <div className="divider-gold" />
@@ -109,16 +97,10 @@ export default function About({ id }: AboutProps) {
               <span>View Our Services</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2} aria-hidden="true" />
             </a>
-          </motion.div>
+          </div>
 
           {/* Right - Visual */}
-          <motion.div
-            variants={slideLeft}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            custom={0.2}
-            className="relative"
-          >
+          <div className="relative">
             {/* Main Image */}
             <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-surface-elevated shadow-xl border border-border">
               <Image
@@ -133,19 +115,10 @@ export default function About({ id }: AboutProps) {
             </div>
 
             {/* Floating Stats Card */}
-            <motion.div
-              initial="initial"
-              animate="animate"
-              variants={{
-                initial: { y: 0 },
-                animate: {
-                  y: [-6, 6, -6],
-                  transition: { duration: 5, repeat: Infinity, ease: "easeInOut" },
-                },
-              }}
+            <div
               className="absolute -bottom-6 left-4 sm:-left-12 p-4 sm:p-6 rounded-2xl
                          bg-surface-elevated border border-border
-                         shadow-large z-10"
+                         shadow-large z-10 animate-float"
             >
               <div className="flex items-center gap-3 sm:gap-4">
                 <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -156,21 +129,15 @@ export default function About({ id }: AboutProps) {
                   <p className="text-[11px] sm:text-xs text-muted font-medium mt-0.5 sm:mt-1">Years of Experience</p>
                 </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* Decorative Border Accent */}
             <div className="absolute -top-4 -right-4 w-full h-full rounded-2xl border-2 border-primary/10 -z-10" />
-          </motion.div>
+          </div>
         </div>
 
         {/* ── Meet Our Experienced Team Subsection ─────────────── */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0.3}
-          className="pt-10 border-t border-border/70"
-        >
+        <div className="pt-10 border-t border-border/70">
           <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-12">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="divider-gold" />
@@ -186,16 +153,10 @@ export default function About({ id }: AboutProps) {
           </div>
 
           {/* Team Cards Grid */}
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6"
-          >
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
             {teamComposition.map((member) => (
-              <motion.div
+              <div
                 key={member.title}
-                variants={staggerItem}
                 className="group p-5 sm:p-6 rounded-2xl bg-surface-elevated
                            border border-border hover:border-primary/40
                            shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full"
@@ -209,18 +170,19 @@ export default function About({ id }: AboutProps) {
                   <h4 className="text-lg font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
                     {member.title}
                   </h4>
-                  <div className="text-xs font-extrabold text-primary uppercase tracking-wider mb-3">
+                  <div className="text-xs font-extrabold text-amber-700 dark:text-primary uppercase tracking-wider mb-3">
                     {member.count}
                   </div>
-                  <p className="text-muted text-xs sm:text-[0.875rem] leading-relaxed">
+                  <p className="text-slate-700 dark:text-slate-300 text-xs sm:text-[0.875rem] leading-relaxed">
                     {member.description}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
+
