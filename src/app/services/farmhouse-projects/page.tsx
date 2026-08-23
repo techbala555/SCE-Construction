@@ -168,12 +168,12 @@ export default function FarmhouseProjectsPage() {
 
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-surface-elevated border border-border shadow-lg">
               <Image
-                src="/images/services/farmhouse.webp"
+                src="/images/services/farmhouse-project-tn.webp"
                 alt="Farmhouse Projects in Coimbatore - SCE Developers"
                 fill
                 priority
                 fetchPriority="high"
-                quality={75}
+                quality={80}
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover object-center"
               />

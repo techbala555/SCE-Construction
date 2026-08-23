@@ -52,7 +52,7 @@ export const statistics: Statistic[] = [
   { value: 100, suffix: "+", label: "Projects Completed" },
   { value: 10, suffix: "+", label: "Years of Experience" },
   { value: 50, suffix: "+", label: "Skilled Team Members" },
-  { value: 5, suffix: "", label: "Core Services" },
+  { value: 5, suffix: "+", label: "Core Services" },
 ];
 
 // ── Services ────────────────────────────────────────────────
@@ -170,7 +170,7 @@ export const serviceDetails: Record<string, ServiceDetail> = {
     ],
     whyChooseUs: [
       "100+ successfully completed homes and villas",
-      "In-house team for custom plan drawing and 3D elevation",
+      "In-house team for custom plans and 3D elevation",
       "Timely completion with regular progress updates",
     ],
   },
@@ -286,125 +286,180 @@ export interface Project {
   id: string;
   title: string;
   category: string;
+  filterCategory: "all" | "residential" | "layout" | "elevation";
   description: string;
   location: string;
   year: number;
   image: string;
+  objectPosition?: string;
+  gallery?: string[];
+  features?: string[];
 }
 
 export const projects: Project[] = [
   {
     id: "villa-project",
     title: "Premium Villa Construction",
-    category: "Residential",
+    category: "Luxury Residential",
+    filterCategory: "residential",
     description:
-      "A custom-designed luxury villa with modern elevation, spacious rooms, and quality interior finishing built for a family.",
+      "Custom 3-storey luxury villa construction featuring natural stone facade cladding, teak wood exterior panelling, and glass balcony railings.",
     location: "Coimbatore, Tamil Nadu",
     year: 2024,
-    image: "/images/projects/villa-project.webp",
+    image: "/images/projects/villa-construction-real.webp",
+    objectPosition: "center 25%",
+    gallery: [
+      "/images/projects/villa-construction-real.webp",
+      "/images/projects/terrace-lighting-real.webp",
+      "/images/projects/terrace-night-real.webp",
+    ],
+    features: [
+      "Natural Stone Facade",
+      "Glass Balcony Railings",
+      "Terrace Living Space",
+    ],
   },
   {
     id: "independent-house",
     title: "Independent House Build",
-    category: "Residential",
+    category: "Residential House",
+    filterCategory: "residential",
     description:
-      "Complete independent house construction from foundation to final paint finish, delivered on schedule with quality materials.",
-    location: "Coimbatore, Tamil Nadu",
-    year: 2024,
-    image: "/images/projects/independent-house.webp",
+      "2-storey modern residential home with reinforced structural concrete, exterior stone highlights, and perimeter boundary wall.",
+    location: "Pollachi, Tamil Nadu",
+    year: 2025,
+    image: "/images/projects/independent-house-build.webp",
+    objectPosition: "center center",
+    gallery: [
+      "/images/projects/independent-house-build.webp",
+      "/images/projects/bhoomi-pooja-ceremony.webp",
+    ],
+    features: [
+      "2-Storey Structural Build",
+      "Exterior Stone Highlights",
+      "Foundation Bhoomi Pooja",
+    ],
   },
   {
     id: "layout-development",
     title: "Residential Layout Planning",
     category: "Layout Development",
+    filterCategory: "layout",
     description:
-      "A 5-acre DTCP approved residential layout with tar roads, underground drainage, and street lighting.",
-    location: "Coimbatore, Tamil Nadu",
-    year: 2024,
-    image: "/images/projects/layout-development.webp",
+      "Complete residential layout execution featuring internal tar roads, concrete storm drainage trenches, and individual plot demarcation stones.",
+    location: "Dindigul, Tamil Nadu",
+    year: 2025,
+    image: "/images/services/land-development-service.webp",
+    objectPosition: "center center",
+    gallery: [
+      "/images/services/land-development-service.webp",
+      "/images/services/plot-promotion-service.webp",
+    ],
+    features: [
+      "Tar Road Construction",
+      "Storm Drainage Network",
+      "Plot Boundary Demarcation",
+    ],
   },
   {
     id: "land-survey",
-    title: "GPS Land Survey & Site Mapping",
-    category: "Land Development",
+    title: "Hillside Villa & Contour Build",
+    category: "Hillside Construction",
+    filterCategory: "residential",
     description:
-      "Accurate GPS boundary survey and contour mapping for land plot development and government approval paperwork.",
-    location: "Coimbatore, Tamil Nadu",
-    year: 2024,
-    image: "/images/projects/land-survey.webp",
+      "Hillside residential construction on natural terrain featuring reinforced concrete retaining walls, structural steel framework, and panoramic glass facade.",
+    location: "Madurai, Tamil Nadu",
+    year: 2026,
+    image: "/images/projects/hillside-villa-construction.webp",
+    objectPosition: "center center",
+    gallery: ["/images/projects/hillside-villa-construction.webp"],
+    features: [
+      "Retaining Wall Foundation",
+      "Structural Steel Framing",
+      "Panoramic Glass Facade",
+    ],
   },
   {
-    id: "interior-finishing",
-    title: "Interior Design & Woodwork",
-    category: "Interior",
+    id: "custom-elevation",
+    title: "Interior Finishing & Staircase",
+    category: "Interior & Finishing",
+    filterCategory: "elevation",
     description:
-      "Modern home interiors including modular kitchen, hall TV units, bedroom wardrobes, and false ceiling lighting.",
+      "Interior finishing execution featuring custom granite and marble staircase with black borders, polished vitrified flooring, and stainless steel balustrade.",
     location: "Coimbatore, Tamil Nadu",
-    year: 2024,
-    image: "/images/projects/interior-finishing.webp",
+    year: 2026,
+    image: "/images/projects/interior-staircase-finish.webp",
+    objectPosition: "center center",
+    gallery: [
+      "/images/projects/interior-staircase-finish.webp",
+      "/images/projects/portico-entrance-real.webp",
+      "/images/projects/terrace-lighting-real.webp",
+    ],
+    features: [
+      "Granite & Marble Steps",
+      "Stainless Steel Railing",
+      "Custom Portico Entrance",
+    ],
   },
   {
-    id: "plot-development",
-    title: "Plot Development Project",
-    category: "Layout Development",
+    id: "project-handover",
+    title: "Multi-Storey Residential Handover",
+    category: "Turnkey Handover",
+    filterCategory: "residential",
     description:
-      "Site clearing, road work, and compound fencing for an approved residential plot layout.",
-    location: "Coimbatore, Tamil Nadu",
+      "Turnkey multi-storey residential construction completed and handed over for Griha Pravesham with full civil, electrical, and exterior illumination.",
+    location: "Pollachi, Tamil Nadu",
     year: 2024,
-    image: "/images/projects/plot-development.jpg",
+    image: "/images/projects/housewarming-handover-real.webp",
+    objectPosition: "center 30%",
+    gallery: [
+      "/images/projects/housewarming-handover-real.webp",
+      "/images/projects/handover-celebration-real.webp",
+    ],
+    features: [
+      "Multi-Storey Elevation",
+      "Turnkey Handover",
+      "Complete Civil & Electrical",
+    ],
   },
 ];
 
-// ── Why Choose Us ───────────────────────────────────────────
-export interface Reason {
+// ── Why Choose Us / Trust Pillars ───────────────────────────
+export interface TrustPillar {
   id: string;
   title: string;
   description: string;
-  icon: string;
+  icon: "Award" | "UsersRound" | "ClipboardCheck" | "Receipt";
 }
 
-export const whyChooseUs: Reason[] = [
+export const whyChooseUs: TrustPillar[] = [
   {
     id: "experience",
-    title: "10+ Years Experience",
+    title: "10+ Years of Experience",
     description:
-      "Over a decade of hands-on experience building homes, villas, and land layouts across Tamil Nadu.",
-    icon: "Clock3",
-  },
-  {
-    id: "delivered",
-    title: "100+ Projects Completed",
-    description:
-      "A proven track record of over 100 successful house builds, plot layouts, and engineering projects.",
-    icon: "Trophy",
+      "Practical construction experience across residential independent houses, villas, and land development projects in Tamil Nadu.",
+    icon: "Award",
   },
   {
     id: "team",
-    title: "50+ Skilled Team",
+    title: "50+ Skilled In-House Team",
     description:
-      "An experienced team of civil engineers, architects, survey experts, site supervisors, and skilled workers.",
-    icon: "Users",
-  },
-  {
-    id: "elevation-3d",
-    title: "Realistic 3D Elevation",
-    description:
-      "Detailed 3D designs that let you preview your building's exterior before construction begins.",
-    icon: "Box",
-  },
-  {
-    id: "quality",
-    title: "Quality Construction Materials",
-    description:
-      "We use certified brand-name materials and follow proper structural standards for long-lasting strength.",
-    icon: "ShieldCheck",
+      "Architects, circuit engineers, site supervisors, and experienced tradesmen collaborating directly on every project.",
+    icon: "UsersRound",
   },
   {
     id: "end-to-end",
-    title: "Complete Project Handover",
+    title: "End-to-End Project Support",
     description:
-      "From land survey and plan approval to civil construction and interior work, we manage everything.",
-    icon: "Building2",
+      "From site planning and local approvals to structural civil execution and final turnkey handover.",
+    icon: "ClipboardCheck",
+  },
+  {
+    id: "pricing",
+    title: "Transparent Pricing & Estimates",
+    description:
+      "Clear stage-wise estimates and honest project communication with no hidden fees or unexpected costs.",
+    icon: "Receipt",
   },
 ];
 
@@ -424,3 +479,5 @@ export const contactDetails = {
     twitter: "#",
   },
 };
+
+

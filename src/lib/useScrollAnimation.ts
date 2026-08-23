@@ -35,7 +35,7 @@ export function useScrollAnimation<T extends HTMLElement = HTMLDivElement>(
   } = options;
 
   const ref = useRef<T | null>(null);
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(true);
 
   useEffect(() => {
     const element = ref.current;

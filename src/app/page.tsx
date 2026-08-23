@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/hero-bg.webp",
+        url: "/images/hero-tamilnadu-house.webp",
         width: 1200,
         height: 630,
         alt: "SCE Developers - Civil Engineering & Construction Company in Coimbatore",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "SCE Developers | Civil Engineering & Construction Company in Coimbatore",
     description:
       "SCE Developers is a civil engineering and construction company in Coimbatore specializing in house construction, land development, and 3D elevation design.",
-    images: ["/images/hero-bg.webp"],
+    images: ["/images/hero-tamilnadu-house.webp"],
   },
 };
 

@@ -39,7 +39,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-7">
+            <h3 className="text-sm font-bold text-[#E6B325] uppercase tracking-wider mb-7">
               Quick Links
             </h3>
             <ul className="space-y-4">
@@ -47,10 +47,10 @@ export default function Footer() {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="text-deep-muted hover:text-primary text-sm transition-colors duration-300
+                    className="text-deep-muted hover:text-[#E6B325] text-sm transition-colors duration-300
                                inline-flex items-center gap-1.5 group"
                   >
-                    <span className="w-0 group-hover:w-2 h-[1px] bg-primary transition-all duration-300" />
+                    <span className="w-0 group-hover:w-2 h-[1px] bg-[#E6B325] transition-all duration-300" />
                     {item.label}
                   </a>
                 </li>
@@ -60,7 +60,7 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-7">
+            <h3 className="text-sm font-bold text-[#E6B325] uppercase tracking-wider mb-7">
               Services
             </h3>
             <ul className="space-y-4">
@@ -69,9 +69,9 @@ export default function Footer() {
                   {serviceRoutes[service.id] ? (
                     <Link
                       href={serviceRoutes[service.id]}
-                      className="text-deep-muted hover:text-primary text-sm transition-colors duration-300 inline-flex items-center gap-1.5 group"
+                      className="text-deep-muted hover:text-[#E6B325] text-sm transition-colors duration-300 inline-flex items-center gap-1.5 group"
                     >
-                      <span className="w-0 group-hover:w-2 h-[1px] bg-primary transition-all duration-300" />
+                      <span className="w-0 group-hover:w-2 h-[1px] bg-[#E6B325] transition-all duration-300" />
                       {service.title}
                     </Link>
                   ) : (
@@ -86,7 +86,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-sm font-semibold text-primary uppercase tracking-wider mb-7">
+            <h3 className="text-sm font-bold text-[#E6B325] uppercase tracking-wider mb-7">
               Contact Info
             </h3>
             <div className="space-y-5 text-deep-muted text-sm">

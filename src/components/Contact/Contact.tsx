@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,21 +8,25 @@ import { motion } from "framer-motion";
 import {
   Check,
   AlertCircle,
-  PhoneCall,
+  Phone,
+  Mail,
+  MapPin,
   MessageSquare,
   ArrowRight,
   Loader2,
   MapPinned,
+  Clock3,
+  ExternalLink,
+  Sparkles,
 } from "lucide-react";
 import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
-import { fadeUp, staggerContainer, staggerItem } from "@/src/lib/motion";
+import { fadeUp } from "@/src/lib/motion";
 import {
   leadFormSchema,
   projectTypes,
-  budgetRanges,
-  contactMethods,
   type LeadFormData,
 } from "@/src/lib/validations/lead-schema";
+import { contactDetails } from "@/src/data/content";
 import CustomSelect from "./CustomSelect";
 
 const SubmissionModal = dynamic(() => import("./SubmissionModal"), { ssr: false });
@@ -31,37 +35,10 @@ interface ContactProps {
   id: string;
 }
 
-/* ── Trust stats shown beside the header ─────────────────── */
-const trustStats = [
-  { value: "10+", label: "Years Experience" },
-  { value: "100+", label: "Projects Delivered" },
-  { value: "50+", label: "Professional Team" },
-];
-
 export default function Contact({ id }: ContactProps) {
   const { ref, inView } = useScrollAnimation<HTMLDivElement>({ threshold: 0.05 });
   const [isPendingSubmit, setIsPendingSubmit] = useState(false);
-  const [shouldLoadMap, setShouldLoadMap] = useState(false);
-  const [isMapInteractive, setIsMapInteractive] = useState(false);
-  const mapRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = mapRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoadMap(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "250px 0px" }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const [showInteractiveMap, setShowInteractiveMap] = useState(false);
 
   const [modalState, setModalState] = useState<{
     open: boolean;
@@ -86,9 +63,7 @@ export default function Contact({ id }: ContactProps) {
       phone: "",
       email: "",
       projectType: "",
-      budget: "",
       location: "",
-      preferredContactMethod: "Phone Call",
       message: "",
     },
   });
@@ -97,7 +72,7 @@ export default function Contact({ id }: ContactProps) {
 
   /* ── Submit lead to /api/leads API (Duplicate Protected) ── */
   const onSubmit = async (data: LeadFormData) => {
-    if (isPendingSubmit) return; // Prevent rapid double-clicks
+    if (isPendingSubmit) return;
     setIsPendingSubmit(true);
 
     try {
@@ -178,90 +153,88 @@ export default function Contact({ id }: ContactProps) {
     <>
       <section
         id={id}
-        className="section-padding px-6 md:px-8 lg:px-12 bg-accent relative overflow-hidden"
+        className="section-padding px-6 md:px-8 lg:px-12 bg-background relative overflow-hidden text-foreground"
       >
-        {/* ── Decorative elements ────────────────────────── */}
-        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-primary/[0.03] blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] rounded-full bg-primary/[0.02] blur-3xl pointer-events-none" />
+        {/* Subtle decorative background gradient */}
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full bg-primary/[0.03] blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-primary/[0.02] blur-3xl pointer-events-none" />
 
         <div ref={ref} className="max-w-7xl mx-auto relative z-10">
-          {/* ── Section header ──────────────────────────── */}
+          {/* ── Section Header ──────────────────────────── */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
             custom={0}
-            className="text-center mb-16 lg:mb-20"
+            className="text-center mb-12 sm:mb-16"
           >
-            <div className="flex items-center justify-center gap-3 mb-5">
+            <div className="flex items-center justify-center gap-3 mb-4">
               <div className="divider-gold" />
               <span className="label-sm text-primary">Get In Touch</span>
               <div className="divider-gold" />
             </div>
-            <h2 className="heading-xl text-3xl sm:text-4xl lg:text-5xl text-foreground mb-6">
+
+            <h2 className="heading-xl text-3xl sm:text-4xl lg:text-[2.75rem] text-foreground font-extrabold mb-4 leading-tight">
               Start Your <span className="text-gold-gradient">Dream Project</span>
             </h2>
-            <p className="text-muted body-lg max-w-2xl mx-auto mb-12">
-              Fill out the form below and our team will get back to you within 24 hours to discuss your project requirements.
-            </p>
 
-            {/* ── Trust indicators ─────────────────────── */}
-            <motion.div
-              variants={staggerContainer}
-              initial="hidden"
-              animate={inView ? "visible" : "hidden"}
-              className="flex flex-wrap items-center justify-center gap-8 sm:gap-12"
-            >
-              {trustStats.map((stat) => (
-                <motion.div key={stat.label} variants={staggerItem} className="text-center">
-                  <p className="text-2xl sm:text-3xl font-bold text-gold-gradient mb-1">
-                    {stat.value}
-                  </p>
-                  <p className="text-xs text-muted uppercase tracking-wider font-medium">
-                    {stat.label}
-                  </p>
-                </motion.div>
-              ))}
-            </motion.div>
+            <p className="text-muted body-lg max-w-xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed">
+              Tell us what you&apos;re planning and our engineering team will help you take the next step with clear guidance and honest estimates.
+            </p>
           </motion.div>
 
-          {/* ── Form & Map Grid (Two-column layout on Desktop) ───── */}
+          {/* ── Asymmetric Layout (Form ~62% on Left, Contact Card ~38% on Right) ── */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
             custom={0.15}
-            className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch max-w-7xl mx-auto"
+            className="grid lg:grid-cols-[1.25fr_0.85fr] gap-8 lg:gap-10 xl:gap-12 items-start max-w-7xl mx-auto"
           >
-            {/* Left Column: Contact Form */}
+            {/* ── LEFT COLUMN: Streamlined Project Form (~62%) ── */}
             <form
               onSubmit={handleSubmit(onSubmit)}
               noValidate
-              className="relative p-5 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl
-                         bg-surface/95 backdrop-blur-md border border-border
-                         shadow-large h-full flex flex-col justify-between"
+              className="relative p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl
+                         bg-surface-elevated border border-border
+                         shadow-large flex flex-col justify-between"
             >
               {/* Subtle gold top accent */}
               <div className="absolute top-0 left-6 right-6 sm:left-8 sm:right-8 h-[2px] rounded-b-full bg-gradient-to-r from-transparent via-primary/40 to-transparent pointer-events-none" />
 
-              <div className="space-y-6 sm:space-y-7">
+              <div className="space-y-5 sm:space-y-6">
+                {/* Form Section Heading */}
+                <div className="flex items-center justify-between border-b border-border/80 pb-4">
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-foreground">
+                      Project Consultation Form
+                    </h3>
+                    <p className="text-xs text-muted mt-0.5">
+                      Fill in your details for a direct callback and project estimate.
+                    </p>
+                  </div>
+                  <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[11px] font-bold uppercase tracking-wider">
+                    <Sparkles className="w-3.5 h-3.5" /> Free Estimate
+                  </span>
+                </div>
+
                 {/* ── Row 1: Full Name + Phone Number ────── */}
-                <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">
+                <div className="grid sm:grid-cols-2 gap-5">
                   {/* Full Name */}
                   <div>
                     <label
                       htmlFor="name"
-                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2.5 sm:mb-3"
+                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2"
                     >
-                      Full Name <span className="text-primary">*</span>
+                      Full Name <span className="text-primary font-bold">*</span>
                     </label>
                     <div className="relative">
                       <input
                         {...register("name")}
                         type="text"
                         id="name"
-                        placeholder="Enter your full name"
+                        placeholder="e.g. Ramesh Kumar"
                         className={`input-premium transition-all duration-200 ${getFieldStatusClass("name")}`}
                       />
                       {touchedFields.name && formValues.name && !errors.name && (
@@ -271,7 +244,7 @@ export default function Contact({ id }: ContactProps) {
                       )}
                     </div>
                     {errors.name && (
-                      <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
+                      <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
                         <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
                         {errors.name.message}
                       </p>
@@ -282,12 +255,12 @@ export default function Contact({ id }: ContactProps) {
                   <div>
                     <label
                       htmlFor="phone"
-                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2.5 sm:mb-3"
+                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2"
                     >
-                      Phone Number <span className="text-primary">*</span>
+                      Phone Number <span className="text-primary font-bold">*</span>
                     </label>
                     <div className="flex relative">
-                      <span className="inline-flex items-center px-3 sm:px-4 rounded-l-xl border border-r-0 border-border bg-surface-elevated text-muted text-xs sm:text-sm font-medium select-none">
+                      <span className="inline-flex items-center px-3.5 rounded-l-xl border border-r-0 border-border bg-surface text-muted text-xs sm:text-sm font-semibold select-none">
                         +91
                       </span>
                       <input
@@ -295,7 +268,7 @@ export default function Contact({ id }: ContactProps) {
                         type="tel"
                         id="phone"
                         maxLength={10}
-                        placeholder="9876543210"
+                        placeholder="98422 29272"
                         onChange={(e) => {
                           const clean = e.target.value.replace(/\D/g, "").slice(0, 10);
                           setValue("phone", clean, { shouldValidate: true, shouldTouch: true });
@@ -309,7 +282,7 @@ export default function Contact({ id }: ContactProps) {
                       )}
                     </div>
                     {errors.phone && (
-                      <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
+                      <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
                         <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
                         {errors.phone.message}
                       </p>
@@ -318,14 +291,14 @@ export default function Contact({ id }: ContactProps) {
                 </div>
 
                 {/* ── Row 2: Email Address + Project Type ── */}
-                <div className="grid sm:grid-cols-2 gap-6">
+                <div className="grid sm:grid-cols-2 gap-5">
                   {/* Email Address */}
                   <div>
                     <label
                       htmlFor="email"
-                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3"
+                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2"
                     >
-                      Email Address <span className="text-primary">*</span>
+                      Email Address <span className="text-primary font-bold">*</span>
                     </label>
                     <div className="relative">
                       <input
@@ -346,14 +319,14 @@ export default function Contact({ id }: ContactProps) {
                       )}
                     </div>
                     {errors.email && (
-                      <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
+                      <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
                         <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
                         {errors.email.message}
                       </p>
                     )}
                   </div>
 
-                  {/* Project Type Dropdown */}
+                  {/* Project Type Select */}
                   <Controller
                     control={control}
                     name="projectType"
@@ -365,7 +338,7 @@ export default function Contact({ id }: ContactProps) {
                         options={projectTypes}
                         value={field.value}
                         onChange={field.onChange}
-                        placeholder="Select project type"
+                        placeholder="Select project category"
                         error={errors.projectType?.message}
                         isTouched={touchedFields.projectType}
                         isValid={!errors.projectType && !!field.value}
@@ -374,105 +347,52 @@ export default function Contact({ id }: ContactProps) {
                   />
                 </div>
 
-                {/* ── Row 3: Location + Estimated Budget ──── */}
-                <div className="grid sm:grid-cols-2 gap-6">
-                  {/* Location */}
-                  <div>
-                    <label
-                      htmlFor="location"
-                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3"
-                    >
-                      Location <span className="text-primary">*</span>
-                    </label>
-                    <div className="relative">
-                      <input
-                        {...register("location")}
-                        type="text"
-                        id="location"
-                        placeholder="Coimbatore, Tamil Nadu"
-                        className={`input-premium transition-all duration-200 ${getFieldStatusClass("location")}`}
-                      />
-                      {touchedFields.location && formValues.location && !errors.location && (
-                        <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
-                          <Check className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
-                        </div>
-                      )}
-                    </div>
-                    {errors.location && (
-                      <p className="mt-2 text-xs text-red-500 flex items-center gap-1">
-                        <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
-                        {errors.location.message}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Estimated Budget Dropdown */}
-                  <Controller
-                    control={control}
-                    name="budget"
-                    render={({ field }) => (
-                      <CustomSelect
-                        id="budget"
-                        label="Estimated Budget"
-                        options={budgetRanges}
-                        value={field.value || ""}
-                        onChange={field.onChange}
-                        placeholder="Select budget range (Optional)"
-                        isTouched={touchedFields.budget}
-                        isValid={!errors.budget && !!field.value}
-                      />
-                    )}
-                  />
-                </div>
-
-                {/* ── Row 4: Preferred Contact Method ──── */}
+                {/* ── Row 3: Location ──────────────────────── */}
                 <div>
-                  <p className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3">
-                    Preferred Contact Method <span className="text-muted text-[10px] normal-case tracking-normal">(optional)</span>
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    {contactMethods.map((method) => (
-                      <label key={method} className="relative cursor-pointer">
-                        <input
-                          {...register("preferredContactMethod")}
-                          type="radio"
-                          value={method}
-                          className="peer sr-only"
-                        />
-                        <span className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium
-                                       border border-border text-muted
-                                       peer-checked:border-primary peer-checked:text-primary peer-checked:bg-primary/10
-                                       hover:border-primary/50 hover:text-foreground
-                                       transition-all duration-300 select-none">
-                          {method === "Phone Call" && (
-                            <PhoneCall className="w-4 h-4 text-primary" strokeWidth={1.8} aria-hidden="true" />
-                          )}
-                          {method === "WhatsApp" && (
-                            <MessageSquare className="w-4 h-4 text-primary" strokeWidth={1.8} aria-hidden="true" />
-                          )}
-                          {method}
-                        </span>
-                      </label>
-                    ))}
+                  <label
+                    htmlFor="location"
+                    className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2"
+                  >
+                    Project Location / City <span className="text-primary font-bold">*</span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      {...register("location")}
+                      type="text"
+                      id="location"
+                      placeholder="e.g. Coimbatore / Pollachi / Madurai / Dindigul"
+                      className={`input-premium transition-all duration-200 ${getFieldStatusClass("location")}`}
+                    />
+                    {touchedFields.location && formValues.location && !errors.location && (
+                      <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
+                        <Check className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
+                      </div>
+                    )}
                   </div>
+                  {errors.location && (
+                    <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
+                      <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
+                      {errors.location.message}
+                    </p>
+                  )}
                 </div>
 
-                {/* ── Row 5: Your Message ─────────────────── */}
+                {/* ── Row 4: Message / Requirements ────────── */}
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-3 flex items-center justify-between"
+                    className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2 flex items-center justify-between"
                   >
                     <span>
-                      Your Message <span className="text-muted text-[10px] normal-case tracking-normal">(optional)</span>
+                      Project Details <span className="text-muted text-[10px] normal-case tracking-normal">(optional)</span>
                     </span>
                   </label>
                   <div className="relative">
                     <textarea
                       {...register("message")}
                       id="message"
-                      placeholder="Tell us about your project vision, requirements, and timeline..."
-                      rows={4}
+                      placeholder="Tell us briefly about your plot size, floor requirements, or timeline..."
+                      rows={3}
                       className={`input-premium resize-none transition-all duration-200 ${getFieldStatusClass("message")}`}
                     />
                     {touchedFields.message && formValues.message && !errors.message && (
@@ -483,22 +403,22 @@ export default function Contact({ id }: ContactProps) {
                   </div>
                 </div>
 
-                {/* ── Submit button ──────────────────────── */}
+                {/* ── Submit CTA ───────────────────────────── */}
                 <div className="pt-2">
                   <button
                     type="submit"
                     disabled={!isValid || isSubmitting || isPendingSubmit}
-                    className="w-full min-h-[56px] py-4 text-sm font-semibold rounded-xl
+                    className="w-full min-h-[54px] py-3.5 px-6 text-sm sm:text-base font-bold rounded-xl
                                bg-primary text-btn-text hover:bg-primary-dark
                                btn-shine transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]
                                shadow-md shadow-primary/20
                                disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-none
-                               flex items-center justify-center gap-3 group"
+                               flex items-center justify-center gap-2.5 group cursor-pointer"
                   >
                     {isSubmitting || isPendingSubmit ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" strokeWidth={2} aria-hidden="true" />
-                        <span>Submitting...</span>
+                        <span>Sending Request...</span>
                       </>
                     ) : (
                       <>
@@ -508,71 +428,186 @@ export default function Contact({ id }: ContactProps) {
                     )}
                   </button>
 
-                  <p className="text-center text-xs text-muted mt-4">
-                    By submitting, you agree to receive a callback from our team.
+                  <p className="text-center text-[11px] sm:text-xs text-muted mt-3">
+                    🔒 Your information is confidential. We will connect with you within 24 hours.
                   </p>
                 </div>
               </div>
             </form>
 
-            {/* Right Column: Google Map Embed */}
-            <div className="flex flex-col h-full space-y-3">
+            {/* ── RIGHT COLUMN: Contact Channels & Performance Map Preview (~38%) ── */}
+            <div className="space-y-6 flex flex-col justify-between h-full">
+              {/* Contact Information Card */}
               <div
-                ref={mapRef}
-                onClick={() => setIsMapInteractive(true)}
-                onMouseLeave={() => setIsMapInteractive(false)}
-                className="relative w-full flex-1 min-h-[380px] sm:min-h-[420px] lg:min-h-[460px]
-                           rounded-2xl sm:rounded-3xl overflow-hidden
-                           bg-surface border border-border
-                           shadow-large flex items-center justify-center group cursor-pointer"
+                className="relative p-6 sm:p-7 rounded-2xl sm:rounded-3xl
+                           bg-surface-elevated border border-border shadow-large"
               >
-                {/* Subtle gold top accent matching the form card */}
-                <div className="absolute top-0 left-6 right-6 sm:left-8 sm:right-8 h-[2px] rounded-b-full bg-gradient-to-r from-transparent via-primary/40 to-transparent z-10 pointer-events-none" />
+                {/* Gold Top Accent */}
+                <div className="absolute top-0 left-6 right-6 h-[2px] rounded-b-full bg-gradient-to-r from-transparent via-primary/40 to-transparent pointer-events-none" />
 
-                {/* Click to Interact Overlay Badge (Prevents unintended scroll locking) */}
-                {!isMapInteractive && shouldLoadMap && (
-                  <div className="absolute top-4 right-4 z-20 pointer-events-none">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-white text-xs font-semibold shadow-md">
-                      <MapPinned className="w-3.5 h-3.5 text-primary" strokeWidth={2} aria-hidden="true" />
-                      Click to interact
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-4">
+                  <Phone className="w-3.5 h-3.5" strokeWidth={2} />
+                  <span>Direct Connect</span>
+                </div>
+
+                <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
+                  Let&apos;s Talk About Your Project
+                </h3>
+
+                <p className="text-muted text-xs sm:text-sm leading-relaxed mb-6">
+                  Have an independent house, villa, layout, or renovation project in mind? Reach out to our engineering team directly:
+                </p>
+
+                {/* Direct Action Links */}
+                <div className="space-y-3">
+                  {/* Phone Call */}
+                  <a
+                    href={`tel:${contactDetails.phone.replace(/\s+/g, "")}`}
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-surface border border-border/80
+                               hover:border-primary/50 hover:bg-primary/5 transition-all duration-200 group"
+                  >
+                    <div className="flex items-center gap-3.5 min-w-0">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <Phone className="w-4 h-4" strokeWidth={2} />
+                      </div>
+                      <div className="truncate">
+                        <p className="text-[11px] font-medium text-muted">Phone Enquiries</p>
+                        <p className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                          {contactDetails.phone}
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-xs font-bold text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform">
+                      Call Now →
                     </span>
-                  </div>
-                )}
+                  </a>
 
-                {shouldLoadMap ? (
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.860409729857!2d76.9223518!3d11.0490908!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859728aa80393%3A0x1861b2c7c4c52dce!2sCircuit%20%26%20Engineering%20Electrical%20Work!5e0!3m2!1sen!2sin"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    title="Google Maps Location of Shylesh Circuits & Engineering"
-                    className={`w-full h-full min-h-[380px] sm:min-h-[420px] lg:min-h-[460px] filter contrast-[1.02] rounded-2xl sm:rounded-3xl transition-all duration-200 ${
-                      isMapInteractive ? "pointer-events-auto" : "pointer-events-none"
-                    }`}
-                  />
-                ) : (
-                  <div className="text-center p-6">
-                    <MapPinned className="w-8 h-8 text-primary mx-auto mb-2 opacity-60 animate-pulse" strokeWidth={1.8} aria-hidden="true" />
-                    <p className="text-sm font-medium text-muted">Loading map location...</p>
-                  </div>
-                )}
+                  {/* WhatsApp Chat */}
+                  <a
+                    href={`https://wa.me/919842229272?text=${encodeURIComponent(
+                      "Hello SCE Developers, I would like to discuss a construction project."
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-[#ECFDF5] dark:bg-[#062419] border border-emerald-300 dark:border-emerald-800
+                               hover:border-emerald-500 hover:bg-[#D1FAE5] dark:hover:bg-[#0B3828] transition-all duration-200 group"
+                  >
+                    <div className="flex items-center gap-3.5 min-w-0">
+                      <div className="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-[#0E3D2C] border border-emerald-300 dark:border-emerald-700 flex items-center justify-center text-[#064E3B] dark:text-[#6EE7B7] flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <MessageSquare className="w-4 h-4 text-[#064E3B] dark:text-[#6EE7B7]" strokeWidth={2} />
+                      </div>
+                      <div className="truncate">
+                        <p className="text-[11px] font-bold text-[#064E3B] dark:text-[#6EE7B7]">Quick Chat</p>
+                        <p className="text-sm font-bold text-slate-900 dark:text-emerald-50 group-hover:text-[#064E3B] dark:group-hover:text-[#6EE7B7] transition-colors">
+                          WhatsApp Message
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-xs font-bold text-[#064E3B] dark:text-[#6EE7B7] flex-shrink-0 group-hover:translate-x-0.5 transition-transform">
+                      Chat →
+                    </span>
+                  </a>
+
+                  {/* Email */}
+                  <a
+                    href={`mailto:${contactDetails.email}`}
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-surface border border-border/80
+                               hover:border-primary/50 hover:bg-primary/5 transition-all duration-200 group"
+                  >
+                    <div className="flex items-center gap-3.5 min-w-0">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <Mail className="w-4 h-4" strokeWidth={2} />
+                      </div>
+                      <div className="truncate">
+                        <p className="text-[11px] font-medium text-muted">Email Enquiries</p>
+                        <p className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                          {contactDetails.email}
+                        </p>
+                      </div>
+                    </div>
+                    <span className="text-xs font-bold text-primary flex-shrink-0 group-hover:translate-x-0.5 transition-transform">
+                      Email →
+                    </span>
+                  </a>
+                </div>
+
+                {/* Working Hours Strip */}
+                <div className="mt-4 pt-4 border-t border-border/60 flex items-center gap-2.5 text-xs text-muted">
+                  <Clock3 className="w-3.5 h-3.5 text-primary flex-shrink-0" />
+                  <span>Working Hours: {contactDetails.workingHours}</span>
+                </div>
               </div>
 
-              {/* Small "Open in Google Maps" Link */}
-              <div className="flex items-center justify-end px-2">
+              {/* Performance-First Location Preview Card */}
+              <div
+                className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl
+                           bg-surface-elevated border border-border shadow-large flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-start gap-3 mb-3">
+                    <div className="w-9 h-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary flex-shrink-0">
+                      <MapPin className="w-4 h-4" strokeWidth={2} />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-bold text-foreground">
+                        Office Location
+                      </h4>
+                      <p className="text-xs text-muted leading-relaxed mt-0.5">
+                        {contactDetails.fullAddress}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Interactive Map on Click or Lightweight Stylized Preview */}
+                  {showInteractiveMap ? (
+                    <div className="relative w-full h-44 rounded-xl overflow-hidden border border-border mt-3 mb-3">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.860409729857!2d76.9223518!3d11.0490908!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859728aa80393%3A0x1861b2c7c4c52dce!2sCircuit%20%26%20Engineering%20Electrical%20Work!5e0!3m2!1sen!2sin"
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        title="Google Maps Location of Shylesh Circuits & Engineering"
+                        className="w-full h-full filter contrast-[1.02]"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      onClick={() => setShowInteractiveMap(true)}
+                      className="relative w-full h-28 rounded-xl bg-surface border border-border/90
+                                 hover:border-primary/40 flex items-center justify-center gap-2 cursor-pointer
+                                 transition-all duration-200 mt-3 mb-3 group overflow-hidden"
+                    >
+                      {/* Grid Pattern in Map Preview Container */}
+                      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
+                      <div className="relative z-10 text-center px-4">
+                        <MapPinned className="w-5 h-5 text-primary mx-auto mb-1 group-hover:scale-110 transition-transform" />
+                        <p className="text-xs font-semibold text-foreground">
+                          Click to Load Interactive Map
+                        </p>
+                        <p className="text-[10px] text-muted">
+                          TVS Nagar, Coimbatore • Tamil Nadu
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Open in Google Maps External Action Button */}
                 <a
-                  href="https://www.google.com/maps/place/Circuit+%26+Engineering+Electrical+Work/@11.0490908,76.9223518,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba859728aa80393:0x1861b2c7c4c52dce!8m2!3d11.0490908!4d76.9223518!16s%2Fg%2F11b8z0k5t_"
+                  href={contactDetails.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-primary
-                             hover:text-primary-dark transition-all duration-200 group hover:underline cursor-pointer"
-                  aria-label="Open Shylesh Circuits & Engineering office location on Google Maps (opens in a new tab)"
+                  className="w-full py-2.5 px-4 rounded-xl bg-surface hover:bg-primary/10 border border-border
+                             hover:border-primary/40 text-foreground hover:text-primary text-xs font-bold
+                             flex items-center justify-center gap-2 transition-all duration-200 shadow-sm"
+                  aria-label="Open in Google Maps (opens in new tab)"
                 >
-                  <MapPinned className="w-4 h-4 text-primary transition-transform duration-200 group-hover:scale-110" strokeWidth={2} aria-hidden="true" />
+                  <MapPinned className="w-3.5 h-3.5 text-primary" strokeWidth={2} />
                   <span>Open in Google Maps</span>
+                  <ExternalLink className="w-3 h-3 text-muted" />
                 </a>
               </div>
             </div>

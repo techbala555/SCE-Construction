@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 import { X } from "lucide-react";
 import { navigationItems, companyInfo } from "@/src/data/content";
 import ThemeToggle from "@/src/components/ThemeToggle/ThemeToggle";
+import { usePathname } from "next/navigation";
 import { useMounted } from "@/src/lib/useMounted";
 import { scrollToSection } from "@/src/lib/scrollToSection";
 
@@ -48,6 +49,8 @@ function useFocusTrap(isActive: boolean, containerRef: React.RefObject<HTMLDivEl
 }
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isHome = pathname === "/" || pathname === "";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#home");
@@ -57,6 +60,16 @@ export default function Navbar() {
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   const isDark = mounted && resolvedTheme === "dark";
+
+  /* ── Dynamic background styling: 
+        On Home page top (!isScrolled && isHome): translucent dark gradient overlay seamlessly blending with Hero
+        On Scroll (isScrolled) OR Subpages (!isHome): solid dark navy header
+  ── */
+  const isTransparentAtTop = isHome && !isScrolled;
+
+  const navBgClass = isTransparentAtTop
+    ? "bg-gradient-to-b from-[#081223]/85 via-[#081223]/35 to-transparent border-none border-b-0 shadow-none backdrop-blur-[0.5px]"
+    : "bg-[#0B1220] border-b border-white/[0.08] shadow-md shadow-black/25 backdrop-blur-md";
 
   /* ── Auto-hide scroll tracking refs ────────────────────── */
   const lastScrollY = useRef(0);
@@ -198,11 +211,9 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full z-[100] transition-transform duration-300 ease-in-out ${
-          isScrolled
-            ? "bg-[#0B1220] border-b border-white/[0.06] shadow-md shadow-black/20 backdrop-blur-md"
-            : "bg-transparent border-b border-transparent shadow-none"
-        } ${navHidden ? "pointer-events-none" : ""}`}
+        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ease-in-out ${navBgClass} ${
+          navHidden ? "pointer-events-none" : ""
+        }`}
         style={{
           transform: navHidden ? "translateY(-100%)" : "translateY(0)",
           willChange: "transform",
@@ -306,15 +317,13 @@ export default function Navbar() {
               aria-label="Mobile navigation menu"
               className="xl:hidden fixed inset-0 z-[100] flex flex-col w-screen h-[100dvh] overflow-hidden select-none transition-all duration-300 ease-out"
               style={{
-                background: isDark
-                  ? "rgba(11, 18, 32, 0.98)"
-                  : "rgba(255, 255, 255, 0.98)",
+                background: "rgba(11, 18, 32, 0.98)",
                 backdropFilter: "blur(24px) saturate(200%)",
                 WebkitBackdropFilter: "blur(24px) saturate(200%)",
               }}
             >
               {/* ── Top Bar inside Portal ── */}
-              <div className="flex items-center justify-between px-5 sm:px-8 h-16 sm:h-[72px] border-b border-border/50 flex-shrink-0">
+              <div className="flex items-center justify-between px-5 sm:px-8 h-16 sm:h-[72px] border-b border-white/10 flex-shrink-0">
                 {/* Brand Logo */}
                 <a
                   href="#home"
@@ -322,7 +331,7 @@ export default function Navbar() {
                   className="flex items-center"
                 >
                   <Image
-                    src={isDark ? "/logo-light.svg" : "/logo-dark.svg"}
+                    src="/logo-light.svg"
                     alt="Shylesh Circuits & Engineering"
                     width={804}
                     height={572}
@@ -336,7 +345,7 @@ export default function Navbar() {
 
                   <button
                     onClick={() => setIsMobileOpen(false)}
-                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-elevated text-foreground hover:bg-primary/20 hover:text-primary transition-all duration-200 border border-border/50"
+                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/10 text-white hover:bg-white/20 hover:text-primary transition-all duration-200 border border-white/10"
                     aria-label="Close menu"
                   >
                     <X className="w-5 h-5" strokeWidth={2} aria-hidden="true" />
@@ -358,14 +367,14 @@ export default function Navbar() {
                           className={`flex items-center gap-4 px-5 py-3.5 text-lg font-semibold rounded-xl transition-all duration-200 ${
                             isActive
                               ? "bg-primary/15 text-primary border border-primary/20 shadow-sm"
-                              : "text-foreground hover:bg-surface-elevated hover:text-primary"
+                              : "text-white/85 hover:bg-white/10 hover:text-primary"
                           }`}
                         >
                           <span
                             className={`w-2.5 h-2.5 rounded-full transition-transform ${
                               isActive
                                 ? "bg-primary scale-110"
-                                : "bg-muted/40"
+                                : "bg-white/30"
                             }`}
                           />
                           <span>{item.label}</span>
@@ -376,7 +385,7 @@ export default function Navbar() {
                 </ul>
 
                 {/* ── Bottom Section: Primary CTA + Branding ── */}
-                <div className="mt-8 max-w-sm mx-auto w-full space-y-6 pt-6 border-t border-border/50 text-center">
+                <div className="mt-8 max-w-sm mx-auto w-full space-y-6 pt-6 border-t border-white/10 text-center">
                   <a
                     href="#contact"
                     onClick={(e) => scrollTo(e, "#contact")}
@@ -386,10 +395,10 @@ export default function Navbar() {
                   </a>
 
                   <div className="space-y-1">
-                    <p className="text-xs font-bold tracking-widest text-muted uppercase">
+                    <p className="text-xs font-bold tracking-widest text-white/60 uppercase">
                       Shylesh Circuits & Engineering
                     </p>
-                    <p className="text-[11px] text-muted/70">
+                    <p className="text-[11px] text-white/40">
                       Builders & Developers • Coimbatore, Tamil Nadu
                     </p>
                   </div>

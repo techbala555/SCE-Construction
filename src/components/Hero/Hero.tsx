@@ -15,14 +15,14 @@ export default function Hero({ id }: HeroProps) {
       {/* ── Background layers (z-0 to z-[2]) ──────────────── */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <picture className="block w-full h-full">
-          <source media="(max-width: 767px)" srcSet="/images/hero-bg-mobile.webp" />
-          <source media="(min-width: 768px)" srcSet="/images/hero-bg.webp" />
+          <source media="(max-width: 767px)" srcSet="/images/hero-tamilnadu-house-mobile.webp" />
+          <source media="(min-width: 768px)" srcSet="/images/hero-tamilnadu-house.webp" />
           <img
-            src="/images/hero-bg.webp"
-            alt="Modern commercial building construction and civil engineering project in Tamil Nadu"
+            src="/images/hero-tamilnadu-house.webp"
+            alt="Modern independent house construction and civil engineering project in Tamil Nadu"
             fetchPriority="high"
             decoding="async"
-            className="w-full h-full object-cover object-center animate-ken-burns"
+            className="w-full h-full object-cover object-center"
           />
         </picture>
       </div>
@@ -36,22 +36,21 @@ export default function Hero({ id }: HeroProps) {
       </div>
 
       <div className="absolute inset-0 z-[2] bg-grid-pattern opacity-40 pointer-events-none" />
-      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent z-[3]" />
       <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent z-[3]" />
 
       {/* ── All content in normal document flow ──────────── */}
       <div
-        className="relative z-10 flex flex-col items-center flex-1 pt-28 sm:pt-36 md:pt-44 lg:pt-52 xl:pt-56 pb-10 md:pb-14"
+        className="relative z-10 flex flex-col items-center flex-1 justify-center pt-24 sm:pt-28 md:pt-32 lg:pt-36 xl:pt-40 pb-10 md:pb-14"
       >
         {/* ── Hero Text Block ──────────────────────────────── */}
         <div className="text-center px-4 sm:px-6 md:px-8 lg:px-12 max-w-5xl mx-auto">
           {/* Subtitle Badge */}
           <div className="inline-flex items-center gap-2.5 sm:gap-3 mb-6 sm:mb-8">
-            <span className="h-[1px] w-6 sm:w-10 bg-primary/60" />
-            <span className="label-sm text-primary tracking-[0.15em] sm:tracking-[0.2em] text-xs sm:text-sm">
+            <span className="h-[1px] w-6 sm:w-10 bg-[#F6C945]/70" />
+            <span className="text-[#F6C945] font-bold uppercase tracking-[0.15em] sm:tracking-[0.2em] text-xs sm:text-sm">
               {heroContent.subtitle}
             </span>
-            <span className="h-[1px] w-6 sm:w-10 bg-primary/60" />
+            <span className="h-[1px] w-6 sm:w-10 bg-[#F6C945]/70" />
           </div>
 
           {/* Main Title (LCP Element - Renders Immediately with 0ms Delay) */}
@@ -104,16 +103,6 @@ export default function Hero({ id }: HeroProps) {
                 </p>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* ── Scroll Indicator - normal flow, mt-20 (80px) ── */}
-        <div className="hidden md:flex flex-col items-center mt-12 lg:mt-20">
-          <span className="text-white/30 text-[10px] uppercase tracking-[0.25em] mb-3">
-            Scroll
-          </span>
-          <div className="w-5 h-9 rounded-full border border-white/20 flex justify-center pt-2">
-            <div className="w-1 h-2 rounded-full bg-primary animate-scroll-bounce" />
           </div>
         </div>
       </div>

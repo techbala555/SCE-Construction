@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/images/hero-bg.webp",
+        url: "/images/hero-tamilnadu-house.webp",
         width: 1200,
         height: 630,
         alt: "SCE Developers - Civil Engineering & Construction Company in Coimbatore",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: "SCE Developers | Civil Engineering & Construction Company in Coimbatore",
     description:
       "SCE Developers is a civil engineering and construction company in Coimbatore specializing in house construction, land development, and 3D elevation design.",
-    images: ["/images/hero-bg.webp"],
+    images: ["/images/hero-tamilnadu-house.webp"],
   },
   robots: {
     index: true,
@@ -91,7 +91,7 @@ const jsonLd = {
   alternateName: "SCE Developers",
   url: "https://www.scedevelopers.in",
   logo: "https://www.scedevelopers.in/logo-dark.svg",
-  image: "https://www.scedevelopers.in/images/hero-bg.webp",
+  image: "https://www.scedevelopers.in/images/hero-tamilnadu-house.webp",
   description:
     "Shylesh Circuits & Engineering (SCE Developers) is a civil engineering and construction company in Coimbatore specializing in house construction, land development, and 3D elevation design.",
   telephone: "+91 98422 29272",
@@ -155,7 +155,7 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="/images/hero-bg-mobile.webp"
+          href="/images/hero-tamilnadu-house-mobile.webp"
           media="(max-width: 767px)"
           fetchPriority="high"
           type="image/webp"
@@ -163,7 +163,7 @@ export default function RootLayout({
         <link
           rel="preload"
           as="image"
-          href="/images/hero-bg.webp"
+          href="/images/hero-tamilnadu-house.webp"
           media="(min-width: 768px)"
           fetchPriority="high"
           type="image/webp"

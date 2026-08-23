@@ -1,7 +1,6 @@
 import Image from "next/image";
 import {
   Compass,
-  PencilRuler,
   Zap,
   Users,
   ArrowRight,
@@ -16,25 +15,16 @@ interface AboutProps {
 const teamComposition = [
   {
     title: "Architects",
-    count: "2 Professionals",
     icon: <Compass className="w-6 h-6 text-primary" strokeWidth={1.8} aria-hidden="true" />,
-    description: "Experienced architects focused on practical floor plans and modern home designs.",
-  },
-  {
-    title: "Drawing Experts",
-    count: "3 Professionals",
-    icon: <PencilRuler className="w-6 h-6 text-primary" strokeWidth={1.8} aria-hidden="true" />,
-    description: "CAD drawing specialists handling house plans, 3D elevation, and approval layouts.",
+    description: "Experienced architects focused on practical floor plans, 3D elevation, and modern home designs.",
   },
   {
     title: "Circuit Engineers",
-    count: "4 Professionals",
     icon: <Zap className="w-6 h-6 text-primary" strokeWidth={1.8} aria-hidden="true" />,
     description: "Electrical engineers handling safe wiring design, power planning, and safety checks.",
   },
   {
     title: "50+ Skilled Team",
-    count: "Including Specialists",
     icon: <Users className="w-6 h-6 text-primary" strokeWidth={1.8} aria-hidden="true" />,
     description: "Civil engineers, site supervisors, project coordinators, and skilled construction workers.",
   },
@@ -104,11 +94,12 @@ export default function About({ id }: AboutProps) {
             {/* Main Image */}
             <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-surface-elevated shadow-xl border border-border">
               <Image
-                src="/images/about-us.webp"
-                alt="Indian civil engineers inspecting building plans on construction site"
+                src="/images/about-engineering-team.webp"
+                alt="Experienced Indian civil engineers and architects reviewing residential construction floor plans on site in Tamil Nadu - SCE Developers"
                 fill
                 quality={75}
-                sizes="(max-width: 640px) 92vw, (max-width: 1024px) 48vw, 600px"
+                loading="lazy"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 550px"
                 className="object-cover object-center transition-transform duration-700 hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
@@ -136,49 +127,168 @@ export default function About({ id }: AboutProps) {
           </div>
         </div>
 
-        {/* ── Meet Our Experienced Team Subsection ─────────────── */}
-        <div className="pt-10 border-t border-border/70">
-          <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-12">
+        {/* ── Our Team & Execution Subsection ─────────────── */}
+        <div className="pt-14 sm:pt-16 border-t border-border/80 relative">
+          {/* Subtle blueprint grid line texture */}
+          <div className="absolute inset-0 bg-grid-pattern opacity-20 pointer-events-none rounded-3xl" />
+
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14 relative z-10">
             <div className="flex items-center justify-center gap-3 mb-4">
               <div className="divider-gold" />
-              <span className="label-sm text-primary">Our Team</span>
+              <span className="label-sm text-primary">OUR TEAM</span>
               <div className="divider-gold" />
             </div>
             <h3 className="heading-md text-2xl sm:text-3xl lg:text-4xl text-foreground mb-4">
-              Meet Our <span className="text-gold-gradient">Experienced Team</span>
+              Experienced People. <span className="text-gold-gradient">Reliable Execution.</span>
             </h3>
-            <p className="text-muted body-relaxed text-sm sm:text-base">
-              Our team of civil engineers, architects, survey experts, and skilled site workers work together to deliver every project with care.
+            <p className="text-muted body-relaxed text-sm sm:text-base leading-relaxed">
+              From planning and design to site execution and handover, our team brings together the expertise needed to deliver residential construction projects with care.
             </p>
           </div>
 
-          {/* Team Cards Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-            {teamComposition.map((member) => (
-              <div
-                key={member.title}
-                className="group p-5 sm:p-6 rounded-2xl bg-surface-elevated
-                           border border-border hover:border-primary/40
-                           shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full"
-              >
-                <div>
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20
-                                flex items-center justify-center text-primary mb-4
+          {/* Team Cards Grid with Structured Hierarchy */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 relative z-10">
+            {/* Card 1 — Architects */}
+            <div
+              className="group relative p-7 sm:p-8 rounded-2xl sm:rounded-3xl bg-surface-elevated
+                         border border-border hover:border-primary/50
+                         shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300
+                         flex flex-col justify-between overflow-hidden"
+            >
+              {/* Subtle architectural corner grid accent */}
+              <div className="absolute top-0 right-0 w-24 h-24 bg-primary/[0.03] rounded-bl-3xl border-b border-l border-primary/10 pointer-events-none" />
+
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-13 h-13 rounded-2xl bg-primary/10 border border-primary/20
+                                flex items-center justify-center text-primary
                                 group-hover:bg-primary/20 group-hover:scale-105 transition-all duration-300">
-                    {member.icon}
+                    <Compass className="w-6 h-6 text-primary" strokeWidth={1.8} aria-hidden="true" />
                   </div>
-                  <h4 className="text-lg font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
-                    {member.title}
-                  </h4>
-                  <div className="text-xs font-extrabold text-amber-700 dark:text-primary uppercase tracking-wider mb-3">
-                    {member.count}
-                  </div>
-                  <p className="text-slate-700 dark:text-slate-300 text-xs sm:text-[0.875rem] leading-relaxed">
-                    {member.description}
-                  </p>
+                  <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-surface border border-border text-muted">
+                    Design & Planning
+                  </span>
                 </div>
+
+                <h4 className="text-lg sm:text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                  Architects
+                </h4>
+                <p className="text-secondary text-sm leading-relaxed font-normal">
+                  Experienced architects focused on practical floor plans, 3D elevation, and modern home designs.
+                </p>
               </div>
-            ))}
+
+              <div className="mt-6 pt-4 border-t border-border/70 flex items-center gap-2 text-xs font-bold text-primary-dark dark:text-primary">
+                <span>Custom 2D Plans & 3D Visuals</span>
+              </div>
+            </div>
+
+            {/* Card 2 — Circuit Engineers */}
+            <div
+              className="group relative p-7 sm:p-8 rounded-2xl sm:rounded-3xl bg-surface-elevated
+                         border border-border hover:border-primary/50
+                         shadow-sm hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300
+                         flex flex-col justify-between overflow-hidden"
+            >
+              {/* Subtle technical circuit trace accent */}
+              <div className="absolute top-0 right-0 w-24 h-24 bg-primary/[0.03] rounded-bl-3xl border-b border-l border-primary/10 pointer-events-none" />
+
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-13 h-13 rounded-2xl bg-primary/10 border border-primary/20
+                                flex items-center justify-center text-primary
+                                group-hover:bg-primary/20 group-hover:scale-105 transition-all duration-300">
+                    <Zap className="w-6 h-6 text-primary" strokeWidth={1.8} aria-hidden="true" />
+                  </div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-surface border border-border text-muted">
+                    Electrical Systems
+                  </span>
+                </div>
+
+                <h4 className="text-lg sm:text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                  Circuit Engineers
+                </h4>
+                <p className="text-secondary text-sm leading-relaxed font-normal">
+                  Electrical engineers handling safe wiring design, power planning, and safety checks.
+                </p>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-border/70 flex items-center gap-2 text-xs font-bold text-primary-dark dark:text-primary">
+                <span>Safe Wiring & Power Planning</span>
+              </div>
+            </div>
+
+            {/* Card 3 — 50+ Skilled Team (Prominent Featured Card) */}
+            <div
+              className="group relative p-7 sm:p-8 rounded-2xl sm:rounded-3xl
+                         bg-gradient-to-b from-surface-elevated to-primary/[0.04]
+                         border-2 border-primary/40 hover:border-primary
+                         shadow-md hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300
+                         flex flex-col justify-between overflow-hidden ring-1 ring-primary/20"
+            >
+              {/* Highlight badge top-right */}
+              <div className="absolute -top-1 -right-1">
+                <span className="inline-flex items-center px-3.5 py-1 rounded-bl-xl bg-primary text-btn-text text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider shadow-sm">
+                  Core Workforce
+                </span>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-13 h-13 rounded-2xl bg-primary/15 border border-primary/30
+                                flex items-center justify-center text-primary
+                                group-hover:bg-primary/25 group-hover:scale-105 transition-all duration-300">
+                    <Users className="w-6 h-6 text-primary" strokeWidth={2} aria-hidden="true" />
+                  </div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary-dark dark:text-primary">
+                    On-Site Execution
+                  </span>
+                </div>
+
+                <h4 className="text-lg sm:text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                  50+ Skilled Team
+                </h4>
+                <p className="text-secondary text-sm leading-relaxed font-normal">
+                  Civil engineers, site supervisors, project coordinators, and skilled construction workers working together on project execution.
+                </p>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-primary/20 flex items-center gap-2 text-xs font-bold text-primary-dark dark:text-primary">
+                <span>Civil, Structural & Site Supervision</span>
+              </div>
+            </div>
+          </div>
+
+          {/* ── Compact Horizontal Trust / Execution Strip ── */}
+          <div className="mt-10 sm:mt-12 rounded-2xl sm:rounded-3xl bg-surface border border-border p-6 sm:p-8 relative z-10 shadow-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-border">
+              <div className="text-center sm:text-left sm:pl-4 pt-2 sm:pt-0">
+                <div className="flex items-center justify-center sm:justify-start gap-2 mb-1">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-primary">10+</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-muted">Years</span>
+                </div>
+                <p className="text-sm font-bold text-foreground">Years of Experience</p>
+                <p className="text-xs text-muted mt-0.5">Proven track record across Tamil Nadu</p>
+              </div>
+
+              <div className="text-center sm:text-left sm:pl-8 pt-4 sm:pt-0">
+                <div className="flex items-center justify-center sm:justify-start gap-2 mb-1">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-primary">50+</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-muted">Members</span>
+                </div>
+                <p className="text-sm font-bold text-foreground">Skilled Team</p>
+                <p className="text-xs text-muted mt-0.5">Engineers, supervisors & craftspeople</p>
+              </div>
+
+              <div className="text-center sm:text-left sm:pl-8 pt-4 sm:pt-0">
+                <div className="flex items-center justify-center sm:justify-start gap-2 mb-1">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-primary">100%</span>
+                  <span className="text-xs font-bold uppercase tracking-wider text-muted">Turnkey</span>
+                </div>
+                <p className="text-sm font-bold text-foreground">End-to-End Support</p>
+                <p className="text-xs text-muted mt-0.5">From survey & design to final handover</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

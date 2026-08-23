@@ -31,24 +31,24 @@ const serviceIcons: Record<string, React.ReactNode> = {
 // Service banner images
 const serviceBanners: Record<string, { src: string; alt: string }> = {
   construction: {
-    src: "/images/projects/villa-project.webp",
-    alt: "Luxury residential building and villa construction by SCE Developers",
+    src: "/images/services/house-construction-service.webp",
+    alt: "Modern independent house and residential building construction in Tamil Nadu by SCE Developers",
   },
   "land-development": {
-    src: "/images/projects/layout-development.webp",
-    alt: "Professional land development, GPS survey, and site planning",
+    src: "/images/services/land-development-service.webp",
+    alt: "Professional land development, GPS survey, and DTCP approved layout infrastructure in Tamil Nadu",
   },
   "real-estate": {
-    src: "/images/projects/plot-development.webp",
-    alt: "Strategic plot promotion and residential layout development",
+    src: "/images/services/plot-promotion-service.webp",
+    alt: "Approved residential plot promotion and layout development in Tamil Nadu",
   },
   "future-projects": {
-    src: "/images/services/farmhouse.webp",
-    alt: "Specialized farmhouse planning, construction, and estate development",
+    src: "/images/services/farmhouse-project-tn.webp",
+    alt: "Custom countryside farmhouse planning, land preparation, and construction in Tamil Nadu",
   },
   "elevation-3d": {
-    src: "/images/services/elevation-3d.webp",
-    alt: "Photorealistic 3D elevation and exterior facade rendering by SCE Developers",
+    src: "/images/services/elevation-design-tn.webp",
+    alt: "Architectural 3D elevation design, CAD modeling, and residential facade visualization",
   },
 };
 
@@ -140,7 +140,7 @@ export default function Services({ id }: ServicesProps) {
 
           <div className="p-4 sm:p-4.5 rounded-2xl bg-surface border border-border/80 shadow-sm flex items-center gap-3.5 sm:gap-4 h-full min-h-[76px]">
             <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-extrabold text-sm sm:text-base flex-shrink-0 leading-none select-none">
-              5
+              5+
             </div>
             <div className="flex flex-col justify-center min-w-0 flex-1">
               <div className="text-xs sm:text-sm font-bold text-foreground truncate leading-snug">Core Services</div>
@@ -173,8 +173,9 @@ export default function Services({ id }: ServicesProps) {
                       src={serviceBanners[service.id].src}
                       alt={serviceBanners[service.id].alt}
                       fill
-                      quality={85}
-                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      quality={80}
+                      loading="lazy"
+                      sizes="(max-width: 1024px) 100vw, (max-width: 1440px) 42vw, 550px"
                       className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
                     />
                   )}

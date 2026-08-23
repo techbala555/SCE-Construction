@@ -46,21 +46,21 @@
 :root {
   color-scheme: light;
 
-  --clr-primary: #D4A017;
-  --clr-primary-dark: #B8860B;
+  --clr-primary: #854D0E;
+  --clr-primary-dark: #78350F;
   --clr-primary-light: #F0D060;
-  --clr-secondary: #475569;
-  --clr-secondary-light: #64748B;
+  --clr-secondary: #334155;
+  --clr-secondary-light: #475569;
   --clr-accent: #F1F5F9;
   --clr-surface: #FFFFFF;
   --clr-surface-elevated: #F1F5F9;
   --clr-background: #F8FAFC;
-  --clr-foreground: #111827;
-  --clr-muted: #64748B;
+  --clr-foreground: #0F172A;
+  --clr-muted: #475569;
   --clr-border: #E2E8F0;
   --clr-border-light: #E2E8F0;
-  --clr-btn-text: #111827;
-  --clr-secondary-text: #475569;
+  --clr-btn-text: #FFFFFF;
+  --clr-secondary-text: #334155;
 
   /* Deep section tokens (WhyChooseUs, Footer-like sections) */
   --clr-deep-bg: #1E293B;
@@ -434,9 +434,13 @@ section[id] {
 }
 .label-sm {
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  color: var(--clr-primary-dark);
+}
+.dark .label-sm {
+  color: var(--clr-primary);
 }
 
 /* ================================================================
@@ -547,17 +551,6 @@ select.input-premium option {
 .theme-toggle-btn:hover {
   background: var(--toggle-hover-bg);
   box-shadow: var(--toggle-hover-shadow);
-}
-
-/* ================================================================
-   SCROLL INDICATOR BOUNCE
-   ================================================================ */
-@keyframes scroll-bounce {
-  0%, 100% { transform: translateY(0); opacity: 1; }
-  50% { transform: translateY(10px); opacity: 0.5; }
-}
-.animate-scroll-bounce {
-  animation: scroll-bounce 2s ease-in-out infinite;
 }
 
 /* ================================================================

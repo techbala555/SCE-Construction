@@ -53,28 +53,23 @@ function useFocusTrap(isActive: boolean, containerRef: React.RefObject<HTMLDivEl
   }, [isActive, containerRef]);
 }
 
-export default function LeadPopup() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isPendingSubmit, setIsPendingSubmit] = useState(false);
-  const [modalState, setModalState] = useState<{
-    open: boolean;
-    type: "success" | "error";
-    title?: string;
-    message?: string;
-  }>({ open: false, type: "success" });
+interface PopupDialogProps {
+  onDismiss: () => void;
+  onSuccess: () => void;
+  onError: (msg?: string) => void;
+  onAlreadySubmitted: (msg?: string) => void;
+}
 
-  const mounted = useMounted();
+function PopupDialog({ onDismiss, onSuccess, onError, onAlreadySubmitted }: PopupDialogProps) {
   const modalContainerRef = useRef<HTMLDivElement>(null);
-  const hasTriggeredRef = useRef(false);
+  const [isPendingSubmit, setIsPendingSubmit] = useState(false);
 
-  /* ── Form Hook Setup ───────────────────────────────────── */
   const {
     register,
     handleSubmit,
     control,
     setValue,
     watch,
-    reset,
     formState: { errors, isValid, isSubmitting, touchedFields },
   } = useForm<LeadFormData>({
     resolver: zodResolver(leadFormSchema),
@@ -92,81 +87,20 @@ export default function LeadPopup() {
   });
 
   const formValues = watch();
+  useFocusTrap(true, modalContainerRef);
 
-  /* ── Close & Dismiss Handlers ──────────────────────────── */
-  const handleDismiss = useCallback(() => {
-    setIsOpen(false);
-    try {
-      sessionStorage.setItem(POPUP_DISMISSED_KEY, "true");
-    } catch {
-      // Storage access disabled
-    }
-  }, []);
-
-  /* ── 10s Timer & 45% Scroll Trigger Logic ──────────────── */
   useEffect(() => {
-    if (!mounted) return;
-
-    try {
-      const isDismissed = sessionStorage.getItem(POPUP_DISMISSED_KEY) === "true";
-      const isSubmitted = sessionStorage.getItem(POPUP_SUBMITTED_KEY) === "true";
-      if (isDismissed || isSubmitted) return;
-    } catch {
-      // Ignore storage errors
-    }
-
-    const triggerPopup = () => {
-      if (hasTriggeredRef.current) return;
-      hasTriggeredRef.current = true;
-      setIsOpen(true);
-    };
-
-    // 10 Second Timer
-    const timer = setTimeout(triggerPopup, TIMEOUT_DELAY);
-
-    // 45% Scroll Trigger
-    const onScroll = () => {
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollHeight <= 0) return;
-      const scrollPercent = window.scrollY / scrollHeight;
-      if (scrollPercent >= SCROLL_THRESHOLD_PERCENT) {
-        triggerPopup();
-      }
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, [mounted]);
-
-  /* ── Body Scroll Locking & Keyboard ESC Listener ────────── */
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
+    document.body.style.overflow = "hidden";
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") handleDismiss();
+      if (e.key === "Escape") onDismiss();
     };
-
-    if (isOpen) {
-      document.addEventListener("keydown", onKeyDown);
-    }
-
+    document.addEventListener("keydown", onKeyDown);
     return () => {
       document.body.style.overflow = "";
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [isOpen, handleDismiss]);
+  }, [onDismiss]);
 
-  useFocusTrap(isOpen, modalContainerRef);
-
-  /* ── Submit lead to /api/leads API ─────────────────────── */
   const onSubmit = async (data: LeadFormData) => {
     if (isPendingSubmit) return;
     setIsPendingSubmit(true);
@@ -181,46 +115,18 @@ export default function LeadPopup() {
       const resData = await response.json();
 
       if (response.ok && resData.success) {
-        try {
-          sessionStorage.setItem(POPUP_SUBMITTED_KEY, "true");
-          sessionStorage.setItem(POPUP_DISMISSED_KEY, "true");
-        } catch {
-          // ignore
-        }
-        setIsOpen(false);
-        setModalState({ open: true, type: "success" });
+        onSuccess();
       } else if (response.status === 409) {
-        setModalState({
-          open: true,
-          type: "error",
-          title: "Enquiry Already Submitted",
-          message:
-            resData.message ||
-            "This enquiry has already been submitted. Please wait before trying again.",
-        });
+        onAlreadySubmitted(resData.message);
         setIsPendingSubmit(false);
       } else {
-        setModalState({
-          open: true,
-          type: "error",
-          message: resData.message || "Something went wrong. Please try again.",
-        });
+        onError(resData.message);
         setIsPendingSubmit(false);
       }
     } catch {
-      setModalState({
-        open: true,
-        type: "error",
-        message: "Network error occurred. Please check your connection and try again.",
-      });
+      onError("Network error occurred. Please check your connection and try again.");
       setIsPendingSubmit(false);
     }
-  };
-
-  const handleCloseSuccessModal = () => {
-    reset();
-    setModalState({ open: false, type: "success" });
-    setIsPendingSubmit(false);
   };
 
   const getFieldStatusClass = (fieldName: keyof LeadFormData) => {
@@ -233,27 +139,21 @@ export default function LeadPopup() {
     return "";
   };
 
-  if (!mounted) return null;
-
   return (
-    <>
-      {createPortal(
-        <AnimatePresence mode="wait">
-          {isOpen && (
-            <motion.div
-              key="lead-popup-backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
-              className="fixed inset-0 z-[110] flex items-center justify-center p-3 sm:p-6 overflow-hidden"
+    <motion.div
+      key="lead-popup-backdrop"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
+      className="fixed inset-0 z-[110] flex items-center justify-center p-3 sm:p-6 overflow-hidden"
               style={{
                 background: "rgba(0, 0, 0, 0.75)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
               }}
               onClick={(e) => {
-                if (e.target === e.currentTarget) handleDismiss();
+                if (e.target === e.currentTarget) onDismiss();
               }}
               role="dialog"
               aria-modal="true"
@@ -290,7 +190,7 @@ export default function LeadPopup() {
                   {/* Close Button */}
                   <button
                     type="button"
-                    onClick={handleDismiss}
+                    onClick={onDismiss}
                     className="w-9 h-9 sm:w-10 sm:h-10 min-w-[36px] sm:min-w-[40px] flex items-center justify-center rounded-xl bg-surface-elevated text-muted
                                hover:bg-primary/15 hover:text-primary transition-all duration-200 border border-border flex-shrink-0 cursor-pointer"
                     aria-label="Close modal"
@@ -491,7 +391,7 @@ export default function LeadPopup() {
                       {/* Secondary CTA: Continue Browsing */}
                       <button
                         type="button"
-                        onClick={handleDismiss}
+                        onClick={onDismiss}
                         className="w-full sm:flex-1 min-h-[46px] sm:min-h-[48px] py-2.5 sm:py-3 text-xs sm:text-sm font-semibold rounded-xl
                                    border border-border bg-surface-elevated text-foreground
                                    hover:bg-surface-elevated/80
@@ -504,20 +404,128 @@ export default function LeadPopup() {
                 </div>
               </motion.div>
             </motion.div>
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
+  );
+}
 
-      {/* Confirmation Modal */}
-      <SubmissionModal
-        isOpen={modalState.open}
-        type={modalState.type}
-        customTitle={modalState.title}
-        customMessage={modalState.message}
-        onClose={handleCloseSuccessModal}
-        onRetry={handleCloseSuccessModal}
-      />
+/* ── Main LeadPopup Controller (Zero hydration overhead until triggered) ── */
+export default function LeadPopup() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalState, setModalState] = useState<{
+    open: boolean;
+    type: "success" | "error";
+    title?: string;
+    message?: string;
+  }>({ open: false, type: "success" });
+
+  const mounted = useMounted();
+  const hasTriggeredRef = useRef(false);
+
+  const handleDismiss = useCallback(() => {
+    setIsOpen(false);
+    try {
+      sessionStorage.setItem(POPUP_DISMISSED_KEY, "true");
+    } catch {
+      // storage disabled
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    try {
+      const isDismissed = sessionStorage.getItem(POPUP_DISMISSED_KEY) === "true";
+      const isSubmitted = sessionStorage.getItem(POPUP_SUBMITTED_KEY) === "true";
+      if (isDismissed || isSubmitted) return;
+    } catch {
+      // ignore
+    }
+
+    const triggerPopup = () => {
+      if (hasTriggeredRef.current) return;
+      hasTriggeredRef.current = true;
+      setIsOpen(true);
+    };
+
+    const timer = setTimeout(triggerPopup, TIMEOUT_DELAY);
+
+    const onScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollHeight <= 0) return;
+      const scrollPercent = window.scrollY / scrollHeight;
+      if (scrollPercent >= SCROLL_THRESHOLD_PERCENT) {
+        triggerPopup();
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [mounted]);
+
+  const handleSuccess = () => {
+    try {
+      sessionStorage.setItem(POPUP_SUBMITTED_KEY, "true");
+      sessionStorage.setItem(POPUP_DISMISSED_KEY, "true");
+    } catch {
+      // ignore
+    }
+    setIsOpen(false);
+    setModalState({ open: true, type: "success" });
+  };
+
+  const handleError = (msg?: string) => {
+    setModalState({
+      open: true,
+      type: "error",
+      message: msg || "Something went wrong. Please try again.",
+    });
+  };
+
+  const handleAlreadySubmitted = (msg?: string) => {
+    setModalState({
+      open: true,
+      type: "error",
+      title: "Enquiry Already Submitted",
+      message: msg || "This enquiry has already been submitted. Please wait before trying again.",
+    });
+  };
+
+  const handleCloseModal = () => {
+    setModalState({ open: false, type: "success" });
+  };
+
+  if (!mounted) return null;
+
+  return (
+    <>
+      {typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence mode="wait">
+            {isOpen && (
+              <PopupDialog
+                onDismiss={handleDismiss}
+                onSuccess={handleSuccess}
+                onError={handleError}
+                onAlreadySubmitted={handleAlreadySubmitted}
+              />
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
+
+      {modalState.open && (
+        <SubmissionModal
+          isOpen={modalState.open}
+          type={modalState.type}
+          customTitle={modalState.title}
+          customMessage={modalState.message}
+          onClose={handleCloseModal}
+          onRetry={handleCloseModal}
+        />
+      )}
     </>
   );
 }
