@@ -52,10 +52,7 @@ export const leadFormSchema = z.object({
   projectType: z
     .string({ message: "Please select a project type." })
     .min(1, "Please select a project type."),
-  location: z
-    .string({ message: "Location is required." })
-    .trim()
-    .min(2, "Location must be at least 2 characters."),
+  location: z.string().trim().optional(),
   budget: z.string().optional(),
   preferredContactMethod: z.string().optional(),
   message: z.string().optional(),

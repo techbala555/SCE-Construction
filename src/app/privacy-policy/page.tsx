@@ -8,14 +8,14 @@ import { contactDetails } from "@/src/data/content";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Privacy Policy for Shylesh Circuits & Engineering (SCE Developers). Learn how we collect, use, and protect your project enquiry information.",
+    "Privacy Policy for Shylesh Circuit & Engineering (SCE Developers). Learn how we collect, use, and protect your project enquiry information.",
   alternates: {
     canonical: "https://www.scedevelopers.in/privacy-policy",
   },
   openGraph: {
     title: "Privacy Policy | SCE Developers",
     description:
-      "Privacy Policy for Shylesh Circuits & Engineering (SCE Developers). Learn how we handle your information.",
+      "Privacy Policy for Shylesh Circuit & Engineering (SCE Developers). Learn how we handle your information.",
     url: "https://www.scedevelopers.in/privacy-policy",
     siteName: "SCE Developers",
     type: "website",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Privacy Policy | SCE Developers",
     description:
-      "Privacy Policy for Shylesh Circuits & Engineering (SCE Developers). Learn how we handle your information.",
+      "Privacy Policy for Shylesh Circuit & Engineering (SCE Developers). Learn how we handle your information.",
   },
 };
 
@@ -66,7 +66,7 @@ export default function PrivacyPolicyPage() {
               1. Introduction
             </h2>
             <p className="text-muted text-sm sm:text-base leading-relaxed">
-              Shylesh Circuits & Engineering (&quot;SCE Developers&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) respects your privacy and is committed to protecting the personal information you share with us. This Privacy Policy explains how we collect, use, store, and safeguard your details when you visit our website (<strong className="text-foreground">scedevelopers.in</strong>) or submit an enquiry for our construction and land development services.
+              Shylesh Circuit & Engineering (&quot;SCE Developers&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) respects your privacy and is committed to protecting the personal information you share with us. This Privacy Policy explains how we collect, use, store, and safeguard your details when you visit our website (<strong className="text-foreground">scedevelopers.in</strong>) or submit an enquiry for our construction and land development services.
             </p>
           </section>
 
@@ -179,7 +179,7 @@ export default function PrivacyPolicyPage() {
             </p>
 
             <div className="p-5 rounded-xl bg-surface-elevated border border-border space-y-3 text-xs sm:text-sm">
-              <p className="font-bold text-foreground text-sm sm:text-base">Shylesh Circuits & Engineering (SCE Developers)</p>
+              <p className="font-bold text-foreground text-sm sm:text-base">Shylesh Circuit & Engineering (SCE Developers)</p>
               <div className="flex items-start gap-2.5 text-muted">
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" strokeWidth={2} aria-hidden="true" />
                 <span>{contactDetails.address}</span>

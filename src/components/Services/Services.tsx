@@ -100,55 +100,6 @@ export default function Services({ id }: ServicesProps) {
           </p>
         </motion.div>
 
-        {/* Compact Trust Metrics Row */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          custom={0.1}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 mb-12 sm:mb-16"
-        >
-          <div className="p-4 sm:p-4.5 rounded-2xl bg-surface border border-border/80 shadow-sm flex items-center gap-3.5 sm:gap-4 h-full min-h-[76px]">
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-extrabold text-sm sm:text-base flex-shrink-0 leading-none select-none">
-              100+
-            </div>
-            <div className="flex flex-col justify-center min-w-0 flex-1">
-              <div className="text-xs sm:text-sm font-bold text-foreground truncate leading-snug">Projects Delivered</div>
-              <div className="text-[11px] sm:text-xs text-muted truncate mt-1 leading-none font-medium">Turnkey Quality</div>
-            </div>
-          </div>
-
-          <div className="p-4 sm:p-4.5 rounded-2xl bg-surface border border-border/80 shadow-sm flex items-center gap-3.5 sm:gap-4 h-full min-h-[76px]">
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-extrabold text-sm sm:text-base flex-shrink-0 leading-none select-none">
-              10+
-            </div>
-            <div className="flex flex-col justify-center min-w-0 flex-1">
-              <div className="text-xs sm:text-sm font-bold text-foreground truncate leading-snug">Years Experience</div>
-              <div className="text-[11px] sm:text-xs text-muted truncate mt-1 leading-none font-medium">Proven Track Record</div>
-            </div>
-          </div>
-
-          <div className="p-4 sm:p-4.5 rounded-2xl bg-surface border border-border/80 shadow-sm flex items-center gap-3.5 sm:gap-4 h-full min-h-[76px]">
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-extrabold text-sm sm:text-base flex-shrink-0 leading-none select-none">
-              50+
-            </div>
-            <div className="flex flex-col justify-center min-w-0 flex-1">
-              <div className="text-xs sm:text-sm font-bold text-foreground truncate leading-snug">Professional Team</div>
-              <div className="text-[11px] sm:text-xs text-muted truncate mt-1 leading-none font-medium">In-House Experts</div>
-            </div>
-          </div>
-
-          <div className="p-4 sm:p-4.5 rounded-2xl bg-surface border border-border/80 shadow-sm flex items-center gap-3.5 sm:gap-4 h-full min-h-[76px]">
-            <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-extrabold text-sm sm:text-base flex-shrink-0 leading-none select-none">
-              5+
-            </div>
-            <div className="flex flex-col justify-center min-w-0 flex-1">
-              <div className="text-xs sm:text-sm font-bold text-foreground truncate leading-snug">Core Services</div>
-              <div className="text-[11px] sm:text-xs text-muted truncate mt-1 leading-none font-medium">End-to-End Execution</div>
-            </div>
-          </div>
-        </motion.div>
-
         {/* Premium Horizontal Service Cards Stack */}
         <motion.div
           variants={staggerContainer}

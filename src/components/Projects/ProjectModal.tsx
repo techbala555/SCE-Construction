@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import Image from "next/image";
 import { X, MapPin, Calendar, ChevronLeft, ChevronRight, CheckCircle2, ArrowRight } from "lucide-react";
 import type { Project } from "@/src/data/content";
@@ -14,6 +14,13 @@ interface ProjectModalProps {
 export default function ProjectModal({ project, onClose, onInquire }: ProjectModalProps) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
+  // Guarantee unique gallery images with no duplicate paths
+  const galleryList = useMemo(() => {
+    if (!project) return [];
+    const raw = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
+    return Array.from(new Set(raw));
+  }, [project]);
+
   useEffect(() => {
     setActiveImageIndex(0);
   }, [project]);
@@ -21,14 +28,14 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
-      if (!project?.gallery || project.gallery.length <= 1) return;
+      if (galleryList.length <= 1) return;
       if (e.key === "ArrowLeft") {
-        setActiveImageIndex((prev) => (prev === 0 ? project.gallery!.length - 1 : prev - 1));
+        setActiveImageIndex((prev) => (prev === 0 ? galleryList.length - 1 : prev - 1));
       } else if (e.key === "ArrowRight") {
-        setActiveImageIndex((prev) => (prev === project.gallery!.length - 1 ? 0 : prev + 1));
+        setActiveImageIndex((prev) => (prev === galleryList.length - 1 ? 0 : prev + 1));
       }
     },
-    [onClose, project]
+    [onClose, galleryList]
   );
 
   useEffect(() => {
@@ -46,7 +53,6 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
 
   if (!project) return null;
 
-  const galleryList = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
   const activeImage = galleryList[activeImageIndex] || project.image;
 
   return (
@@ -90,8 +96,9 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
               src={activeImage}
               alt={`${project.title} - ${project.location}`}
               fill
-              quality={92}
-              sizes="(max-width: 1024px) 100vw, 900px"
+              quality={90}
+              priority={activeImageIndex === 0}
+              sizes="(max-width: 640px) 95vw, (max-width: 1024px) 85vw, 850px"
               className="object-contain transition-all duration-300"
             />
 
@@ -140,7 +147,7 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
                     idx === activeImageIndex ? "border-primary scale-105 shadow-md" : "border-border opacity-60 hover:opacity-100"
                   }`}
                 >
-                  <Image src={imgSrc} alt={`Thumbnail ${idx + 1}`} fill className="object-cover object-center" />
+                  <Image src={imgSrc} alt={`Thumbnail ${idx + 1}`} fill sizes="80px" className="object-cover object-center" />
                 </button>
               ))}
             </div>

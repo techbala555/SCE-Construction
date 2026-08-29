@@ -50,7 +50,7 @@ export async function POST(request: Request) {
         phone: validatedData.phone,
         email: validatedData.email || null,
         projectType: validatedData.projectType,
-        location: validatedData.location,
+        location: validatedData.location || "Tamil Nadu",
         budget: validatedData.budget || null,
         preferredContactMethod: validatedData.preferredContactMethod || "Phone Call",
         message: validatedData.message || null,

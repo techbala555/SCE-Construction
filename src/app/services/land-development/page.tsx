@@ -434,12 +434,12 @@ export default function LandDevelopmentPage() {
               Our Service Area in <span className="text-gold-gradient">Coimbatore</span>
             </h2>
             <p className="text-muted body-relaxed text-sm sm:text-base mb-8 max-w-2xl mx-auto">
-              Shylesh Circuits & Engineering provides GPS land survey, DTCP layout planning, and site development across Coimbatore and Tamil Nadu.
+              Shylesh Circuit & Engineering provides GPS land survey, DTCP layout planning, and site development across Coimbatore and Tamil Nadu.
             </p>
 
             <div className="p-6 sm:p-8 rounded-2xl bg-surface border border-border shadow-sm max-w-xl mx-auto text-left space-y-4 text-xs sm:text-sm">
               <p className="font-bold text-foreground text-sm sm:text-base">
-                Shylesh Circuits & Engineering (SCE Developers)
+                Shylesh Circuit & Engineering (SCE Developers)
               </p>
               <div className="flex items-start gap-3 text-muted">
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" strokeWidth={2} aria-hidden="true" />

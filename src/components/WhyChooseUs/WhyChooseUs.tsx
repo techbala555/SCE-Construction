@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
-  Award,
   UsersRound,
   ClipboardCheck,
   Receipt,
@@ -16,10 +15,10 @@ import { useScrollAnimation } from "@/src/lib/useScrollAnimation";
 import { fadeUp, staggerContainer, staggerItem } from "@/src/lib/motion";
 
 const iconMap = {
-  Award: Award,
   UsersRound: UsersRound,
-  ClipboardCheck: ClipboardCheck,
   Receipt: Receipt,
+  ClipboardCheck: ClipboardCheck,
+  ShieldCheck: ShieldCheck,
 } as const;
 
 interface WhyChooseUsProps {
@@ -157,59 +156,51 @@ export default function WhyChooseUs({ id }: WhyChooseUsProps) {
           </motion.div>
         </div>
 
-        {/* ── BOTTOM: Verified Horizontal Proof Strip ─────── */}
+        {/* ── BOTTOM: Genuine Execution Commitments Strip ─────── */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           custom={0.2}
-          className="mt-12 sm:mt-16 pt-8 sm:pt-10 border-t border-border/80 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+          className="mt-12 sm:mt-16 pt-8 sm:pt-10 border-t border-border/80 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
         >
-          <div className="p-4 sm:p-5 rounded-2xl bg-surface-elevated border border-border/80 hover:border-primary/30 transition-all duration-200 shadow-sm">
-            <p className="text-2xl sm:text-3xl font-extrabold text-foreground">
-              10<span className="text-primary">+</span>
-            </p>
-            <p className="text-xs sm:text-sm font-bold text-foreground mt-1">
-              Years of Experience
-            </p>
-            <p className="text-[11px] text-muted font-medium mt-0.5">
-              Proven Tamil Nadu Track Record
+          <div className="p-4 sm:p-5 rounded-2xl bg-surface-elevated border border-border/80 hover:border-primary/30 transition-all duration-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-primary">Single Contact</p>
+              <h3 className="text-sm sm:text-base font-bold text-foreground mt-1">Dedicated Supervisor</h3>
+            </div>
+            <p className="text-[11px] sm:text-xs text-muted font-normal mt-2 leading-relaxed">
+              Direct site engineer managing daily on-site updates and communication.
             </p>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-2xl bg-surface-elevated border border-border/80 hover:border-primary/30 transition-all duration-200 shadow-sm">
-            <p className="text-2xl sm:text-3xl font-extrabold text-foreground">
-              50<span className="text-primary">+</span>
-            </p>
-            <p className="text-xs sm:text-sm font-bold text-foreground mt-1">
-              Skilled In-House Team
-            </p>
-            <p className="text-[11px] text-muted font-medium mt-0.5">
-              Architects & Circuit Staff
+          <div className="p-4 sm:p-5 rounded-2xl bg-surface-elevated border border-border/80 hover:border-primary/30 transition-all duration-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-primary">Clear Pricing</p>
+              <h3 className="text-sm sm:text-base font-bold text-foreground mt-1">Stage-Wise Billing</h3>
+            </div>
+            <p className="text-[11px] sm:text-xs text-muted font-normal mt-2 leading-relaxed">
+              Payments tied to verified construction milestones with zero hidden fees.
             </p>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-2xl bg-surface-elevated border border-border/80 hover:border-primary/30 transition-all duration-200 shadow-sm">
-            <p className="text-2xl sm:text-3xl font-extrabold text-foreground">
-              100<span className="text-primary">+</span>
-            </p>
-            <p className="text-xs sm:text-sm font-bold text-foreground mt-1">
-              Completed Projects
-            </p>
-            <p className="text-[11px] text-muted font-medium mt-0.5">
-              Residential & Land Delivery
+          <div className="p-4 sm:p-5 rounded-2xl bg-surface-elevated border border-border/80 hover:border-primary/30 transition-all duration-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-primary">Material Standards</p>
+              <h3 className="text-sm sm:text-base font-bold text-foreground mt-1">Quality Materials</h3>
+            </div>
+            <p className="text-[11px] sm:text-xs text-muted font-normal mt-2 leading-relaxed">
+              Standardized concrete, steel, and branded material verification on site.
             </p>
           </div>
 
-          <div className="p-4 sm:p-5 rounded-2xl bg-surface-elevated border border-border/80 hover:border-primary/30 transition-all duration-200 shadow-sm">
-            <p className="text-2xl sm:text-3xl font-extrabold text-primary-dark dark:text-primary">
-              Tamil Nadu
-            </p>
-            <p className="text-xs sm:text-sm font-bold text-foreground mt-1">
-              Local Project Focus
-            </p>
-            <p className="text-[11px] text-muted font-medium mt-0.5">
-              Coimbatore • Pollachi • Madurai
+          <div className="p-4 sm:p-5 rounded-2xl bg-surface-elevated border border-border/80 hover:border-primary/30 transition-all duration-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-primary">Scheduled Delivery</p>
+              <h3 className="text-sm sm:text-base font-bold text-foreground mt-1">Timely Handover</h3>
+            </div>
+            <p className="text-[11px] sm:text-xs text-muted font-normal mt-2 leading-relaxed">
+              Structured timeline tracking from foundation work to final key handover.
             </p>
           </div>
         </motion.div>

@@ -134,12 +134,12 @@ export default function Projects({ id }: ProjectsProps) {
                     </div>
 
                     {/* Gallery Photos Count Badge */}
-                    {project.gallery && project.gallery.length > 1 && (
+                    {project.gallery && new Set(project.gallery).size > 1 && (
                       <div className="absolute top-3.5 right-3.5 z-10">
                         <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full
                                          bg-black/70 backdrop-blur-sm text-white text-[10px] sm:text-[11px] font-bold shadow-sm">
                           <Camera className="w-3 h-3 text-primary" />
-                          {project.gallery.length} Photos
+                          {new Set(project.gallery).size} Photos
                         </span>
                       </div>
                     )}

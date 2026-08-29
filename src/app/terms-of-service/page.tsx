@@ -8,14 +8,14 @@ import { contactDetails } from "@/src/data/content";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "Terms of Service for Shylesh Circuits & Engineering (SCE Developers). Read the terms governing the use of our website and services.",
+    "Terms of Service for Shylesh Circuit & Engineering (SCE Developers). Read the terms governing the use of our website and services.",
   alternates: {
     canonical: "https://www.scedevelopers.in/terms-of-service",
   },
   openGraph: {
     title: "Terms of Service | SCE Developers",
     description:
-      "Terms of Service for Shylesh Circuits & Engineering (SCE Developers). Read our terms and conditions.",
+      "Terms of Service for Shylesh Circuit & Engineering (SCE Developers). Read our terms and conditions.",
     url: "https://www.scedevelopers.in/terms-of-service",
     siteName: "SCE Developers",
     type: "website",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Terms of Service | SCE Developers",
     description:
-      "Terms of Service for Shylesh Circuits & Engineering (SCE Developers). Read our terms and conditions.",
+      "Terms of Service for Shylesh Circuit & Engineering (SCE Developers). Read our terms and conditions.",
   },
 };
 
@@ -66,7 +66,7 @@ export default function TermsOfServicePage() {
               1. Acceptance of Terms
             </h2>
             <p className="text-muted text-sm sm:text-base leading-relaxed">
-              Welcome to the official website of Shylesh Circuits & Engineering (&quot;SCE Developers&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;). By accessing, browsing, or using our website (<strong className="text-foreground">scedevelopers.in</strong>), you acknowledge that you have read, understood, and agree to be bound by these Terms of Service. If you do not agree with any portion of these terms, please discontinue using this website.
+              Welcome to the official website of Shylesh Circuit & Engineering (&quot;SCE Developers&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;). By accessing, browsing, or using our website (<strong className="text-foreground">scedevelopers.in</strong>), you acknowledge that you have read, understood, and agree to be bound by these Terms of Service. If you do not agree with any portion of these terms, please discontinue using this website.
             </p>
           </section>
 
@@ -98,7 +98,7 @@ export default function TermsOfServicePage() {
               3. Services and Informational Content
             </h2>
             <p className="text-muted text-sm sm:text-base leading-relaxed">
-              The descriptions, project portfolios, photo galleries, estimated cost ranges, and specifications provided on this website are for general guidance only. Formal construction commitments, finalized floor plans, exact project costs, material specifications, and completion schedules are established exclusively through signed written contracts executed directly between you and Shylesh Circuits & Engineering.
+              The descriptions, project portfolios, photo galleries, estimated cost ranges, and specifications provided on this website are for general guidance only. Formal construction commitments, finalized floor plans, exact project costs, material specifications, and completion schedules are established exclusively through signed written contracts executed directly between you and Shylesh Circuit & Engineering.
             </p>
           </section>
 
@@ -120,7 +120,7 @@ export default function TermsOfServicePage() {
               5. Intellectual Property Rights
             </h2>
             <p className="text-muted text-sm sm:text-base leading-relaxed">
-              All materials on this website—including company logos, brand names (&quot;SCE Construction&quot;, &quot;SCE Developers&quot;, &quot;Shylesh Circuits & Engineering&quot;), website design, text content, 3D elevation renders, layout drawings, and graphic icons—are the intellectual property of Shylesh Circuits & Engineering and protected by Indian copyright, trademark, and intellectual property laws. You may not copy, reproduce, distribute, or create derivative works from website content without prior written permission.
+              All materials on this website—including company logos, brand names (&quot;SCE Construction&quot;, &quot;SCE Developers&quot;, &quot;Shylesh Circuit & Engineering&quot;), website design, text content, 3D elevation renders, layout drawings, and graphic icons—are the intellectual property of Shylesh Circuit & Engineering and protected by Indian copyright, trademark, and intellectual property laws. You may not copy, reproduce, distribute, or create derivative works from website content without prior written permission.
             </p>
           </section>
 
@@ -142,7 +142,7 @@ export default function TermsOfServicePage() {
               7. Limitation of Liability
             </h2>
             <p className="text-muted text-sm sm:text-base leading-relaxed">
-              To the fullest extent permitted by applicable law, Shylesh Circuits & Engineering shall not be liable for any direct, indirect, incidental, or consequential damages arising from your use of or inability to access this website, or reliance on any information presented herein.
+              To the fullest extent permitted by applicable law, Shylesh Circuit & Engineering shall not be liable for any direct, indirect, incidental, or consequential damages arising from your use of or inability to access this website, or reliance on any information presented herein.
             </p>
           </section>
 
@@ -179,7 +179,7 @@ export default function TermsOfServicePage() {
             </p>
 
             <div className="p-5 rounded-xl bg-surface-elevated border border-border space-y-3 text-xs sm:text-sm">
-              <p className="font-bold text-foreground text-sm sm:text-base">Shylesh Circuits & Engineering (SCE Developers)</p>
+              <p className="font-bold text-foreground text-sm sm:text-base">Shylesh Circuit & Engineering (SCE Developers)</p>
               <div className="flex items-start gap-2.5 text-muted">
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" strokeWidth={2} aria-hidden="true" />
                 <span>{contactDetails.address}</span>

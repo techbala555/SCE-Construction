@@ -233,7 +233,7 @@ export default function Navbar() {
             >
               <Image
                 src="/logo-light.svg"
-                alt="Shylesh Circuits & Engineering Builders & Developers"
+                alt="Shylesh Circuit & Engineering Builders & Developers"
                 width={804}
                 height={572}
                 priority
@@ -332,7 +332,7 @@ export default function Navbar() {
                 >
                   <Image
                     src="/logo-light.svg"
-                    alt="Shylesh Circuits & Engineering"
+                    alt="Shylesh Circuit & Engineering"
                     width={804}
                     height={572}
                     className="w-auto h-[44px] sm:h-[50px] object-contain"
@@ -396,7 +396,7 @@ export default function Navbar() {
 
                   <div className="space-y-1">
                     <p className="text-xs font-bold tracking-widest text-white/60 uppercase">
-                      Shylesh Circuits & Engineering
+                      Shylesh Circuit & Engineering
                     </p>
                     <p className="text-[11px] text-white/40">
                       Builders & Developers • Coimbatore, Tamil Nadu

@@ -19,9 +19,9 @@ const teamComposition = [
     description: "Experienced architects focused on practical floor plans, 3D elevation, and modern home designs.",
   },
   {
-    title: "Circuit Engineers",
+    title: "Electrical & MEP Engineers",
     icon: <Zap className="w-6 h-6 text-primary" strokeWidth={1.8} aria-hidden="true" />,
-    description: "Electrical engineers handling safe wiring design, power planning, and safety checks.",
+    description: "Electrical and MEP engineers handling safe wiring design, plumbing layouts, power planning, and safety checks.",
   },
   {
     title: "50+ Skilled Team",
@@ -54,7 +54,7 @@ export default function About({ id }: AboutProps) {
             </h2>
 
             <p className="text-muted body-lg mb-6 max-w-xl leading-relaxed">
-              With over <strong>10 years of experience</strong>, Shylesh Circuits & Engineering is a trusted name in house construction, 3D elevation design, and land development across Tamil Nadu. Supported by a <strong>50+ skilled team</strong> of architects, civil engineers, site managers, and workers, we deliver quality construction with transparent pricing and on-time completion.
+              Shylesh Circuit & Engineering provides integrated residential construction, architectural planning, and land development across Tamil Nadu. Our in-house team of architects, civil engineers, site supervisors, and skilled tradesmen works collaboratively under one roof to deliver durable, well-planned homes with structured execution and transparent pricing.
             </p>
 
             {/* Key Pillars */}
@@ -105,19 +105,19 @@ export default function About({ id }: AboutProps) {
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
             </div>
 
-            {/* Floating Stats Card */}
+            {/* Floating Execution Badge */}
             <div
-              className="absolute -bottom-6 left-4 sm:-left-12 p-4 sm:p-6 rounded-2xl
+              className="absolute -bottom-6 left-4 sm:-left-12 p-4 sm:p-5 rounded-2xl
                          bg-surface-elevated border border-border
                          shadow-large z-10 animate-float"
             >
               <div className="flex items-center gap-3 sm:gap-4">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <Trophy className="w-6 h-6 text-primary" strokeWidth={1.8} aria-hidden="true" />
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Trophy className="w-5 h-5 text-primary" strokeWidth={1.8} aria-hidden="true" />
                 </div>
                 <div>
-                  <p className="text-2xl sm:text-3xl font-extrabold text-foreground">10+</p>
-                  <p className="text-[11px] sm:text-xs text-muted font-medium mt-0.5 sm:mt-1">Years of Experience</p>
+                  <p className="text-sm sm:text-base font-extrabold text-foreground leading-snug">Integrated Team</p>
+                  <p className="text-[11px] sm:text-xs text-muted font-medium mt-0.5">Design • Engineering • Handover</p>
                 </div>
               </div>
             </div>
@@ -183,7 +183,7 @@ export default function About({ id }: AboutProps) {
               </div>
             </div>
 
-            {/* Card 2 — Circuit Engineers */}
+            {/* Card 2 — Electrical & MEP Engineers */}
             <div
               className="group relative p-7 sm:p-8 rounded-2xl sm:rounded-3xl bg-surface-elevated
                          border border-border hover:border-primary/50
@@ -201,24 +201,24 @@ export default function About({ id }: AboutProps) {
                     <Zap className="w-6 h-6 text-primary" strokeWidth={1.8} aria-hidden="true" />
                   </div>
                   <span className="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-surface border border-border text-muted">
-                    Electrical Systems
+                    Electrical & MEP
                   </span>
                 </div>
 
                 <h4 className="text-lg sm:text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
-                  Circuit Engineers
+                  Electrical & MEP Engineers
                 </h4>
                 <p className="text-secondary text-sm leading-relaxed font-normal">
-                  Electrical engineers handling safe wiring design, power planning, and safety checks.
+                  Electrical and MEP engineers handling safe wiring design, plumbing layouts, power planning, and utility safety checks.
                 </p>
               </div>
 
               <div className="mt-6 pt-4 border-t border-border/70 flex items-center gap-2 text-xs font-bold text-primary-dark dark:text-primary">
-                <span>Safe Wiring & Power Planning</span>
+                <span>Wiring, Plumbing & MEP Planning</span>
               </div>
             </div>
 
-            {/* Card 3 — 50+ Skilled Team (Prominent Featured Card) */}
+            {/* Card 3 — Site Engineers & Supervisors (Prominent Featured Card) */}
             <div
               className="group relative p-7 sm:p-8 rounded-2xl sm:rounded-3xl
                          bg-gradient-to-b from-surface-elevated to-primary/[0.04]
@@ -229,7 +229,7 @@ export default function About({ id }: AboutProps) {
               {/* Highlight badge top-right */}
               <div className="absolute -top-1 -right-1">
                 <span className="inline-flex items-center px-3.5 py-1 rounded-bl-xl bg-primary text-btn-text text-[10px] sm:text-[11px] font-extrabold uppercase tracking-wider shadow-sm">
-                  Core Workforce
+                  Field Operations
                 </span>
               </div>
 
@@ -246,10 +246,10 @@ export default function About({ id }: AboutProps) {
                 </div>
 
                 <h4 className="text-lg sm:text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
-                  50+ Skilled Team
+                  Site Engineers & Supervisors
                 </h4>
                 <p className="text-secondary text-sm leading-relaxed font-normal">
-                  Civil engineers, site supervisors, project coordinators, and skilled construction workers working together on project execution.
+                  Civil engineers, site supervisors, project coordinators, and experienced construction tradesmen managing daily on-site quality and structural safety.
                 </p>
               </div>
 
@@ -259,34 +259,22 @@ export default function About({ id }: AboutProps) {
             </div>
           </div>
 
-          {/* ── Compact Horizontal Trust / Execution Strip ── */}
+          {/* ── Compact Execution Capability Strip ── */}
           <div className="mt-10 sm:mt-12 rounded-2xl sm:rounded-3xl bg-surface border border-border p-6 sm:p-8 relative z-10 shadow-sm">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-border">
               <div className="text-center sm:text-left sm:pl-4 pt-2 sm:pt-0">
-                <div className="flex items-center justify-center sm:justify-start gap-2 mb-1">
-                  <span className="text-2xl sm:text-3xl font-extrabold text-primary">10+</span>
-                  <span className="text-xs font-bold uppercase tracking-wider text-muted">Years</span>
-                </div>
-                <p className="text-sm font-bold text-foreground">Years of Experience</p>
-                <p className="text-xs text-muted mt-0.5">Proven track record across Tamil Nadu</p>
+                <p className="text-base sm:text-lg font-bold text-foreground">Integrated Planning</p>
+                <p className="text-xs text-muted mt-1 leading-relaxed">2D floor plans, 3D elevations & DTCP approval coordination</p>
               </div>
 
               <div className="text-center sm:text-left sm:pl-8 pt-4 sm:pt-0">
-                <div className="flex items-center justify-center sm:justify-start gap-2 mb-1">
-                  <span className="text-2xl sm:text-3xl font-extrabold text-primary">50+</span>
-                  <span className="text-xs font-bold uppercase tracking-wider text-muted">Members</span>
-                </div>
-                <p className="text-sm font-bold text-foreground">Skilled Team</p>
-                <p className="text-xs text-muted mt-0.5">Engineers, supervisors & craftspeople</p>
+                <p className="text-base sm:text-lg font-bold text-foreground">Direct Site Supervision</p>
+                <p className="text-xs text-muted mt-1 leading-relaxed">Civil engineers monitoring daily structural quality on site</p>
               </div>
 
               <div className="text-center sm:text-left sm:pl-8 pt-4 sm:pt-0">
-                <div className="flex items-center justify-center sm:justify-start gap-2 mb-1">
-                  <span className="text-2xl sm:text-3xl font-extrabold text-primary">100%</span>
-                  <span className="text-xs font-bold uppercase tracking-wider text-muted">Turnkey</span>
-                </div>
-                <p className="text-sm font-bold text-foreground">End-to-End Support</p>
-                <p className="text-xs text-muted mt-0.5">From survey & design to final handover</p>
+                <p className="text-base sm:text-lg font-bold text-foreground">Turnkey Delivery</p>
+                <p className="text-xs text-muted mt-1 leading-relaxed">Complete coordination from initial site survey to key handover</p>
               </div>
             </div>
           </div>

@@ -24,6 +24,7 @@ import { fadeUp } from "@/src/lib/motion";
 import {
   leadFormSchema,
   projectTypes,
+  budgetRanges,
   type LeadFormData,
 } from "@/src/lib/validations/lead-schema";
 import { contactDetails } from "@/src/data/content";
@@ -64,6 +65,7 @@ export default function Contact({ id }: ContactProps) {
       email: "",
       projectType: "",
       location: "",
+      budget: "",
       message: "",
     },
   });
@@ -347,34 +349,56 @@ export default function Contact({ id }: ContactProps) {
                   />
                 </div>
 
-                {/* ── Row 3: Location ──────────────────────── */}
-                <div>
-                  <label
-                    htmlFor="location"
-                    className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2"
-                  >
-                    Project Location / City <span className="text-primary font-bold">*</span>
-                  </label>
-                  <div className="relative">
-                    <input
-                      {...register("location")}
-                      type="text"
-                      id="location"
-                      placeholder="e.g. Coimbatore / Pollachi / Madurai / Dindigul"
-                      className={`input-premium transition-all duration-200 ${getFieldStatusClass("location")}`}
-                    />
-                    {touchedFields.location && formValues.location && !errors.location && (
-                      <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
-                        <Check className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
-                      </div>
+                {/* ── Row 3: Location (Optional) + Budget (Optional) ────── */}
+                <div className="grid sm:grid-cols-2 gap-5">
+                  {/* Location */}
+                  <div>
+                    <label
+                      htmlFor="location"
+                      className="block text-xs font-semibold text-foreground uppercase tracking-wider mb-2"
+                    >
+                      Project Location / City <span className="text-muted text-[10px] normal-case tracking-normal">(optional)</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        {...register("location")}
+                        type="text"
+                        id="location"
+                        placeholder="e.g. Coimbatore / Pollachi / Madurai"
+                        className={`input-premium transition-all duration-200 ${getFieldStatusClass("location")}`}
+                      />
+                      {touchedFields.location && formValues.location && !errors.location && (
+                        <div className="absolute right-3.5 top-1/2 -translate-y-1/2 text-emerald-500">
+                          <Check className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
+                        </div>
+                      )}
+                    </div>
+                    {errors.location && (
+                      <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
+                        <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
+                        {errors.location.message}
+                      </p>
                     )}
                   </div>
-                  {errors.location && (
-                    <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
-                      <AlertCircle className="w-3.5 h-3.5" strokeWidth={2} aria-hidden="true" />
-                      {errors.location.message}
-                    </p>
-                  )}
+
+                  {/* Estimated Budget */}
+                  <Controller
+                    control={control}
+                    name="budget"
+                    render={({ field }) => (
+                      <CustomSelect
+                        id="budget"
+                        label="Estimated Budget"
+                        options={budgetRanges}
+                        value={field.value || ""}
+                        onChange={field.onChange}
+                        placeholder="Select budget range (optional)"
+                        error={errors.budget?.message}
+                        isTouched={touchedFields.budget}
+                        isValid={!errors.budget && !!field.value}
+                      />
+                    )}
+                  />
                 </div>
 
                 {/* ── Row 4: Message / Requirements ────────── */}
@@ -485,7 +509,7 @@ export default function Contact({ id }: ContactProps) {
                   {/* WhatsApp Chat */}
                   <a
                     href={`https://wa.me/919842229272?text=${encodeURIComponent(
-                      "Hello SCE Developers, I would like to discuss a construction project."
+                      "Hello SCE Developers, I’m interested in discussing a construction project. Please get in touch with me."
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -555,6 +579,9 @@ export default function Contact({ id }: ContactProps) {
                       <p className="text-xs text-muted leading-relaxed mt-0.5">
                         {contactDetails.fullAddress}
                       </p>
+                      <p className="text-[11px] font-semibold text-primary mt-1">
+                        GSTIN: {contactDetails.gstin}
+                      </p>
                     </div>
                   </div>
 
@@ -562,14 +589,14 @@ export default function Contact({ id }: ContactProps) {
                   {showInteractiveMap ? (
                     <div className="relative w-full h-44 rounded-xl overflow-hidden border border-border mt-3 mb-3">
                       <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.860409729857!2d76.9223518!3d11.0490908!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba859728aa80393%3A0x1861b2c7c4c52dce!2sCircuit%20%26%20Engineering%20Electrical%20Work!5e0!3m2!1sen!2sin"
+                        src="https://www.google.com/maps?q=372/3,+Vidhiya+Colony,+TVS+Nagar,+Coimbatore+641025,+Tamil+Nadu&output=embed"
                         width="100%"
                         height="100%"
                         style={{ border: 0 }}
                         allowFullScreen
                         loading="lazy"
                         referrerPolicy="strict-origin-when-cross-origin"
-                        title="Google Maps Location of Shylesh Circuits & Engineering"
+                        title="Google Maps Location of Shylesh Circuit & Engineering"
                         className="w-full h-full filter contrast-[1.02]"
                       />
                     </div>
@@ -588,7 +615,7 @@ export default function Contact({ id }: ContactProps) {
                           Click to Load Interactive Map
                         </p>
                         <p className="text-[10px] text-muted">
-                          TVS Nagar, Coimbatore • Tamil Nadu
+                          372/3, Vidhiya Colony, TVS Nagar, Coimbatore • Tamil Nadu
                         </p>
                       </div>
                     </div>

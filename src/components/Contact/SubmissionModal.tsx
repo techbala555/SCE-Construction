@@ -119,7 +119,7 @@ export default function SubmissionModal({
   const message =
     customMessage ||
     (isSuccess
-      ? "Thank you for contacting Shylesh Circuits & Engineering.\n\nYour enquiry has been received successfully. Our team will contact you soon."
+      ? "Thank you for contacting Shylesh Circuit & Engineering.\n\nYour enquiry has been received successfully. Our team will contact you soon."
       : "Something went wrong. Please try again.");
   const primaryLabel = isSuccess ? "Submit Another Enquiry" : "Try Again";
 

@@ -22,7 +22,7 @@ export const companyInfo = {
   name: "SCE Developers",
   tagline: "Quality Construction & Land Development You Can Trust",
   description:
-    "Shylesh Circuits & Engineering helps you build quality homes and commercial buildings with proper planning, skilled workers, and on-time delivery. From independent houses and villas to land development and DTCP approvals, we take care of your project from planning to final handover.",
+    "Shylesh Circuit & Engineering helps you build quality homes and commercial buildings with proper planning, skilled workers, and on-time delivery. From independent houses and villas to land development and DTCP approvals, we take care of your project from planning to final handover.",
   mission:
     "To build strong, beautiful homes and planned layouts with transparent pricing, quality materials, and dedicated customer support.",
   vision:
@@ -52,7 +52,7 @@ export const statistics: Statistic[] = [
   { value: 100, suffix: "+", label: "Projects Completed" },
   { value: 10, suffix: "+", label: "Years of Experience" },
   { value: 50, suffix: "+", label: "Skilled Team Members" },
-  { value: 5, suffix: "+", label: "Core Services" },
+  { value: 100, suffix: "%", label: "Transparent Pricing" },
 ];
 
 // ── Services ────────────────────────────────────────────────
@@ -306,12 +306,11 @@ export const projects: Project[] = [
       "Custom 3-storey luxury villa construction featuring natural stone facade cladding, teak wood exterior panelling, and glass balcony railings.",
     location: "Coimbatore, Tamil Nadu",
     year: 2024,
-    image: "/images/projects/villa-construction-real.webp",
+    image: "/images/projects/premium-villa-coimbatore.webp",
     objectPosition: "center 25%",
     gallery: [
-      "/images/projects/villa-construction-real.webp",
+      "/images/projects/premium-villa-coimbatore.webp",
       "/images/projects/terrace-lighting-real.webp",
-      "/images/projects/terrace-night-real.webp",
     ],
     features: [
       "Natural Stone Facade",
@@ -338,6 +337,27 @@ export const projects: Project[] = [
       "2-Storey Structural Build",
       "Exterior Stone Highlights",
       "Foundation Bhoomi Pooja",
+    ],
+  },
+  {
+    id: "site-prep-groundwork",
+    title: "Land Development & Site Preparation",
+    category: "Land Development",
+    filterCategory: "layout",
+    description:
+      "On-site land preparation, tractor-mounted auger drilling for boundary piling, and agricultural plot leveling across raw terrain.",
+    location: "Coimbatore, Tamil Nadu",
+    year: 2025,
+    image: "/images/projects/site-preparation-drilling.webp",
+    objectPosition: "center 40%",
+    gallery: [
+      "/images/projects/site-preparation-drilling.webp",
+      "/images/projects/land-preparation-leveling.webp",
+    ],
+    features: [
+      "Tractor Auger Groundwork",
+      "Site Leveling & Clearing",
+      "Plot Boundary Preparation",
     ],
   },
   {
@@ -393,7 +413,6 @@ export const projects: Project[] = [
     gallery: [
       "/images/projects/interior-staircase-finish.webp",
       "/images/projects/portico-entrance-real.webp",
-      "/images/projects/terrace-lighting-real.webp",
     ],
     features: [
       "Granite & Marble Steps",
@@ -429,46 +448,47 @@ export interface TrustPillar {
   id: string;
   title: string;
   description: string;
-  icon: "Award" | "UsersRound" | "ClipboardCheck" | "Receipt";
+  icon: "UsersRound" | "Receipt" | "ClipboardCheck" | "ShieldCheck";
 }
 
 export const whyChooseUs: TrustPillar[] = [
   {
-    id: "experience",
-    title: "10+ Years of Experience",
+    id: "coordination",
+    title: "One Team, Single Point of Contact",
     description:
-      "Practical construction experience across residential independent houses, villas, and land development projects in Tamil Nadu.",
-    icon: "Award",
-  },
-  {
-    id: "team",
-    title: "50+ Skilled In-House Team",
-    description:
-      "Architects, circuit engineers, site supervisors, and experienced tradesmen collaborating directly on every project.",
+      "In-house architects, civil engineers, and site managers work as one unified team—giving you a single accountable point of contact from day one to key handover.",
     icon: "UsersRound",
   },
   {
-    id: "end-to-end",
-    title: "End-to-End Project Support",
+    id: "pricing",
+    title: "Stage-Wise Transparent Estimates",
     description:
-      "From site planning and local approvals to structural civil execution and final turnkey handover.",
+      "Itemized cost breakdowns for materials and labor with structured stage-by-stage billing tied directly to physical on-site progress.",
+    icon: "Receipt",
+  },
+  {
+    id: "planning",
+    title: "Practical Planning & Approvals",
+    description:
+      "Functional 2D floor plans, 3D exterior elevations, and complete DTCP / local body approval assistance tailored to your plot and budget.",
     icon: "ClipboardCheck",
   },
   {
-    id: "pricing",
-    title: "Transparent Pricing & Estimates",
+    id: "execution",
+    title: "Accountable On-Site Execution",
     description:
-      "Clear stage-wise estimates and honest project communication with no hidden fees or unexpected costs.",
-    icon: "Receipt",
+      "Daily on-site supervision by experienced site engineers with structural quality inspections and milestone tracking through final key handover.",
+    icon: "ShieldCheck",
   },
 ];
 
 // ── Contact Details ─────────────────────────────────────────
 export const contactDetails = {
-  name: "Shylesh Circuits & Engineering",
-  address: "PMR Nagar, TVS Nagar, Coimbatore, Tamil Nadu – 641025",
-  fullAddress: "PMR Nagar, TVS Nagar, Coimbatore, Tamil Nadu – 641025",
-  mapUrl: "https://www.google.com/maps/place/Circuit+%26+Engineering+Electrical+Work/@11.0490908,76.9223518,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba859728aa80393:0x1861b2c7c4c52dce!8m2!3d11.0490908!4d76.9223518!16s%2Fg%2F11b8z0k5t_",
+  name: "Shylesh Circuit & Engineering",
+  gstin: "33APOPP1899K1Z4",
+  address: "372/3, Vidhiya Colony, TVS Nagar, Coimbatore – 641025, Tamil Nadu, India",
+  fullAddress: "372/3, Vidhiya Colony, TVS Nagar, Coimbatore – 641025, Tamil Nadu, India",
+  mapUrl: "https://www.google.com/maps/search/?api=1&query=372%2F3%2C+Vidhiya+Colony%2C+TVS+Nagar%2C+Coimbatore+%E2%80%93+641025%2C+Tamil+Nadu%2C+India",
   phone: "+91 98422 29272",
   email: "info@scedevelopers.in",
   workingHours: "Mon – Sat: 9:00 AM – 7:00 PM",

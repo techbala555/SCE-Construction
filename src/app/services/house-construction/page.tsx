@@ -393,8 +393,8 @@ export default function HouseConstructionPage() {
                 <div className="w-12 h-12 rounded-xl bg-primary/10 mx-auto flex items-center justify-center text-primary mb-3">
                   <Zap className="w-6 h-6" strokeWidth={1.8} aria-hidden="true" />
                 </div>
-                <h4 className="font-bold text-foreground text-base">4 Circuit Engineers</h4>
-                <p className="text-muted text-xs mt-1">Electrical wiring & safety experts</p>
+                <h4 className="font-bold text-foreground text-base">4 Electrical & MEP Engineers</h4>
+                <p className="text-muted text-xs mt-1">Electrical wiring, plumbing & MEP safety experts</p>
               </div>
             </div>
           </div>
@@ -493,12 +493,12 @@ export default function HouseConstructionPage() {
               Our Service Area in <span className="text-gold-gradient">Coimbatore</span>
             </h2>
             <p className="text-muted body-relaxed text-sm sm:text-base mb-8 max-w-2xl mx-auto">
-              Shylesh Circuits & Engineering provides residential house construction and land development services across Coimbatore and surrounding regions in Tamil Nadu.
+              Shylesh Circuit & Engineering provides residential house construction and land development services across Coimbatore and surrounding regions in Tamil Nadu.
             </p>
 
             <div className="p-6 sm:p-8 rounded-2xl bg-surface border border-border shadow-sm max-w-xl mx-auto text-left space-y-4 text-xs sm:text-sm">
               <p className="font-bold text-foreground text-sm sm:text-base">
-                Shylesh Circuits & Engineering (SCE Developers)
+                Shylesh Circuit & Engineering (SCE Developers)
               </p>
               <div className="flex items-start gap-3 text-muted">
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" strokeWidth={2} aria-hidden="true" />

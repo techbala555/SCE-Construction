@@ -26,7 +26,7 @@ export default function Footer() {
             <div className="mb-6 sm:mb-10">
               <Image
                 src="/logo-light.svg"
-                alt="Shylesh Circuits & Engineering Builders & Developers"
+                alt="Shylesh Circuit & Engineering Builders & Developers"
                 width={804}
                 height={572}
                 className="w-auto h-16 sm:h-24 lg:h-28 max-w-full object-contain"
@@ -91,14 +91,17 @@ export default function Footer() {
             </h3>
             <div className="space-y-5 text-deep-muted text-sm">
               <a
-                href={contactDetails.mapUrl || "https://www.google.com/maps/place/Circuit+%26+Engineering+Electrical+Work/@11.0490908,76.9223518,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba859728aa80393:0x1861b2c7c4c52dce!8m2!3d11.0490908!4d76.9223518!16s%2Fg%2F11b8z0k5t_"}
+                href={contactDetails.mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex gap-3 items-start hover:text-primary transition-colors group cursor-pointer"
-                aria-label={`${contactDetails.address}. Open Shylesh Circuits & Engineering office location on Google Maps (opens in a new tab)`}
+                aria-label={`${contactDetails.address}. Open Shylesh Circuit & Engineering office location on Google Maps (opens in a new tab)`}
               >
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5 transition-transform group-hover:scale-110" strokeWidth={1.8} aria-hidden="true" />
-                <span className="group-hover:underline leading-relaxed">{contactDetails.address}</span>
+                <div>
+                  <span className="group-hover:underline leading-relaxed block">{contactDetails.address}</span>
+                  <span className="text-xs text-primary/80 font-medium mt-1 block">GSTIN: {contactDetails.gstin}</span>
+                </div>
               </a>
               <a
                 href={`tel:${contactDetails.phone.replace(/\s+/g, "")}`}

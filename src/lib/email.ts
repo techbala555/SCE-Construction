@@ -6,7 +6,7 @@ const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 // Sender address supported by Resend (Domain: scedevelopers.in)
 const FROM_EMAIL =
-  process.env.FROM_EMAIL || "Shylesh Circuits & Engineering <info@scedevelopers.in>";
+  process.env.FROM_EMAIL || "Shylesh Circuit & Engineering <info@scedevelopers.in>";
 
 // Business Owner / Admin notification recipient email address
 // Strictly configured for official business inbox info@scedevelopers.in
@@ -117,7 +117,7 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<S
                 <tr>
                   <td align="center" class="header-td" style="background: linear-gradient(135deg, #0B1220 0%, #1F2937 100%); padding: 30px; text-align: center; border-bottom: 2px solid #D4A017;">
                     <h1 class="mobile-heading" style="color: #D4A017; font-size: 22px; font-weight: 700; margin: 0; text-transform: uppercase; letter-spacing: 1px; line-height: 28px;">
-                      Shylesh Circuits & Engineering
+                      Shylesh Circuit & Engineering
                     </h1>
                     <p class="mobile-subheading" style="color: #94A3B8; font-size: 13px; margin: 6px 0 0 0; text-transform: uppercase; letter-spacing: 2px;">
                       New Website Lead Enquiry
@@ -195,7 +195,7 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<S
                 </tr>
                 <tr>
                   <td align="center" style="background-color: #0B1220; padding: 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; color: #94A3B8;">
-                    © ${new Date().getFullYear()} Shylesh Circuits & Engineering. All rights reserved.
+                    © ${new Date().getFullYear()} Shylesh Circuit & Engineering. All rights reserved.
                   </td>
                 </tr>
               </table>
@@ -268,7 +268,7 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<S
                   <tr>
                     <td align="center" class="header-td" style="background: linear-gradient(135deg, #0B1220 0%, #1F2937 100%); padding: 35px 30px; text-align: center;">
                       <h1 class="mobile-heading" style="color: #D4A017; font-size: 22px; font-weight: 700; margin: 0; text-transform: uppercase; letter-spacing: 1px; line-height: 28px;">
-                        Shylesh Circuits & Engineering
+                        Shylesh Circuit & Engineering
                       </h1>
                       <p class="mobile-subheading" style="color: #CBD5E1; font-size: 13px; margin: 6px 0 0 0; text-transform: uppercase; letter-spacing: 2px;">
                         Builders & Developers
@@ -282,7 +282,7 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<S
                       </h2>
 
                       <p class="mobile-text" style="font-size: 15px; color: #334155; line-height: 1.7; margin-bottom: 16px; word-break: break-word;">
-                        Thank you for contacting <strong>Shylesh Circuits & Engineering</strong>. We have successfully received your enquiry regarding <strong>${lead.projectType}</strong>.
+                        Thank you for contacting <strong>Shylesh Circuit & Engineering</strong>. We have successfully received your enquiry regarding <strong>${lead.projectType}</strong>.
                       </p>
 
                       <p class="mobile-text" style="font-size: 15px; color: #334155; line-height: 1.7; margin-bottom: 24px; word-break: break-word;">
@@ -303,8 +303,9 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<S
 
                       <div style="border-top: 1px solid #E2E8F0; padding-top: 20px;">
                         <p style="margin: 0; font-size: 14px; font-weight: 600; color: #111827;">Regards,</p>
-                        <p style="margin: 4px 0 0 0; font-size: 15px; font-weight: 700; color: #B8860B;">Shylesh Circuits & Engineering</p>
-                        <p style="margin: 2px 0 0 0; font-size: 13px; color: #64748B;">PMR Nagar, TVS Nagar, Coimbatore, Tamil Nadu – 641025</p>
+                        <p style="margin: 4px 0 0 0; font-size: 15px; font-weight: 700; color: #B8860B;">Shylesh Circuit & Engineering</p>
+                        <p style="margin: 2px 0 0 0; font-size: 13px; color: #64748B;">372/3, Vidhiya Colony, TVS Nagar, Coimbatore – 641025, Tamil Nadu, India</p>
+                        <p style="margin: 2px 0 0 0; font-size: 12px; color: #94A3B8;">GSTIN: 33APOPP1899K1Z4</p>
                       </div>
                     </td>
                   </tr>
@@ -326,7 +327,7 @@ export async function sendLeadNotificationEmails(lead: LeadEmailData): Promise<S
         from: FROM_EMAIL,
         to: customerRecipient,
         replyTo: "info@scedevelopers.in",
-        subject: "Thank You for Contacting Shylesh Circuits & Engineering",
+        subject: "Thank You for Contacting Shylesh Circuit & Engineering",
         html: customerHtml,
       });
 

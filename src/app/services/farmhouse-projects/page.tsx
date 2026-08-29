@@ -312,7 +312,7 @@ export default function FarmhouseProjectsPage() {
 
             <div className="p-6 sm:p-8 rounded-2xl bg-surface border border-border shadow-sm max-w-xl mx-auto text-left space-y-4 text-xs sm:text-sm">
               <p className="font-bold text-foreground text-sm sm:text-base">
-                Shylesh Circuits & Engineering (SCE Developers)
+                Shylesh Circuit & Engineering (SCE Developers)
               </p>
               <div className="flex items-start gap-3 text-muted">
                 <MapPin className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" strokeWidth={2} aria-hidden="true" />
