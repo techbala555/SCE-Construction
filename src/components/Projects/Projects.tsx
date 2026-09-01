@@ -107,9 +107,18 @@ export default function Projects({ id }: ProjectsProps) {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
                 onClick={() => setSelectedProject(project)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSelectedProject(project);
+                  }
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={`Open gallery for ${project.title}`}
                 className="group rounded-2xl sm:rounded-3xl overflow-hidden border border-border
                            bg-surface-elevated hover:border-primary/50 shadow-sm hover:shadow-xl
-                           hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col justify-between h-full"
+                           hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col justify-between h-full focus:outline-none focus:ring-2 focus:ring-primary"
               >
                 <div>
                   {/* Image Area with consistent aspect ratio */}
@@ -203,11 +212,13 @@ export default function Projects({ id }: ProjectsProps) {
       </div>
 
       {/* Interactive Project Details & Gallery Modal */}
-      <ProjectModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-        onInquire={handleInquire}
-      />
+      {selectedProject && (
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+          onInquire={handleInquire}
+        />
+      )}
     </section>
   );
 }
