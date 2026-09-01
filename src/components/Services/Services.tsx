@@ -39,7 +39,7 @@ const serviceBanners: Record<string, { src: string; alt: string }> = {
     alt: "Professional land development, GPS survey, and DTCP approved layout infrastructure in Tamil Nadu",
   },
   "real-estate": {
-    src: "/images/services/plot-promotion-service.webp",
+    src: "/images/services/plot-promotion-service-new.webp",
     alt: "Approved residential plot promotion and layout development in Tamil Nadu",
   },
   "future-projects": {

@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import Image from "next/image";
 import { X, MapPin, Calendar, ChevronLeft, ChevronRight, CheckCircle2, ArrowRight, AlertCircle, Loader2 } from "lucide-react";
 import type { Project } from "@/src/data/content";
+import { useMounted } from "@/src/lib/useMounted";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -12,8 +13,15 @@ interface ProjectModalProps {
   onInquire: () => void;
 }
 
-export default function ProjectModal({ project, onClose, onInquire }: ProjectModalProps) {
-  const [mounted, setMounted] = useState(false);
+function ProjectModalInner({
+  project,
+  onClose,
+  onInquire,
+}: {
+  project: Project;
+  onClose: () => void;
+  onInquire: () => void;
+}) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
@@ -22,64 +30,34 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
 
-  // Client mounting check for portal
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   // Unique gallery images
   const galleryList = useMemo(() => {
-    if (!project) return [];
     const raw = project.gallery && project.gallery.length > 0 ? project.gallery : [project.image];
     return Array.from(new Set(raw));
   }, [project]);
 
-  // Reset states on project change
-  useEffect(() => {
-    setActiveImageIndex(0);
+  const handleSelectImage = useCallback((index: number) => {
+    setActiveImageIndex(index);
     setImageLoading(true);
     setImageError(false);
-  }, [project]);
-
-  // Reset loading & error on image switch
-  useEffect(() => {
-    setImageLoading(true);
-    setImageError(false);
-  }, [activeImageIndex]);
-
-  // Preload only the NEXT image
-  useEffect(() => {
-    if (!project || galleryList.length <= 1) return;
-
-    const nextIdx = (activeImageIndex + 1) % galleryList.length;
-    const nextUrl = galleryList[nextIdx];
-
-    if (nextUrl && !preloadedUrls.current.has(nextUrl)) {
-      preloadedUrls.current.add(nextUrl);
-      const img = new window.Image();
-      img.src = nextUrl;
-    }
-  }, [activeImageIndex, galleryList, project]);
-
-  // Auto-scroll active thumbnail into view smoothly
-  useEffect(() => {
-    if (thumbnailRefs.current[activeImageIndex]) {
-      thumbnailRefs.current[activeImageIndex]?.scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-        block: "nearest",
-      });
-    }
-  }, [activeImageIndex]);
+  }, []);
 
   const handleNext = useCallback(() => {
     if (galleryList.length <= 1) return;
-    setActiveImageIndex((prev) => (prev === galleryList.length - 1 ? 0 : prev + 1));
+    setActiveImageIndex((prev) => {
+      setImageLoading(true);
+      setImageError(false);
+      return prev === galleryList.length - 1 ? 0 : prev + 1;
+    });
   }, [galleryList.length]);
 
   const handlePrev = useCallback(() => {
     if (galleryList.length <= 1) return;
-    setActiveImageIndex((prev) => (prev === 0 ? galleryList.length - 1 : prev - 1));
+    setActiveImageIndex((prev) => {
+      setImageLoading(true);
+      setImageError(false);
+      return prev === 0 ? galleryList.length - 1 : prev - 1;
+    });
   }, [galleryList.length]);
 
   // Keyboard navigation & Escape key
@@ -93,19 +71,44 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
     [onClose, galleryList.length, handlePrev, handleNext]
   );
 
-  // Body scroll lock with layout shift prevention
+  // Body scroll lock & focus restoration
   useEffect(() => {
-    if (project) {
-      const originalOverflow = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
+    const lastActiveElement = document.activeElement as HTMLElement | null;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
 
-      return () => {
-        document.body.style.overflow = originalOverflow;
-        window.removeEventListener("keydown", handleKeyDown);
-      };
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+      lastActiveElement?.focus();
+    };
+  }, [handleKeyDown]);
+
+  // Preload only the NEXT image
+  useEffect(() => {
+    if (galleryList.length <= 1) return;
+
+    const nextIdx = (activeImageIndex + 1) % galleryList.length;
+    const nextUrl = galleryList[nextIdx];
+
+    if (nextUrl && !preloadedUrls.current.has(nextUrl)) {
+      preloadedUrls.current.add(nextUrl);
+      const img = new window.Image();
+      img.src = nextUrl;
     }
-  }, [project, handleKeyDown]);
+  }, [activeImageIndex, galleryList]);
+
+  // Auto-scroll active thumbnail into view smoothly
+  useEffect(() => {
+    if (thumbnailRefs.current[activeImageIndex]) {
+      thumbnailRefs.current[activeImageIndex]?.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
+  }, [activeImageIndex]);
 
   // Touch swipe handling for mobile
   const onTouchStart = (e: React.TouchEvent) => {
@@ -129,11 +132,9 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
     }
   };
 
-  if (!project || !mounted) return null;
-
   const activeImage = galleryList[activeImageIndex] || project.image;
 
-  const modalContent = (
+  return (
     <div
       className="fixed inset-0 z-[99999] flex items-center justify-center p-2.5 sm:p-4 md:p-6 bg-black/85 backdrop-blur-md animate-fadeIn"
       onClick={onClose}
@@ -168,7 +169,7 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
 
         {/* Scrollable Content Body */}
         <div className="overflow-y-auto p-4 sm:p-6 md:p-7 space-y-4 sm:space-y-6 flex-1 overscroll-contain">
-          {/* Glassmorphism Image Stage (No solid grey bars) */}
+          {/* Glassmorphism Image Stage */}
           <div
             className="relative aspect-[16/10] min-h-[240px] sm:min-h-[380px] md:min-h-[420px] max-h-[58vh] w-full rounded-2xl overflow-hidden bg-gradient-to-b from-[#091124]/90 via-[#050915]/95 to-[#02050c]/95 backdrop-blur-xl border border-white/10 shadow-[inset_0_2px_16px_rgba(0,0,0,0.7)] select-none flex items-center justify-center group"
             onTouchStart={onTouchStart}
@@ -190,6 +191,7 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
               </div>
             ) : (
               <Image
+                key={activeImage}
                 src={activeImage}
                 alt={`${project.title} - Photo ${activeImageIndex + 1} of ${galleryList.length}`}
                 fill
@@ -251,7 +253,7 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
                       thumbnailRefs.current[idx] = el;
                     }}
                     type="button"
-                    onClick={() => setActiveImageIndex(idx)}
+                    onClick={() => handleSelectImage(idx)}
                     className={`relative w-14 h-10 sm:w-20 sm:h-14 rounded-xl overflow-hidden border-2 flex-shrink-0 transition-all cursor-pointer ${
                       idx === activeImageIndex
                         ? "border-primary scale-105 shadow-md ring-2 ring-primary/40"
@@ -332,7 +334,16 @@ export default function ProjectModal({ project, onClose, onInquire }: ProjectMod
       </div>
     </div>
   );
+}
 
-  return createPortal(modalContent, document.body);
+export default function ProjectModal({ project, onClose, onInquire }: ProjectModalProps) {
+  const mounted = useMounted();
+
+  if (!project || !mounted) return null;
+
+  return createPortal(
+    <ProjectModalInner key={project.id} project={project} onClose={onClose} onInquire={onInquire} />,
+    document.body
+  );
 }
 
